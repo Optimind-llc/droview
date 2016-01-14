@@ -22,6 +22,10 @@ trait UseSocialite
      */
     public function loginThirdParty(Request $request, $provider)
     {
+        //NginXが追加したクエリを削除
+        $all_request = $request->all();
+        unset($all_request["q"]);
+
         //If the provider is not an acceptable third party than kick back
         if (! in_array($provider, $this->getAcceptedProviders()))
             return redirect()->route('frontend.index')->withFlashDanger(trans('auth.socialite.unacceptable', ['provider' => $provider]));
@@ -31,14 +35,25 @@ trait UseSocialite
          * It's redirected to the provider and then back here, where request is populated
          * So it then continues creating the user
          */
-        if (! $request->all()) {
+        //if (! $request->all()) { //オリジナル
+        if (! $all_request) {
             return $this->getAuthorizationFirst($provider);
+        }
+
+        /**
+         * emailがなかった場合はログインページにリダイレクト
+         * If no email, redirect to login page
+         */
+        $data = $this->getSocialUser($provider);
+        if (!$data->email) {
+            return redirect()->route('auth.login')->withFlashDanger(trans('auth.socialite.requireEmail'));;
         }
 
         /**
          * Create the user if this is a new social account or find the one that is already there
          */
-        $user = $this->user->findOrCreateSocial($this->getSocialUser($provider), $provider);
+        //$user = $this->user->findOrCreateSocial($this->getSocialUser($provider), $provider);  //オリジナル
+        $user = $this->user->findOrCreateSocial($data, $provider);
 
         /**
          * User has been successfully created or already exists

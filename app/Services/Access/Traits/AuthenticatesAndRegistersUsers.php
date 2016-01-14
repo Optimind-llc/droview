@@ -9,6 +9,7 @@ namespace App\Services\Access\Traits;
 trait AuthenticatesAndRegistersUsers
 {
     use AuthenticatesUsers, RegistersUsers {
+    	//同じディレクトリのAuthenticatesUsers
         AuthenticatesUsers::redirectPath insteadof RegistersUsers;
     }
 }

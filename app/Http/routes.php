@@ -1,5 +1,7 @@
 <?php
 
+Route::get('mypage/reserved', 'Backend\Flight\FlightController@index')->name('admin.flight');
+
 Route::group(['middleware' => 'web'], function() {
     /**
      * Switch between the included languages
@@ -33,5 +35,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
      */
     require (__DIR__ . '/Routes/Backend/Dashboard.php');
     require (__DIR__ . '/Routes/Backend/Access.php');
+    require (__DIR__ . '/Routes/Backend/Flight.php');
+    require (__DIR__ . '/Routes/Backend/Pin.php');
     require (__DIR__ . '/Routes/Backend/LogViewer.php');
 });

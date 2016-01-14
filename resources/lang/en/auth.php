@@ -17,6 +17,7 @@ return [
     'general_error' => 'You do not have access to do that.',
     'socialite' => [
         'unacceptable' => ':provider is not an acceptable login type.',
+        'requireEmail'    => 'Email address is required.',  //add
     ],
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'unknown' => 'An unknown error occurred',

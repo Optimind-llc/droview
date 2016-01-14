@@ -75,6 +75,8 @@ class EloquentUserRepository implements UserContract
         if ($provider) {
             $user = User::create([
                 'name' => $data['name'],
+                'first_name' => $data['first_name'],  //追加
+                'last_name' => $data['last_name'],    //追加
                 'email' => $data['email'],
                 'password' => null,
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -84,6 +86,8 @@ class EloquentUserRepository implements UserContract
         } else {
             $user = User::create([
                 'name' => $data['name'],
+                'first_name' => $data['first_name'],  //追加
+                'last_name' => $data['last_name'],    //追加
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -133,6 +137,8 @@ class EloquentUserRepository implements UserContract
         if (! $user) {
             $user = $this->create([
                 'name'  => $data->name,
+                'first_name'  => $data->user['first_name'],  //追加
+                'last_name'  => $data->user['last_name'],    //追加
                 'email' => $data->email,
             ], true);
         }
@@ -210,8 +216,19 @@ class EloquentUserRepository implements UserContract
      */
     public function updateProfile($id, $input)
     {
+
         $user = $this->find($id);
         $user->name = $input['name'];
+        //データベースの拡張に伴い追加
+        $user->first_name = $input['first_name'];
+        $user->last_name = $input['last_name'];
+        $user->age = $input['age'];
+        $user->sex = $input['sex'];
+        $user->postal_code = $input['postal_code'];
+        $user->state = $input['state'];
+        $user->city = $input['city'];
+        $user->street = $input['street'];
+        $user->building = $input['building'];
 
         if ($user->canChangeEmail()) {
             //Address is not current address

@@ -41,6 +41,14 @@
                 </li>
             @endauth
 
+            <li class="{{ Active::pattern('admin/flight/*') }}">
+                <a href="{!! route('admin.flight') !!}"><span>{{ trans('menus.backend.flight.main') }}</span></a>
+            </li>
+
+            <li class="{{ Active::pattern('admin/pin/*') }}">
+                <a href="{!! route('admin.pin') !!}"><span>{{ trans('menus.backend.pin.main') }}</span></a>
+            </li>
+
             <li class="{{ Active::pattern('admin/log-viewer*') }} treeview">
                 <a href="#">
                     <span>{{ trans('menus.backend.log-viewer.main') }}</span>

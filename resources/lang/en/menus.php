@@ -56,6 +56,14 @@ return [
             'logs' => 'Logs',
         ],
 
+        'pin' => [
+            'main' => 'Pin Code Management',
+        ],
+
+        'flight' => [
+            'main' => 'Flight Management',
+        ],
+
         'sidebar' => [
             'dashboard' => 'Dashboard',
             'general' => 'General',
