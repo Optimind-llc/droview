@@ -60,6 +60,9 @@ class RoleController extends Controller
         return view('backend.access.roles.create')
             ->withGroups($group->getAllGroups())
             ->withPermissions($this->permissions->getUngroupedPermissions());
+        // echo "<pre>";
+        // var_dump($group->getAllGroups()->toArray());
+        // echo "</pre>";
     }
 
     /**

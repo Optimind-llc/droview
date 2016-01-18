@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'pin', 'namespace' => 'Pin'], function ()
+Route::group(['prefix' => 'pin'], function ()
 {
 	Route::get('/', 'PinController@index')->name('admin.pin');		
 	Route::post('/html', 'PinController@outPutHTML')->name('admin.pin.html');					

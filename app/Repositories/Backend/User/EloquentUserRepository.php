@@ -4,6 +4,7 @@ namespace App\Repositories\Backend\User;
 
 use App\Models\Access\User\User;
 use App\Exceptions\GeneralException;
+use App\Exceptions\ApiException;
 use App\Repositories\Backend\Role\RoleRepositoryContract;
 use App\Exceptions\Backend\Access\User\UserNeedsRolesException;
 use App\Repositories\Frontend\User\UserContract as FrontendUserContract;
@@ -70,6 +71,25 @@ class EloquentUserRepository implements UserContract
         return User::where('status', $status)
             ->orderBy($order_by, $sort)
             ->paginate($per_page);
+    }
+
+    public function getCustomUsersPaginated($filter, $skip = 0, $take = '10', $order_by = 'id', $sort = 'asc')
+    {
+        if ($filter == 'all'){
+            $users = User::skip($skip)->take($take)->get();
+            
+        } elseif ($filter == 'active') {
+            $users = User::where('status', '1')->skip($skip)->take($take)->get();
+
+        } elseif ($filter == 'deactivated') {
+            $users = User::where('status', '0')->skip($skip)->take($take)->get();
+        }
+
+        if (!is_null($users)) {
+            return $users;
+        }
+
+        throw new ApiException('exceptions.api.backend.access.users.not_found');
     }
 
     /**

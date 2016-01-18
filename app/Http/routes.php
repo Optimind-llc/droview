@@ -35,7 +35,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
      */
     require (__DIR__ . '/Routes/Backend/Dashboard.php');
     require (__DIR__ . '/Routes/Backend/Access.php');
-    require (__DIR__ . '/Routes/Backend/Flight.php');
-    require (__DIR__ . '/Routes/Backend/Pin.php');
     require (__DIR__ . '/Routes/Backend/LogViewer.php');
+
+    Route::group(['namespace' => 'Api', 'prefix' => 'single'], function () {
+        require (__DIR__ . '/Routes/Backend/Api/Dashboard.php');
+        require (__DIR__ . '/Routes/Backend/Api/Access.php');
+        require (__DIR__ . '/Routes/Backend/Api/Flight.php');
+        require (__DIR__ . '/Routes/Backend/Api/Pin.php');
+    });
 });

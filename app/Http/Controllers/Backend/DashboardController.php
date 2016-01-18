@@ -17,4 +17,10 @@ class DashboardController extends Controller
     {
         return view('backend.dashboard');
     }
+
+    public function single()
+    {
+		$domain = env('APP_URL');
+        return view('backend.single', compact('domain'));
+    }
 }

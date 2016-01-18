@@ -50,6 +50,14 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         /**
+         * All instances of ApiException return json with a message to show a bootstrap alert-error
+         */
+        if ($e instanceof ApiException) {
+            $result = array('err' => $e->getMessage());
+            return \Response::json($result);
+        }
+
+        /**
          * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
          */
         if ($e instanceof GeneralException) {
