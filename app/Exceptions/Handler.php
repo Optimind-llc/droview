@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
          * All instances of ApiException return json with a message to show a bootstrap alert-error
          */
         if ($e instanceof ApiException) {
-            $result = array('err' => $e->getMessage());
+            $result = array('msg' => $e->getMessage());
             return \Response::json($result);
         }
 

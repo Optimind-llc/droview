@@ -5,20 +5,20 @@ namespace App\Http\Controllers\Backend\Api\Access;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\User\UserContract;
 use App\Repositories\Backend\Role\RoleRepositoryContract;
-use App\Http\Requests\Backend\Access\User\ShowUserRequest;
-use App\Http\Requests\Backend\Access\User\CreateUserRequest;
-use App\Http\Requests\Backend\Access\User\StoreUserRequest;
-use App\Http\Requests\Backend\Access\User\EditUserRequest;
-use App\Http\Requests\Backend\Access\User\MarkUserRequest;
-use App\Http\Requests\Backend\Access\User\UpdateUserRequest;
-use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
-use App\Http\Requests\Backend\Access\User\RestoreUserRequest;
-use App\Http\Requests\Backend\Access\User\ChangeUserPasswordRequest;
-use App\Http\Requests\Backend\Access\User\UpdateUserPasswordRequest;
+use App\Http\Requests\Api\Backend\Access\User\ShowUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\CreateUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\StoreUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\EditUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\MarkUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\UpdateUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\DeleteUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\RestoreUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\ChangeUserPasswordRequest;
+use App\Http\Requests\Api\Backend\Access\User\UpdateUserPasswordRequest;
 use App\Repositories\Backend\Permission\PermissionRepositoryContract;
-use App\Http\Requests\Backend\Access\User\PermanentlyDeleteUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\PermanentlyDeleteUserRequest;
 use App\Repositories\Frontend\User\UserContract as FrontendUserContract;
-use App\Http\Requests\Backend\Access\User\ResendConfirmationEmailRequest;
+use App\Http\Requests\Api\Backend\Access\User\ResendConfirmationEmailRequest;
 use App\Models\Access\User\User;
 
 /**
@@ -57,16 +57,21 @@ class UserController extends Controller
         $this->permissions = $permissions;
     }
 
+    protected function getUsersPaginated($request)
+    {
+        return $this->users->getCustomUsersPaginated(
+            $request->filter,
+            $request->skip,
+            $request->take
+        );
+    }
+
     /**
      * @return mixed
      */
     public function index(ShowUserRequest $request)
     {
-        $result = array();
-        $result['r'] = $this->users
-            ->getCustomUsersPaginated($request->filter, $request->skip, $request->take);
-
-        return \Response::json($result);
+        return \Response::json($this->getUsersPaginated($request));
     }
 
     /**
@@ -87,7 +92,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $this->users->create(
-            $request->except('assignees_roles', 'permission_user'),
+            $request->except('assignees_roles', 'permission_user', 'q'),
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );
@@ -118,7 +123,7 @@ class UserController extends Controller
     public function update($id, UpdateUserRequest $request)
     {
         $this->users->update($id,
-            $request->except('assignees_roles', 'permission_user'),
+            $request->except('assignees_roles', 'permission_user', 'q'),
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );
@@ -130,10 +135,10 @@ class UserController extends Controller
      * @param  DeleteUserRequest $request
      * @return mixed
      */
-    public function destroy($id, DeleteUserRequest $request)
+    public function delete(DeleteUserRequest $request)
     {
-        $this->users->destroy($id);
-        return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.deleted'));
+        $this->users->destroy($request->id);
+        return \Response::json($this->getUsersPaginated($request));
     }
 
     /**
@@ -141,10 +146,10 @@ class UserController extends Controller
      * @param  PermanentlyDeleteUserRequest $request
      * @return mixed
      */
-    public function delete($id, PermanentlyDeleteUserRequest $request)
+    public function permanentlyDelete(PermanentlyDeleteUserRequest $request)
     {
-        $this->users->delete($id);
-        return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.deleted_permanently'));
+        $this->users->delete($request->id);
+        return \Response::json($this->getUsersPaginated($request));
     }
 
     /**
@@ -152,10 +157,10 @@ class UserController extends Controller
      * @param  RestoreUserRequest $request
      * @return mixed
      */
-    public function restore($id, RestoreUserRequest $request)
+    public function restore(RestoreUserRequest $request)
     {
-        $this->users->restore($id);
-        return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.restored'));
+        $this->users->restore($request->id);
+        return \Response::json($this->getUsersPaginated($request));
     }
 
     /**
@@ -164,28 +169,10 @@ class UserController extends Controller
      * @param  MarkUserRequest $request
      * @return mixed
      */
-    public function mark($id, $status, MarkUserRequest $request)
+    public function mark(MarkUserRequest $request)
     {
-        $this->users->mark($id, $status);
-        return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.updated'));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function deactivated()
-    {
-        return view('backend.access.deactivated')
-            ->withUsers($this->users->getUsersPaginated(25, 0));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function deleted()
-    {
-        return view('backend.access.deleted')
-            ->withUsers($this->users->getDeletedUsersPaginated(25));
+        $this->users->mark($request->id, $request->status);
+        return \Response::json($this->getUsersPaginated($request));
     }
 
     /**

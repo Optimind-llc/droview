@@ -70,6 +70,11 @@ return [
             'model' => App\Models\Access\User\User::class,
         ],
 
+        'roles' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Access\Role\Role::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

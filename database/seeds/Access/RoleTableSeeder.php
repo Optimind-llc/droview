@@ -34,11 +34,42 @@ class RoleTableSeeder extends Seeder
         $admin->updated_at = Carbon::now();
         $admin->save();
 
-        //id = 2
+        $role_model       = config('access.role');
+        $user             = new $role_model;
+        $user->name       = 'View Backend';
+        $user->sort       = 2;
+        $user->created_at = Carbon::now();
+        $user->updated_at = Carbon::now();
+        $user->save();
+
+        $role_model       = config('access.role');
+        $user             = new $role_model;
+        $user->name       = 'View Access Management';
+        $user->sort       = 2;
+        $user->created_at = Carbon::now();
+        $user->updated_at = Carbon::now();
+        $user->save();
+
+        $role_model       = config('access.role');
+        $user             = new $role_model;
+        $user->name       = 'Edit Users';
+        $user->sort       = 2;
+        $user->created_at = Carbon::now();
+        $user->updated_at = Carbon::now();
+        $user->save();
+
+        $role_model       = config('access.role');
+        $user             = new $role_model;
+        $user->name       = 'Except Permanently Delete Users';
+        $user->sort       = 2;
+        $user->created_at = Carbon::now();
+        $user->updated_at = Carbon::now();
+        $user->save();
+
         $role_model       = config('access.role');
         $user             = new $role_model;
         $user->name       = 'User';
-        $user->sort       = 2;
+        $user->sort       = 3;
         $user->created_at = Carbon::now();
         $user->updated_at = Carbon::now();
         $user->save();

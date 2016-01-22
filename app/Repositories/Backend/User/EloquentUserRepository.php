@@ -73,23 +73,66 @@ class EloquentUserRepository implements UserContract
             ->paginate($per_page);
     }
 
-    public function getCustomUsersPaginated($filter, $skip = 0, $take = '10', $order_by = 'id', $sort = 'asc')
-    {
-        if ($filter == 'all'){
-            $users = User::skip($skip)->take($take)->get();
-            
-        } elseif ($filter == 'active') {
-            $users = User::where('status', '1')->skip($skip)->take($take)->get();
+    protected function hasRoles($user) {
+        $hasRoles = array();
+        if ($user->roles()->count() > 0) {
+            foreach ($user->roles as $role) {
+                $hasRoles[] = $role;
+            }
+        }
+        return $hasRoles;
+    }
 
-        } elseif ($filter == 'deactivated') {
-            $users = User::where('status', '0')->skip($skip)->take($take)->get();
+    protected function hasPermissions($user) {
+        $permissions = array();
+        if ($user->permissions()->count() > 0) {
+            foreach ($user->permissions as $permission) {
+                $permissions[] = $permission;
+            }
+        }
+        return $permissions;
+    }
+
+    public function getCustomUsersPaginated($filter, $skip = 0, $take = 10, $order_by = 'id', $sort = 'asc')
+    {
+        $total = 0;
+        $users = null;
+
+        if ($filter === 'all')
+        {
+            $total = User::all()->count();
+            $users = User::skip($skip)->take($take)->get(
+                ['id','name','email','confirmed','created_at','updated_at',]
+            );
+        } else if ($filter === 'deleted')
+        {
+            $total = User::onlyTrashed()->count();
+            $users = User::onlyTrashed()->skip($skip)->take($take)->get(
+                ['id','name','email','confirmed','created_at','updated_at',]
+            );
+        } else
+        {
+            $total = User::where('status', '=', $filter)->count();
+            $users = User::where('status', '=', $filter)->skip($skip)->take($take)->get(
+                ['id','name','email','confirmed','created_at','updated_at',]
+            );
         }
 
         if (!is_null($users)) {
-            return $users;
+            foreach ($users as $key => $user) {
+                $roles = $user->roles()->get(['name']);
+                $users[$key]['roles'] = $roles;
+
+                $permissions = array();
+                foreach ($roles as $role) {
+                   $permissions[] = $role->permissions()->get(['name']);
+                }
+                $users[$key]['permissions'] = $permissions;
+            }
+            return $result = array('users' => $users, 'total' => $total);
         }
 
-        throw new ApiException('exceptions.api.backend.access.users.not_found');
+        throw new ApiException('alert.access.users.notFound');
     }
 
     /**
@@ -143,6 +186,7 @@ class EloquentUserRepository implements UserContract
             return true;
         }
 
+        throw new ApiException(trans('alert.users.createError'));
         throw new GeneralException(trans('exceptions.backend.access.users.create_error'));
     }
 

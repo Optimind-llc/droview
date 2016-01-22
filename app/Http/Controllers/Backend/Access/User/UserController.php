@@ -113,7 +113,7 @@ class UserController extends Controller
     public function update($id, UpdateUserRequest $request)
     {
         $this->users->update($id,
-            $request->except('assignees_roles', 'permission_user'),
+            $request->except('assignees_roles', 'permission_user', 'q'), //nginxの悪さ
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );

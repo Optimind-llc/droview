@@ -4,11 +4,17 @@ Route::group(['prefix' => 'access'], function() {
 
     Route::get('/', 'IndexController@index');
     Route::get('/users', 'IndexController@index');
-    Route::get('/user/create', 'IndexController@index');
+    Route::get('/users/active', 'IndexController@index');
     Route::get('/users/deactivated', 'IndexController@index');
+    Route::get('/user/create', 'IndexController@index');
     Route::get('/users/deleted', 'IndexController@index');
+    Route::get('/user/edit/{id}', 'IndexController@index');
 
     Route::post('users', 'Access\UserController@index');
+    Route::post('user/mark', 'Access\UserController@mark');
+    Route::post('user/delete', 'Access\UserController@delete');
+    Route::post('user/restore', 'Access\UserController@restore');
+    Route::post('user/permanentlyDelete', 'Access\UserController@permanentlyDelete');
 
     Route::group(['prefix' => 'user/{id}', 'where' => ['id' => '[0-9]+']], function() {
         Route::get('delete', 'IndexController@index');
