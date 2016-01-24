@@ -64,7 +64,11 @@ class ApiController extends Controller {
 
 	public function getUserInfo()
 	{
-		$result = \Auth::user()->toArray();
+		$user = \Auth::user();
+        foreach ($user->roles as $role) {
+            $role->permissions;
+        }
+		$result = $user->toArray();
 		unset($result['confirmation_code'], $result['confirmed'], $result['created_at'], $result['deleted_at'], $result['updated_at'], $result['status']);
 		$result['status']['reservations'] = \Auth::user()->numberOfReserved();
 		$result['status']['remainingTickets'] = \Auth::user()->remainingTickets();

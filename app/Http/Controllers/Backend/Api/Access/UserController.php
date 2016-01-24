@@ -20,6 +20,7 @@ use App\Http\Requests\Api\Backend\Access\User\PermanentlyDeleteUserRequest;
 use App\Repositories\Frontend\User\UserContract as FrontendUserContract;
 use App\Http\Requests\Api\Backend\Access\User\ResendConfirmationEmailRequest;
 use App\Models\Access\User\User;
+use App\Models\Access\Role\Role;
 
 /**
  * Class UserController
@@ -96,7 +97,7 @@ class UserController extends Controller
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );
-        return redirect()->route('admin.access.users.index')->withFlashSuccess(trans('alerts.backend.users.created'));
+        return \Response::json(['success' => 'alert.access.users.storeSuccess']);
     }
 
     /**
@@ -207,5 +208,10 @@ class UserController extends Controller
     {
         $user->sendConfirmationEmail($user_id);
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.confirmation_email'));
+    }
+
+    public function getAllRoles() {
+        $roles = Role::all(['id', 'name']);
+        return \Response::json($roles);
     }
 }

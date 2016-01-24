@@ -15,6 +15,9 @@ Route::group(['prefix' => 'access'], function() {
     Route::post('user/delete', 'Access\UserController@delete');
     Route::post('user/restore', 'Access\UserController@restore');
     Route::post('user/permanentlyDelete', 'Access\UserController@permanentlyDelete');
+    Route::post('user/store', 'Access\UserController@store');
+
+    Route::post('allRoles', 'Access\UserController@getAllRoles');
 
     Route::group(['prefix' => 'user/{id}', 'where' => ['id' => '[0-9]+']], function() {
         Route::get('delete', 'IndexController@index');

@@ -73,16 +73,6 @@ class EloquentUserRepository implements UserContract
             ->paginate($per_page);
     }
 
-    protected function hasRoles($user) {
-        $hasRoles = array();
-        if ($user->roles()->count() > 0) {
-            foreach ($user->roles as $role) {
-                $hasRoles[] = $role;
-            }
-        }
-        return $hasRoles;
-    }
-
     protected function hasPermissions($user) {
         $permissions = array();
         if ($user->permissions()->count() > 0) {
@@ -102,32 +92,27 @@ class EloquentUserRepository implements UserContract
         {
             $total = User::all()->count();
             $users = User::skip($skip)->take($take)->get(
-                ['id','name','email','confirmed','created_at','updated_at',]
+                ['id','name','email','status','confirmed','created_at','updated_at','deleted_at']
             );
         } else if ($filter === 'deleted')
         {
             $total = User::onlyTrashed()->count();
             $users = User::onlyTrashed()->skip($skip)->take($take)->get(
-                ['id','name','email','confirmed','created_at','updated_at',]
+                ['id','name','email','status','confirmed','created_at','updated_at','deleted_at']
             );
         } else
         {
             $total = User::where('status', '=', $filter)->count();
             $users = User::where('status', '=', $filter)->skip($skip)->take($take)->get(
-                ['id','name','email','confirmed','created_at','updated_at',]
+                ['id','name','email','status','confirmed','created_at','updated_at','deleted_at']
             );
         }
 
         if (!is_null($users)) {
-            foreach ($users as $key => $user) {
-                $roles = $user->roles()->get(['name']);
-                $users[$key]['roles'] = $roles;
-
-                $permissions = array();
-                foreach ($roles as $role) {
-                   $permissions[] = $role->permissions()->get(['name']);
+            foreach ($users as $user) {
+                foreach ($user->roles as $role) {
+                    $role->permissions;
                 }
-                $users[$key]['permissions'] = $permissions;
             }
             return $result = array('users' => $users, 'total' => $total);
         }
@@ -407,6 +392,15 @@ class EloquentUserRepository implements UserContract
         $user->name              = $input['name'];
         $user->email             = $input['email'];
         $user->password          = bcrypt($input['password']);
+        $user->first_name        = isset($input['first_name']) ? $input['first_name'] : '';
+        $user->last_name         = isset($input['last_name']) ? $input['last_name'] : '';
+        $user->age               = isset($input['age']) ? $input['age'] : null;
+        $user->sex               = isset($input['sex']) ? $input['sex'] : null;
+        $user->postal_code       = isset($input['postal_code']) ? 1 : null;
+        $user->state             = isset($input['state']) ? $input['state'] : '';
+        $user->city              = isset($input['city']) ? $input['city'] : '';
+        $user->street            = isset($input['street']) ? $input['street'] : '';
+        $user->building          = isset($input['building']) ? $input['building'] : '';
         $user->status            = isset($input['status']) ? 1 : 0;
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->confirmed         = isset($input['confirmed']) ? 1 : 0;
