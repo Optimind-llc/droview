@@ -56,6 +56,7 @@ class EloquentUserRepository implements UserContract
             return $user;
         }
 
+        throw new ApiException('alert.access.users.notFound');
         throw new GeneralException(trans('exceptions.backend.access.users.not_found'));
     }
 
@@ -190,8 +191,8 @@ class EloquentUserRepository implements UserContract
 
         if ($user->update($input)) {
             //For whatever reason this just wont work in the above call, so a second is needed for now
-            $user->status    = isset($input['status']) ? 1 : 0;
-            $user->confirmed = isset($input['confirmed']) ? 1 : 0;
+            $user->status    = isset($input['status']) ? $input['status'] : 0;
+            $user->confirmed = isset($input['confirmed']) ? $input['status'] : 0;
             $user->save();
 
             $this->checkUserRolesCount($roles);
@@ -220,6 +221,7 @@ class EloquentUserRepository implements UserContract
             return true;
         }
 
+        throw new ApiException('alert.access.users.updatePasswordError');
         throw new GeneralException(trans('exceptions.backend.access.users.update_password_error'));
     }
 
@@ -392,18 +394,18 @@ class EloquentUserRepository implements UserContract
         $user->name              = $input['name'];
         $user->email             = $input['email'];
         $user->password          = bcrypt($input['password']);
-        $user->first_name        = isset($input['first_name']) ? $input['first_name'] : '';
-        $user->last_name         = isset($input['last_name']) ? $input['last_name'] : '';
-        $user->age               = isset($input['age']) ? $input['age'] : null;
-        $user->sex               = isset($input['sex']) ? $input['sex'] : null;
-        $user->postal_code       = isset($input['postal_code']) ? 1 : null;
-        $user->state             = isset($input['state']) ? $input['state'] : '';
-        $user->city              = isset($input['city']) ? $input['city'] : '';
-        $user->street            = isset($input['street']) ? $input['street'] : '';
-        $user->building          = isset($input['building']) ? $input['building'] : '';
-        $user->status            = isset($input['status']) ? 1 : 0;
+        $user->first_name        = $input['first_name'];
+        $user->last_name         = $input['last_name'];
+        $user->age               = $input['age'];
+        $user->sex               = $input['sex'];
+        $user->postal_code       = isset($input['postal_code']) ? $input['postal_code'] : 0;
+        $user->state             = $input['state'];
+        $user->city              = $input['city'];
+        $user->street            = $input['street'];
+        $user->building          = $input['building'];
+        $user->status            = isset($input['status']) ? $input['status'] : 0;
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
-        $user->confirmed         = isset($input['confirmed']) ? 1 : 0;
+        $user->confirmed         = isset($input['confirmed']) ? $input['status'] : 0;
         return $user;
     }
 }

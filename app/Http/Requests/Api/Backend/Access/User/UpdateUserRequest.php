@@ -28,6 +28,7 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
+            'id'    => 'required|integer',
             'email' => 'required|email',
             'name'  => 'required',
         ];

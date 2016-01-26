@@ -2,7 +2,6 @@
 /node_modules
 Homestead.yaml
 Homestead.json
-.env
 
 /public/css/frontend.css
 /public/css/frontend.css.map

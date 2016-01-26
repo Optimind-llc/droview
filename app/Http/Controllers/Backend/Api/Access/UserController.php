@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Api\Access;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\User\UserContract;
 use App\Repositories\Backend\Role\RoleRepositoryContract;
+use App\Http\Requests\Api\Backend\Access\User\ShowUsersRequest;
 use App\Http\Requests\Api\Backend\Access\User\ShowUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\CreateUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\StoreUserRequest;
@@ -70,20 +71,19 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function index(ShowUserRequest $request)
+    public function users(ShowUsersRequest $request)
     {
         return \Response::json($this->getUsersPaginated($request));
     }
 
     /**
-     * @param  CreateUserRequest $request
      * @return mixed
      */
-    public function create(CreateUserRequest $request)
+    public function user(ShowUserRequest $request)
     {
-        return view('backend.access.create')
-            ->withRoles($this->roles->getAllRoles('sort', 'asc', true))
-            ->withPermissions($this->permissions->getAllPermissions());
+        $user = $this->users->findOrThrowException($request->id, true);
+        $user->roles;
+        return \Response::json($user);
     }
 
     /**
@@ -97,23 +97,7 @@ class UserController extends Controller
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );
-        return \Response::json(['success' => 'alert.access.users.storeSuccess']);
-    }
-
-    /**
-     * @param  $id
-     * @param  EditUserRequest $request
-     * @return mixed
-     */
-    public function edit($id, EditUserRequest $request)
-    {
-        $user = $this->users->findOrThrowException($id, true);
-        return view('backend.access.edit')
-            ->withUser($user)
-            ->withUserRoles($user->roles->lists('id')->all())
-            ->withRoles($this->roles->getAllRoles('sort', 'asc', true))
-            ->withUserPermissions($user->permissions->lists('id')->all())
-            ->withPermissions($this->permissions->getAllPermissions());
+        return \Response::json('success');
     }
 
     /**
@@ -121,14 +105,14 @@ class UserController extends Controller
      * @param  UpdateUserRequest $request
      * @return mixed
      */
-    public function update($id, UpdateUserRequest $request)
+    public function update(UpdateUserRequest $request)
     {
-        $this->users->update($id,
-            $request->except('assignees_roles', 'permission_user', 'q'),
+        $this->users->update($request->id,
+            $request->except('assignees_roles', 'permission_user', 'q', 'roles'),
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );
-        return redirect()->route('admin.access.users.index')->withFlashSuccess(trans('alerts.backend.users.updated'));
+        return \Response::json('success');
     }
 
     /**
@@ -178,24 +162,13 @@ class UserController extends Controller
 
     /**
      * @param  $id
-     * @param  ChangeUserPasswordRequest $request
-     * @return mixed
-     */
-    public function changePassword($id, ChangeUserPasswordRequest $request)
-    {
-        return view('backend.access.change-password')
-            ->withUser($this->users->findOrThrowException($id));
-    }
-
-    /**
-     * @param  $id
      * @param  UpdateUserPasswordRequest $request
      * @return mixed
      */
-    public function updatePassword($id, UpdateUserPasswordRequest $request)
+    public function updatePassword(UpdateUserPasswordRequest $request)
     {
-        $this->users->updatePassword($id, $request->all());
-        return redirect()->route('admin.access.users.index')->withFlashSuccess(trans('alerts.backend.users.updated_password'));
+        $this->users->updatePassword($request->id, $request->all());
+        return \Response::json('success');
     }
 
     /**
@@ -208,10 +181,5 @@ class UserController extends Controller
     {
         $user->sendConfirmationEmail($user_id);
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.confirmation_email'));
-    }
-
-    public function getAllRoles() {
-        $roles = Role::all(['id', 'name']);
-        return \Response::json($roles);
     }
 }

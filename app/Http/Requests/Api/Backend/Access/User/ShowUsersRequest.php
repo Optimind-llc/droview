@@ -5,10 +5,10 @@ namespace App\Http\Requests\Api\Backend\Access\User;
 use App\Http\Requests\Request;
 
 /**
- * Class ShowUserRequest
+ * Class CreateUserRequest
  * @package App\Http\Requests\Backend\Access\User
  */
-class ShowUserRequest extends Request
+class ShowUsersRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class ShowUserRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('edit-users');
+        return access()->allow('view-access-management');
     }
 
     /**
@@ -28,7 +28,9 @@ class ShowUserRequest extends Request
     public function rules()
     {
         return [
-            'id'  => 'required|integer'
+            'filter'  => 'in:all,deleted,0,1',
+            'skip' => 'required|integer',
+            'take'    => 'required|integer|min:2|max:50'
         ];
     }
 }

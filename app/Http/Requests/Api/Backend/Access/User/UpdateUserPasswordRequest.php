@@ -28,6 +28,7 @@ class UpdateUserPasswordRequest extends Request
     public function rules()
     {
         return [
+            'id'                    => 'required|integer',
             'password'              => 'required|alpha_num|min:6|confirmed',
             'password_confirmation' => 'required|alpha_num|min:6',
         ];

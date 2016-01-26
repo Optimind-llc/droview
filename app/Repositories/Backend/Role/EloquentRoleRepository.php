@@ -4,6 +4,7 @@ namespace App\Repositories\Backend\Role;
 
 use App\Models\Access\Role\Role;
 use App\Exceptions\GeneralException;
+use App\Exceptions\ApiException;
 
 /**
  * Class EloquentRoleRepository
@@ -28,6 +29,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
             return Role::find($id);
         }
 
+        throw new ApiException(trans('alert.access.roles.notFound'));
         throw new GeneralException(trans('exceptions.backend.access.roles.not_found'));
     }
 
@@ -70,6 +72,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
     public function create($input)
     {
         if (Role::where('name', $input['name'])->first()) {
+            throw new ApiException(trans('alert.access.roles.alreadyExists'));
             throw new GeneralException(trans('exceptions.backend.access.roles.already_exists'));
         }
 
@@ -81,6 +84,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
         //See if the role must contain a permission as per config
         {
             if (config('access.roles.role_must_contain_permission') && count($input['permissions']) == 0) {
+                throw new ApiException(trans('alert.access.roles.needsPermission'));
                 throw new GeneralException(trans('exceptions.backend.access.roles.needs_permission'));
             }
         }
@@ -111,6 +115,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
             return true;
         }
 
+        throw new ApiException(trans('alert.access.roles.createError'));
         throw new GeneralException(trans('exceptions.backend.access.roles.create_error'));
     }
 
@@ -135,6 +140,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
         if (! $all) {
             //See if the role must contain a permission as per config
             if (config('access.roles.role_must_contain_permission') && count($input['permissions']) == 0) {
+                throw new ApiException(trans('alert.access.roles.needsPermission'));
                 throw new GeneralException(trans('exceptions.backend.access.roles.needs_permission'));
             }
         }
@@ -171,6 +177,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
             return true;
         }
 
+        throw new ApiException(trans('alert.access.roles.updateError'));
         throw new GeneralException(trans('exceptions.backend.access.roles.update_error'));
     }
 
@@ -183,6 +190,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
     {
         //Would be stupid to delete the administrator role
         if ($id == 1) { //id is 1 because of the seeder
+            throw new ApiException('alert.access.roles.cantDeleteAdmin');
             throw new GeneralException(trans('exceptions.backend.access.roles.cant_delete_admin'));
         }
 
@@ -190,6 +198,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
 
         //Don't delete the role is there are users associated
         if ($role->users()->count() > 0) {
+            throw new ApiException(trans('alert.access.roles.hasUsers'));
             throw new GeneralException(trans('exceptions.backend.access.roles.has_users'));
         }
 
@@ -200,6 +209,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
             return true;
         }
 
+        throw new ApiException(trans('alert.access.roles.deleteError'));
         throw new GeneralException(trans('exceptions.backend.access.roles.delete_error'));
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Backend\Access\Role;
+namespace App\Http\Requests\Api\Backend\Access\Role;
 
 use App\Http\Requests\Request;
 
