@@ -46,7 +46,12 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return \Response::json($this->roles->getAllRoles());
+        return \Response::json($this->roles->getAllRoles('sort', 'asc', true), 200);
+    }
+
+    public function show($id)
+    {
+        return \Response::json($this->roles->findOrThrowException($id, true), 200);
     }
 
     /**
@@ -59,9 +64,6 @@ class RoleController extends Controller
         return view('backend.access.roles.create')
             ->withGroups($group->getAllGroups())
             ->withPermissions($this->permissions->getUngroupedPermissions());
-        // echo "<pre>";
-        // var_dump($group->getAllGroups()->toArray());
-        // echo "</pre>";
     }
 
     /**
@@ -71,7 +73,7 @@ class RoleController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $this->roles->create($request->all());
-        return redirect()->route('admin.access.roles.index')->withFlashSuccess(trans('alerts.backend.roles.created'));
+        return \Response::json('success', 200);
     }
 
     /**
@@ -98,7 +100,7 @@ class RoleController extends Controller
     public function update($id, UpdateRoleRequest $request)
     {
         $this->roles->update($id, $request->all());
-        return redirect()->route('admin.access.roles.index')->withFlashSuccess(trans('alerts.backend.roles.updated'));
+        return \Response::json('success', 200);
     }
 
     /**
@@ -106,9 +108,9 @@ class RoleController extends Controller
      * @param  DeleteRoleRequest $request
      * @return mixed
      */
-    public function destroy(DeleteRoleRequest $request)
+    public function destroy($id, DeleteRoleRequest $request)
     {
-        $this->roles->destroy($request->id);
-        return \Response::json($this->roles->getAllRoles());
+        $this->roles->destroy($id);
+        return \Response::json($this->roles->getAllRoles('sort', 'asc', true));
     }
 }

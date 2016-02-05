@@ -115,4 +115,11 @@ trait AuthenticatesUsers
         event(new UserLoggedIn(access()->user()));
         return redirect()->intended($this->redirectPath());
     }
+
+    public function destroy()
+    {
+        auth()->user()->delete();
+        return \Response::json('success');
+    }
+
 }

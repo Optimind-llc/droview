@@ -28,7 +28,7 @@ class StoreUserRequest extends Request
     public function rules()
     {
         return [
-            'name'                  => 'required',
+            'user_id'                  => 'required',
             'email'                 => 'required|email|unique:users',
             'password'              => 'required|alpha_num|min:6|confirmed',
             'password_confirmation' => 'required|alpha_num|min:6',

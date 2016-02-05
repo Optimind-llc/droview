@@ -4,7 +4,7 @@ namespace App\Repositories\Backend\User;
 
 use App\Models\Access\User\User;
 use App\Exceptions\GeneralException;
-use App\Exceptions\ApiException;
+use App\Exceptions\NotFoundException;
 use App\Repositories\Backend\Role\RoleRepositoryContract;
 use App\Exceptions\Backend\Access\User\UserNeedsRolesException;
 use App\Repositories\Frontend\User\UserContract as FrontendUserContract;
@@ -56,7 +56,7 @@ class EloquentUserRepository implements UserContract
             return $user;
         }
 
-        throw new ApiException('alert.access.users.notFound');
+        throw new NotFoundException('server.users.notFound');
         throw new GeneralException(trans('exceptions.backend.access.users.not_found'));
     }
 
@@ -84,41 +84,44 @@ class EloquentUserRepository implements UserContract
         return $permissions;
     }
 
-    public function getCustomUsersPaginated($filter, $skip = 0, $take = 10, $order_by = 'id', $sort = 'asc')
+    public function getNumberOfUsers() {
+        return User::all()->count();
+    }
+
+    public function getCustomUsersPaginated($filter = 'all', $skip = '0', $take = '10', $order_by = 'id', $sort = 'asc')
     {
         $total = 0;
         $users = null;
-
-        if ($filter === 'all')
-        {
+        switch ($filter){
+        case 'all':
             $total = User::all()->count();
-            $users = User::skip($skip)->take($take)->get(
-                ['id','name','email','status','confirmed','created_at','updated_at','deleted_at']
+            $users = User::skip($skip)->take($take)->with('roles')->get(
+                ['id', 'user_id', 'name','email','status','confirmed','created_at','updated_at','deleted_at']
             );
-        } else if ($filter === 'deleted')
-        {
+          break;
+        case 'active':
+            $total = User::where('status', '=', '1')->count();
+            $users = User::where('status', '=', '1')->skip($skip)->take($take)->with('roles')->get(
+                ['id', 'user_id', 'name','email','status','confirmed','created_at','updated_at','deleted_at']
+            );
+          break;
+        case 'deactivated':
+            $total = User::where('status', '=', '0')->count();
+            $users = User::where('status', '=', '0')->skip($skip)->take($take)->with('roles')->get(
+                ['id', 'user_id', 'name','email','status','confirmed','created_at','updated_at','deleted_at']
+            );
+          break;
+        case 'deleted':
             $total = User::onlyTrashed()->count();
-            $users = User::onlyTrashed()->skip($skip)->take($take)->get(
-                ['id','name','email','status','confirmed','created_at','updated_at','deleted_at']
+            $users = User::onlyTrashed()->skip($skip)->take($take)->with('roles')->get(
+                ['id', 'user_id', 'name','email','status','confirmed','created_at','updated_at','deleted_at']
             );
-        } else
-        {
-            $total = User::where('status', '=', $filter)->count();
-            $users = User::where('status', '=', $filter)->skip($skip)->take($take)->get(
-                ['id','name','email','status','confirmed','created_at','updated_at','deleted_at']
-            );
+          break;
+        default:
+            throw new NotFoundException('server.users.notFound');
         }
 
-        if (!is_null($users)) {
-            foreach ($users as $user) {
-                foreach ($user->roles as $role) {
-                    $role->permissions;
-                }
-            }
-            return $result = array('users' => $users, 'total' => $total);
-        }
-
-        throw new ApiException('alert.access.users.notFound');
+        return $result = array('users' => $users, 'total' => $total);
     }
 
     /**
@@ -202,6 +205,7 @@ class EloquentUserRepository implements UserContract
             return true;
         }
 
+        throw new ApiException(trans('alert.users.updateError'));
         throw new GeneralException(trans('exceptions.backend.access.users.update_error'));
     }
 
@@ -391,18 +395,19 @@ class EloquentUserRepository implements UserContract
     private function createUserStub($input)
     {
         $user                    = new User;
-        $user->name              = $input['name'];
+        $user->name              = isset($input['name']) ? $input['name'] : $input['user_id'];
+        $user->user_id           = isset($input['user_id']) ? $input['user_id'] : $input['name'];
         $user->email             = $input['email'];
         $user->password          = bcrypt($input['password']);
-        $user->first_name        = $input['first_name'];
-        $user->last_name         = $input['last_name'];
-        $user->age               = $input['age'];
-        $user->sex               = $input['sex'];
+        $user->first_name        = isset($input['first_name']) ? $input['first_name'] : null;
+        $user->last_name         = isset($input['last_name']) ? $input['last_name'] : null;
+        $user->age               = isset($input['age']) ? $input['age'] : 0;
+        $user->sex               = isset($input['sex']) ? $input['sex'] : 0;
         $user->postal_code       = isset($input['postal_code']) ? $input['postal_code'] : 0;
-        $user->state             = $input['state'];
-        $user->city              = $input['city'];
-        $user->street            = $input['street'];
-        $user->building          = $input['building'];
+        $user->state             = isset($input['state']) ? $input['state'] : "";
+        $user->city              = isset($input['city']) ? $input['city'] : "";
+        $user->street            = isset($input['street']) ? $input['street'] : "";
+        $user->building          = isset($input['building']) ? $input['building'] : "";
         $user->status            = isset($input['status']) ? $input['status'] : 0;
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->confirmed         = isset($input['confirmed']) ? $input['status'] : 0;

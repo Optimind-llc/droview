@@ -22,8 +22,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
     {
         if (! is_null(Role::find($id))) {
             if ($withPermissions) {
-                return Role::with('permissions')
-                    ->find($id);
+                return Role::with('permissions')->find($id);
             }
 
             return Role::find($id);
@@ -56,6 +55,7 @@ class EloquentRoleRepository implements RoleRepositoryContract
     {
         if ($withPermissions) {
             return Role::with('permissions')
+                ->with('users')
                 ->orderBy($order_by, $sort)
                 ->get();
         }
@@ -77,7 +77,8 @@ class EloquentRoleRepository implements RoleRepositoryContract
         }
 
         //See if the role has all access
-        $all = $input['associated-permissions'] == 'all' ? true : false;
+        //$all = $input['associated-permissions'] == 'all' ? true : false;
+        $all = $input['associated_permissions'] == 'all' ? true : false;
 
         //This config is only required if all is false
         if (!$all)
@@ -98,7 +99,13 @@ class EloquentRoleRepository implements RoleRepositoryContract
 
         if ($role->save()) {
             if (!$all) {
-                $current     = explode(',', $input['permissions']);
+                if (is_string($input['permissions'])) {
+                    $current = explode(',', $input['permissions']);
+                }
+                if (is_array($input['permissions'])) {
+                    $current = $input['permissions'];
+                }
+
                 $permissions = [];
 
                 if (count($current)) {
@@ -106,7 +113,6 @@ class EloquentRoleRepository implements RoleRepositoryContract
                         if (is_numeric($perm)) {
                             array_push($permissions, $perm);
                         }
-
                     }
                 }
                 $role->attachPermissions($permissions);
@@ -133,7 +139,8 @@ class EloquentRoleRepository implements RoleRepositoryContract
         if ($role->id == 1) {
             $all = true;
         } else {
-            $all = $input['associated-permissions'] == 'all' ? true : false;
+            //$all = $input['associated-permissions'] == 'all' ? true : false;
+            $all = $input['associated_permissions'] == 'all' ? true : false;
         }
 
         //This config is only required if all is false
@@ -160,7 +167,13 @@ class EloquentRoleRepository implements RoleRepositoryContract
                 $role->permissions()->sync([]);
 
                 //Attach permissions if the role does not have all access
-                $current     = explode(',', $input['permissions']);
+                if (is_string($input['permissions'])) {
+                    $current = explode(',', $input['permissions']);
+                }
+                if (is_array($input['permissions'])) {
+                    $current = $input['permissions'];
+                }
+
                 $permissions = [];
 
                 if (count($current)) {
@@ -223,5 +236,14 @@ class EloquentRoleRepository implements RoleRepositoryContract
         }
 
         return Role::where('name', config('access.users.default_role'))->first();
+    }
+
+    public function findByName($name) {
+        $role = Role::where('name', $name)->first();
+
+        if ($role instanceof Role)
+            return $role;
+
+        return false;
     }
 }

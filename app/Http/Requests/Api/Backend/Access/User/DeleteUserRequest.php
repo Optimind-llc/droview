@@ -17,7 +17,7 @@ class DeleteUserRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('delete-users');
+        return access()->allow('permanently-delete-users');
     }
 
     /**
@@ -28,10 +28,9 @@ class DeleteUserRequest extends Request
     public function rules()
     {
         return [
-            'id'  => 'required',
-            'filter'  => 'in:all,deleted,0,1',
-            'skip' => 'required|integer',
-            'take'    => 'required|integer|min:2|max:50'
+            'filter'  => 'in:all,active,deactivated,deleted',
+            'skip' => 'integer',
+            'take'    => 'integer|min:1|max:50'
         ];
     }
 }

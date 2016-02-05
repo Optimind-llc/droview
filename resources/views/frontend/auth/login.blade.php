@@ -46,9 +46,14 @@
                         </div><!--form-group-->
 
                     {!! Form::close() !!}
-
+ 
                     <div class="row text-center">
-                        {!! $socialite_links !!}
+                      <a class="btn btn-block btn-social btn-facebook" href="/login/facebook">
+                        <span class="fa fa-facebook"></span> Sign in with Facebook
+                      </a>
+                      <a class="btn btn-block btn-social btn-google" href="/login/google">
+                        <span class="fa fa-google"></span> Sign in with Google
+                      </a>
                     </div>
                 </div><!-- panel body -->
 

@@ -1,8 +1,10 @@
 <?php
 
-Route::group(['prefix' => 'pin'], function ()
-{
-	Route::get('/', 'PinController@index')->name('admin.pin');		
-	Route::post('/html', 'PinController@outPutHTML')->name('admin.pin.html');					
-	Route::post('/mail', 'PinController@outPutMail')->name('admin.pin.mail');					
+Route::group(['prefix' => 'pins'], function () {
+	Route::get('/', 'IndexController@index');
+	Route::get('list', 'IndexController@index');
+	Route::get('generate', 'IndexController@index');
+
+	Route::get('/fetch', 'PinController@index');
+	Route::post('generate', 'PinController@generate');
 });

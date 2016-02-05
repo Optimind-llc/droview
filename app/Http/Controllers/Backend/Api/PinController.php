@@ -15,48 +15,34 @@ class PinController extends Controller
 
     public function index()
     {
-        //return view('backend.pin.index', compact('tickets', 'sum'));
-        return view('backend.pin.index', compact('tickets', 'sum'));
+        $pins = Pin::where('status', '=', '0')->get(['pin', 'numberOfTickets', 'created_at']);
+        return \Response::json($pins, 200);
     }
 
-    public function outPutHTML(Request $inputs)
+    public function generate(Request $inputs)
     {
-        $pins = $this->generatePin($inputs['num'], $inputs['circulation']);
-
-        return view('backend.pin.outPutPin', compact('pins'));
+        $pins = $this->generatePin($inputs['tickets'], $inputs['pins']);
+        return \Response::json('ok', 200);
     }
 
-    public function outPutMail(Request $inputs)
+    protected function generatePin($tickets, $pins)
     {
-        $pins = $this->generatePin($inputs['num'], $inputs['circulation']);
-        $mail = $inputs['mail'];
-        //メールの送信
-        \Mail::send('emails.sendPinCode', ['pins' => $pins], function($message)
-        {
-            $message->to('s.shiichi311041@gmail.com', 'John Smith')->subject('PINコードを発行しました');
-        });
-
-        return redirect(url('/admin/pin'))->with('message', 'メール送信しました');
-    }
-
-    public function generatePin($num, $circulation)
-    {
-        $pins = array();
+        $result = array();
 
         $n = 1;
-        while ($n <= $circulation)
+        while ($n <= $pins)
         {
             $pin = new Pin;
             $pin->pin = str_random(16);
-            $pin->numberOfTickets = $num;
+            $pin->numberOfTickets = $tickets;
             $pin->status = '0';
             $pin->save();
 
-            $pins["$n"]["pinCode"] = $pin['pin'];
-            $pins["$n"]["numberOfTickets"] = $pin['numberOfTickets'];
+            $result["$n"]["pinCode"] = $pin['pin'];
+            $result["$n"]["numberOfTickets"] = $pin['numberOfTickets'];
             $n += 1;
         }
 
-        return $pins;
+        return $result;
     }
 }

@@ -28,9 +28,7 @@ class ShowUsersRequest extends Request
     public function rules()
     {
         return [
-            'filter'  => 'in:all,deleted,0,1',
-            'skip' => 'required|integer',
-            'take'    => 'required|integer|min:2|max:50'
+            //
         ];
     }
 }

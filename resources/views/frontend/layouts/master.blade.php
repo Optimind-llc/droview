@@ -14,6 +14,7 @@
         @yield('meta')
 
         <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="build/css/bootstrap-social.css">
         @yield('before-styles-end')
         {!! Html::style(elixir('css/frontend.css')) !!}
         @yield('after-styles-end')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Api\Access;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Role\RoleRepositoryContract;
 use App\Repositories\Backend\Permission\PermissionRepositoryContract;
+use App\Http\Requests\Api\Backend\Access\Permission\GetDependencyRequest;
 use App\Http\Requests\Api\Backend\Access\Permission\EditPermissionRequest;
 use App\Http\Requests\Api\Backend\Access\Permission\CreatePermissionRequest;
 use App\Http\Requests\Api\Backend\Access\Permission\DeletePermissionRequest;
@@ -47,6 +48,15 @@ class PermissionController extends Controller
         $this->roles       = $roles;
         $this->permissions = $permissions;
         $this->groups      = $groups;
+    }
+
+    public function permissionDependency($id, GetDependencyRequest $request)
+    {
+        return \Response::json(
+            $this->permissions
+                ->findOrThrowException($id, false, true)
+                ->dependencies
+        );
     }
 
     /**

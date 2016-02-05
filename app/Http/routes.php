@@ -1,6 +1,14 @@
 <?php
 
 Route::get('mypage/reserved', 'Backend\Flight\FlightController@index')->name('admin.flight');
+Route::post('admin/single/validation/user', 'ValidationController@user');
+Route::post('admin/single/validation/role', 'ValidationController@role');
+Route::get('admin/single/getAddress/{post1}/{post2}', 'ValidationController@getAddress');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('myprofile', 'ValidationController@profile');
+});
+
 
 Route::group(['middleware' => 'web'], function() {
     /**

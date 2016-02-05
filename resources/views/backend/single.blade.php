@@ -7,8 +7,6 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
     <meta name="domain" content="{{$domain}}" />
     <title>@yield('title', app_name())</title>
-    <meta name="description" content="@yield('meta_description', 'Default Description')">
-    <meta name="author" content="@yield('author', 'Anthony Rappa')">
     <!-- Webpack compiled -->
     <link rel="stylesheet" href="http://localhost:3001/static/bundle.css">
   </head>

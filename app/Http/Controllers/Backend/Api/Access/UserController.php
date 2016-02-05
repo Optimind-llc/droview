@@ -10,10 +10,12 @@ use App\Http\Requests\Api\Backend\Access\User\ShowUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\CreateUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\EditUserRequest;
-use App\Http\Requests\Api\Backend\Access\User\MarkUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\UpdateUserRequest;
-use App\Http\Requests\Api\Backend\Access\User\DeleteUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\ActivateUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\DeactivateUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\RestoreUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\DestroyUserRequest;
+use App\Http\Requests\Api\Backend\Access\User\DeleteUserRequest;
 use App\Http\Requests\Api\Backend\Access\User\ChangeUserPasswordRequest;
 use App\Http\Requests\Api\Backend\Access\User\UpdateUserPasswordRequest;
 use App\Repositories\Backend\Permission\PermissionRepositoryContract;
@@ -22,6 +24,9 @@ use App\Repositories\Frontend\User\UserContract as FrontendUserContract;
 use App\Http\Requests\Api\Backend\Access\User\ResendConfirmationEmailRequest;
 use App\Models\Access\User\User;
 use App\Models\Access\Role\Role;
+use App\Exceptions\GeneralException;
+//Jobs
+use App\Jobs\SendConfirmationEmail;
 
 /**
  * Class UserController
@@ -59,19 +64,10 @@ class UserController extends Controller
         $this->permissions = $permissions;
     }
 
-    protected function getUsersPaginated($request)
-    {
-        return $this->users->getCustomUsersPaginated(
-            $request->filter,
-            $request->skip,
-            $request->take
-        );
-    }
-
     /**
      * @return mixed
      */
-    public function users(ShowUsersRequest $request)
+    public function index(ShowUsersRequest $request)
     {
         return \Response::json($this->getUsersPaginated($request));
     }
@@ -79,7 +75,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function user(ShowUserRequest $request)
+    public function show($id, ShowUserRequest $request)
     {
         $user = $this->users->findOrThrowException($request->id, true);
         $user->roles;
@@ -97,7 +93,9 @@ class UserController extends Controller
             $request->only('assignees_roles'),
             $request->only('permission_user')
         );
-        return \Response::json('success');
+
+        //return \Response::json('success', 200);
+        return \Response::json($this->users->getNumberOfUsers(), 200);
     }
 
     /**
@@ -115,49 +113,34 @@ class UserController extends Controller
         return \Response::json('success');
     }
 
-    /**
-     * @param  $id
-     * @param  DeleteUserRequest $request
-     * @return mixed
-     */
-    public function delete(DeleteUserRequest $request)
+    public function activate($id, ActivateUserRequest $request)
+    {
+        $this->users->mark($id, 1);
+        return \Response::json($this->getUsersPaginated($request));
+    }
+
+    public function deactivate($id, DeactivateUserRequest $request)
+    {
+        $this->users->mark($id, 0);
+        return \Response::json($this->getUsersPaginated($request));
+    }
+
+    public function restore($id, RestoreUserRequest $request)
+    {
+        $this->users->restore($id);
+        return \Response::json($this->getUsersPaginated($request));
+    }
+
+    public function destroy($id, DestroyUserRequest $request)
     {
         $this->users->destroy($request->id);
-        return \Response::json($this->getUsersPaginated($request));
+        return \Response::json($this->getUsersPaginated($request), 200);
     }
 
-    /**
-     * @param  $id
-     * @param  PermanentlyDeleteUserRequest $request
-     * @return mixed
-     */
-    public function permanentlyDelete(PermanentlyDeleteUserRequest $request)
+    public function delete($id, DeleteUserRequest $request)
     {
-        $this->users->delete($request->id);
-        return \Response::json($this->getUsersPaginated($request));
-    }
-
-    /**
-     * @param  $id
-     * @param  RestoreUserRequest $request
-     * @return mixed
-     */
-    public function restore(RestoreUserRequest $request)
-    {
-        $this->users->restore($request->id);
-        return \Response::json($this->getUsersPaginated($request));
-    }
-
-    /**
-     * @param  $id
-     * @param  $status
-     * @param  MarkUserRequest $request
-     * @return mixed
-     */
-    public function mark(MarkUserRequest $request)
-    {
-        $this->users->mark($request->id, $request->status);
-        return \Response::json($this->getUsersPaginated($request));
+        $this->users->delete($id);
+        return \Response::json($this->getUsersPaginated($request), 200);
     }
 
     /**
@@ -165,9 +148,9 @@ class UserController extends Controller
      * @param  UpdateUserPasswordRequest $request
      * @return mixed
      */
-    public function updatePassword(UpdateUserPasswordRequest $request)
+    public function updatePassword($id, UpdateUserPasswordRequest $request)
     {
-        $this->users->updatePassword($request->id, $request->all());
+        $this->users->updatePassword($id, $request->all());
         return \Response::json('success');
     }
 
@@ -179,7 +162,17 @@ class UserController extends Controller
      */
     public function resendConfirmationEmail($user_id, FrontendUserContract $user, ResendConfirmationEmailRequest $request)
     {
-        $user->sendConfirmationEmail($user_id);
-        return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.confirmation_email'));
+        //Queue jobを使ってメール送信
+        $this->dispatch(new SendConfirmationEmail($user->find($user_id)));
+        return \Response::json($this->getUsersPaginated($request), 200);
+    }
+
+    protected function getUsersPaginated($request)
+    {
+        return $this->users->getCustomUsersPaginated(
+            $request->filter == null ? 'all' : $request->filter,
+            $request->skip == null ? '0' : $request->skip,
+            $request->take == null ? '10' : $request->take
+        );
     }
 }

@@ -28,7 +28,6 @@ class ShowUserRequest extends Request
     public function rules()
     {
         return [
-            'id'  => 'required|integer'
         ];
     }
 }

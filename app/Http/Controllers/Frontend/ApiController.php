@@ -44,7 +44,7 @@ class ApiController extends Controller {
 
 	public function getTimetable(Request $inputs)
 	{
-		$result = $this->getLectures($inputs['flightType'], $inputs['place'], $inputs['week']);
+		$result = $this->getLectures($inputs['flight_type'], $inputs['place'], $inputs['week']);
 		return \Response::json($result);
 	}
 
@@ -210,16 +210,16 @@ class ApiController extends Controller {
         if ($user->reachTheLimitOfReservations()){
             $msg = array(
             	'type' => 'error',
-            	'msg' => '予約可能数が上限に達しています');
+            	'msg' => 'overLimit');
         } else if ($user->alreadyReservedAtSameTime($flight_id)){
             $msg = array(
             	'type' => 'error',
-            	'msg' => '同じ時刻に別の予約があります');
+            	'msg' => 'doubleBooking');
         } else if ($user->notHaveEnoughTickets())
         {
             $msg = array(
             	'type' => 'error',
-            	'msg' => '所持チケットが足りません');
+            	'msg' => 'noTicket');
         } else {
             $msg = array(
             	'type' => 'success',
@@ -253,7 +253,7 @@ class ApiController extends Controller {
         } else {
 	        $msg = array(
 	        	'type' => 'error',
-	        	'msg' => 'キャンセル可能時刻を過ぎています'
+	        	'msg' => 'overLimit'
 	        );
 	        $res['msg'] = $msg;
 
@@ -271,7 +271,7 @@ class ApiController extends Controller {
     public function addByWebpay(Request $inputs)
     {
         $amount = $inputs['amount'];
-        $token = $inputs['webpay-token'];
+        $token = $inputs['webpay_token'];
         $msg = array();
         $user = \Auth::user();
         $tickets = $user->remainingTickets();
@@ -347,6 +347,7 @@ class ApiController extends Controller {
         $numberOfTickets = $pin->numberOfTickets;
         $user = \Auth::user();
         $tickets = $user->remainingTickets();
+        //return \Response::json($pin->status);
 
         if (!isset($pin))
         {
@@ -361,7 +362,7 @@ class ApiController extends Controller {
 		    return \Response::json($result);
         }
 
-        if ($pin->status === '0')
+        if ($pin->status === 0)
         {
             $pin->status = '1';
             $pin->save();

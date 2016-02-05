@@ -3,6 +3,7 @@
 namespace App\Repositories\Backend\Permission;
 
 use App\Exceptions\GeneralException;
+use App\Exceptions\ApiException;
 use App\Models\Access\Permission\Permission;
 use App\Repositories\Backend\Role\RoleRepositoryContract;
 use App\Repositories\Backend\Permission\Dependency\PermissionDependencyRepositoryContract;
@@ -42,16 +43,21 @@ class EloquentPermissionRepository implements PermissionRepositoryContract
      * @throws GeneralException
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Support\Collection|null|static
      */
-    public function findOrThrowException($id, $withRoles = false)
+    public function findOrThrowException($id, $withRoles = false, $withDependency = false)
     {
         if (! is_null(Permission::find($id))) {
-            if ($withRoles) {
+            if ($withRoles && !$withDependency) {
                 return Permission::with('roles')->find($id);
+            }
+
+            if ($withDependency && !$withRoles) {
+                return Permission::with('dependencies.permission')->find($id);
             }
 
             return Permission::find($id);
         }
 
+        throw new ApiException(trans('alert.access.permissions.notFound'));
         throw new GeneralException(trans('exceptions.backend.access.permissions.not_found'));
     }
 

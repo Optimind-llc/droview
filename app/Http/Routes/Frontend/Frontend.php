@@ -6,6 +6,10 @@
 Route::get('/', 'FrontendController@index')->name('frontend.index');
 Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 
+//要リファクタリング
+Route::get('admin/single/api/getUserInfo','ApiController@getUserInfo');
+
+
 //API
 Route::post('api/getTimetable','ApiController@getTimetable');
 Route::post('api/getDefaultStatus','ApiController@getDefaultStatus');
@@ -40,4 +44,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('mypage/todo', 'ApiController@index');
 	Route::get('mypage/test', 'ApiController@test');
 	Route::get('mypage/flight', 'ApiController@flight');
+	Route::delete('auth', 'Auth\AuthController@destroy');
+
 });
