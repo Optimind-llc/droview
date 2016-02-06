@@ -9,6 +9,7 @@ class IndexController extends Controller
     public function index()
     {
 		$domain = env('APP_URL');
-        return view('backend.single', compact('domain'));
+		$env = env('APP_ENV');
+        return view('backend.single', compact('domain', 'env'));
     }
 }
