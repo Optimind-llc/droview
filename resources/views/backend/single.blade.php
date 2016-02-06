@@ -8,8 +8,16 @@
     <meta name="domain" content="{{$domain}}" />
     <title>@yield('title', app_name())</title>
     <!-- Webpack compiled -->
-    <link rel="stylesheet" href="http://localhost:3001/static/bundle.css">
+    @if ($env === 'local')
+        <link rel="stylesheet" href="http://localhost:3001/static/bundle.css">
+    @elseif ($env === 'production')
+        <link rel="stylesheet" href="/dist-back/bundle.css">
+    @endif
   </head>
     <div id="root"></div>
-    <script src="http://localhost:3001/static/bundle.js"></script>
+    @if ($env === 'local')
+        <script src="http://localhost:3001/static/bundle.js"></script>
+    @elseif ($env === 'production')
+        <script src="/dist-back/bundle.js"></script>
+    @endif
 </html>

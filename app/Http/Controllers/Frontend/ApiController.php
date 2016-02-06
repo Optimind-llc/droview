@@ -39,7 +39,8 @@ class ApiController extends Controller {
 	public function index()
 	{
 		$domain = env('APP_URL');
-		return view('frontend.user.single.index', compact('domain'));
+		$env = env('APP_ENV');
+		return view('frontend.user.single.index', compact('domain', 'env'));
 	}
 
 	public function getTimetable(Request $inputs)

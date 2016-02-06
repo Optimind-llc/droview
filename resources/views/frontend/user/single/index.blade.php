@@ -9,12 +9,18 @@
         <title>@yield('title', app_name())</title>
         <meta name="description" content="@yield('meta_description', 'Default Description')">
         <meta name="author" content="@yield('author', 'Anthony Rappa')">
-        {{--<link rel="stylesheet" href="http://localhost:3000/static/bundle.css">--}}
-        <link rel="stylesheet" href="/dist/bundle.css">
+        @if ($env === 'local')
+            <link rel="stylesheet" href="http://localhost:3000/static/bundle.css">
+        @elseif ($env === 'production')
+            <link rel="stylesheet" href="/dist-front/bundle.css">
+        @endif
     </head>
     <body>
-    <div id="root"></div>
-        {{--<script src="http://localhost:3000/static/bundle.js"></script>--}}
-        <script src="/dist/bundle.js"></script>
+        <div id="root"></div>
+        @if ($env === 'local')
+            <script src="http://localhost:3000/static/bundle.js"></script>
+        @elseif ($env === 'production')
+            <script src="/dist-front/bundle.js"></script>
+        @endif
     </body>
 </html>
