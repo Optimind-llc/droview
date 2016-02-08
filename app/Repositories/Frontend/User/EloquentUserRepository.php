@@ -75,8 +75,8 @@ class EloquentUserRepository implements UserContract
         if ($provider) {
             $user = User::create([
                 'name' => $data['name'],
-                'first_name' => $data['first_name'],  //追加
-                'last_name' => $data['last_name'],    //追加
+                'first_name' => isset($input['first_name']) ? $input['first_name'] : "",
+                'last_name' => isset($input['last_name']) ? $input['last_name'] : "",
                 'email' => $data['email'],
                 'password' => null,
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -86,8 +86,8 @@ class EloquentUserRepository implements UserContract
         } else {
             $user = User::create([
                 'name' => $data['name'],
-                'first_name' => $data['first_name'],  //追加
-                'last_name' => $data['last_name'],    //追加
+                'first_name' => isset($input['first_name']) ? $input['first_name'] : "",
+                'last_name' => isset($input['last_name']) ? $input['last_name'] : "",
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
