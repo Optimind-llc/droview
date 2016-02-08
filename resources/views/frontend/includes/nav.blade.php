@@ -38,11 +38,11 @@
 
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li>{!! link_to('login', trans('navs.frontend.login')) !!}</li>
-                    <li>{!! link_to('register', trans('navs.frontend.register')) !!}</li>
+                    <li id="login">{!! link_to('login', trans('navs.frontend.login')) !!}</li>
+                    <li id="register">{!! link_to('register', trans('navs.frontend.register')) !!}</li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a href="#" id="dropdown-toggle2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
@@ -54,7 +54,7 @@
                             @endif
 
                             @permission('view-backend')
-                                <li>{!! link_to_route('admin.single.dashboard', trans('navs.frontend.user.administration')) !!}</li>
+                                <li id="toAdminDashboard">{!! link_to_route('admin.single.dashboard', trans('navs.frontend.user.administration')) !!}</li>
                             @endauth
 
                             <li>{!! link_to_route('auth.logout', trans('navs.general.logout')) !!}</li>
