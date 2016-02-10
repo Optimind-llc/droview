@@ -42,7 +42,7 @@
                     <li id="register">{!! link_to('register', trans('navs.frontend.register')) !!}</li>
                 @else
                     <li class="dropdown">
-                        <a href="#" id="dropdown-toggle2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a href="#" id="dropdown-toggle-user" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
@@ -60,6 +60,7 @@
                             <li>{!! link_to_route('auth.logout', trans('navs.general.logout')) !!}</li>
                         </ul>
                     </li>
+                    <li><a href="http://l.com/mypage/reserved" id="myPage">My Page</a></li>
                 @endif
 
             </ul>

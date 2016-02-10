@@ -48,6 +48,15 @@
 
                     {!! Form::close() !!}
 
+                    <div class="row text-center">
+                      <a class="btn btn-block btn-social btn-facebook" id="signup-facebook" href="/login/facebook">
+                        <span class="fa fa-facebook"></span> Sign Up with Facebook
+                      </a>
+                      <a class="btn btn-block btn-social btn-google" id="signup-google" href="/login/google">
+                        <span class="fa fa-google"></span> Sign Up with Google
+                      </a>
+                    </div>
+
                 </div><!-- panel body -->
 
             </div><!-- panel -->

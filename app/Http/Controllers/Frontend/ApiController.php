@@ -278,7 +278,7 @@ class ApiController extends Controller {
         $tickets = $user->remainingTickets();
 
 		try {
-		    $webpay = new WebPay('test_secret_gyJ9Sr6dO5P22Ma8d6cHXf2N');
+		    $webpay = new WebPay('test_secret_gkI1q4bQQ3nOdCwgF8dVbeg5');
 		    $webpay->charge->create(array(
 		       'amount'=> $amount,
 		       'currency'=>'jpy',
@@ -318,8 +318,10 @@ class ApiController extends Controller {
 		    return \Response::json($result);
 		} catch (\WebPay\ApiException $e) {
 		    // APIからのレスポンスが受け取れない場合。接続エラーなど
+		    return \Response::json($e, 500);
 		} catch (\Exception $e) {
 		    // WebPayとは関係ない例外の場合
+		    return \Response::json($e, 500);
 		}
 
 		$this->addticket($inputs['num'], 'webpay', '');
@@ -336,7 +338,7 @@ class ApiController extends Controller {
     	);
 
         //Queue jobを使ってメール送信
-        $this->dispatch(new SendConfirmPaymentEmail($user));
+        //$this->dispatch(new SendConfirmPaymentEmail($user));
 
         return \Response::json($result);
     }

@@ -118,7 +118,12 @@ trait AuthenticatesUsers
 
     public function destroy()
     {
-        auth()->user()->delete();
+        if (auth()->user()->email === 'protractor.test.user@gmail.com') {
+            auth()->user()->forceDelete();
+        } else {
+            auth()->user()->delete();
+        }
+
         return \Response::json('success');
     }
 

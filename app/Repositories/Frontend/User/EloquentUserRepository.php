@@ -135,10 +135,13 @@ class EloquentUserRepository implements UserContract
          * Which triggers the script to use some default values in the create method
          */
         if (! $user) {
+            // echo "<pre>";
+            // var_dump($data);
+            // echo "</pre>";
             $user = $this->create([
                 'name'  => $data->name,
-                'first_name'  => $data->user['first_name'],  //追加
-                'last_name'  => $data->user['last_name'],    //追加
+                'first_name'  => isset($data->user['first_name']) ? $data->user['first_name'] : $data->user['name']['givenName'],
+                'last_name'  => isset($data->user['last_name']) ? $data->user['last_name'] : $data->user['name']['familyName'],
                 'email' => $data->email,
             ], true);
         }
