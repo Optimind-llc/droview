@@ -13,6 +13,9 @@
     @elseif ($env === 'production')
         <link rel="stylesheet" href="/dist-back/bundle.css">
     @endif
+    <!-- google Roboto font -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/earlyaccess/notosansjp.css' rel='stylesheet' type='text/css'>
   </head>
     <div id="root"></div>
     @if ($env === 'local')

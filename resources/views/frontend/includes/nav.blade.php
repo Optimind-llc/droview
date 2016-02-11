@@ -60,7 +60,7 @@
                             <li>{!! link_to_route('auth.logout', trans('navs.general.logout')) !!}</li>
                         </ul>
                     </li>
-                    <li><a href="http://l.com/mypage/reserved" id="myPage">My Page</a></li>
+                    <li><a href="mypage/reserved" id="myPage">My Page</a></li>
                 @endif
 
             </ul>
