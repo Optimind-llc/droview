@@ -6,4 +6,5 @@ Route::group(['prefix' => 'flight'], function (){
 	Route::get('/timetable/{id}', 'IndexController@index');
 
 	Route::post('/timetables', 'FlightController@timetables');
+	Route::get('/timetables', 'FlightController@timetables');
 });
