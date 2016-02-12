@@ -18,6 +18,7 @@ class CreateFlightsTable extends Migration
             $table->increments('id');
             $table->integer('plan_id')->unsigned()->index();
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');;
+            $table->integer('period');
             $table->timestamp('flight_at');
             $table->tinyInteger('numberOfDrones');
             $table->timestamps();

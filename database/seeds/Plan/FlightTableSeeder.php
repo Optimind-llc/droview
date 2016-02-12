@@ -11,8 +11,9 @@ class FlightTableSeeder extends Seeder {
 
 	public function run() {
 
-		if(env('DB_DRIVER')=='mysql')
+		if(env('DB_DRIVER')=='mysql') {
 			DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+		}
 
 		DB::table('flights')->delete();
 
@@ -25,11 +26,13 @@ class FlightTableSeeder extends Seeder {
 		$flight_at = Carbon::tomorrow()->addhour($a);
 		$n = ( $b - $a ) * 60 / $c;
 		
+		// 14日分全て開講
 		for ($i = 0; $i < 14; $i++) {
-			for ($ii = 0; $ii < $n; $ii++) {
+			for ($ii = 1; $ii <= $n; $ii++) {
 				foreach ($ids as $key => $id) {
 					Flight::create([
 						'plan_id' => $id["id"],
+						'period' => $ii,
 						'flight_at' => $flight_at,
 						'numberOfDrones' => '1'
 					]);
@@ -41,7 +44,8 @@ class FlightTableSeeder extends Seeder {
 		}
 	
 
-		if(env('DB_DRIVER')=='mysql')
+		if(env('DB_DRIVER')=='mysql') {
 			DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		}
 	}
 }

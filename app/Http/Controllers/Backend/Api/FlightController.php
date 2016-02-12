@@ -70,7 +70,7 @@ class FlightController extends Controller
         $flights = Flight::with(['users' => function ($query) {
 			$query->select('users.id');
 		}])
-    	->where('flight_at', '>', Carbon::now()->addMinute(config('flight.reservation_period')))
+    	//->where('flight_at', '>', Carbon::now()->addMinute(config('flight.reservation_period')))
         ->where('flight_at', '>=', $day)
         ->where('flight_at', '<', $day->copy()->addDay())
         ->where('plan_id', '=', $plan_id)
