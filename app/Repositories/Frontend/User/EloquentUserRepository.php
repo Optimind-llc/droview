@@ -75,8 +75,8 @@ class EloquentUserRepository implements UserContract
         if ($provider) {
             $user = User::create([
                 'name' => $data['name'],
-                'first_name' => isset($input['first_name']) ? $input['first_name'] : "",
-                'last_name' => isset($input['last_name']) ? $input['last_name'] : "",
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'password' => null,
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -138,10 +138,25 @@ class EloquentUserRepository implements UserContract
             // echo "<pre>";
             // var_dump($data);
             // echo "</pre>";
+
+            $name = isset($data->name) ? $data->name != '' ? $data->name : 'No Name' : 'No Name';
+
+            $first_name = isset($data->user['first_name']) ?
+                $data->user['first_name'] :
+                isset($data->user['name']['givenName']) ?
+                $data->user['name']['givenName'] : '';
+
+            $last_name = isset($data->user['last_name']) ?
+                $data->user['last_name'] :
+                isset($data->user['name']['familyName']) ?
+                $data->user['name']['givenName'] : '';
+
+            //echo $first_name . $last_name;
+
             $user = $this->create([
-                'name'  => $data->name,
-                'first_name'  => isset($data->user['first_name']) ? $data->user['first_name'] : $data->user['name']['givenName'],
-                'last_name'  => isset($data->user['last_name']) ? $data->user['last_name'] : $data->user['name']['familyName'],
+                'name' => $name,
+                'first_name' => $first_name,
+                'last_name' => $last_name,
                 'email' => $data->email,
             ], true);
         }

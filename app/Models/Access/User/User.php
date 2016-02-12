@@ -27,7 +27,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    //protected $guarded = ['id'];
+    protected $guarded = ['id'];
 
     /**
      * The attributes excluded from the model's JSON form.

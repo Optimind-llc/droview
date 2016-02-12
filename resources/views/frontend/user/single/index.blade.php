@@ -12,7 +12,7 @@
         @if ($env === 'local')
             <link rel="stylesheet" href="http://localhost:3000/static/bundle.css">
         @elseif ($env === 'production')
-            <link rel="stylesheet" href="/dist-front/bundle.css">
+            <link rel="stylesheet" href="/dist/front/bundle.css">
         @endif
     </head>
     <body>
@@ -20,7 +20,7 @@
         @if ($env === 'local')
             <script src="http://localhost:3000/static/bundle.js"></script>
         @elseif ($env === 'production')
-            <script src="/dist-front/bundle.js"></script>
+            <script src="/dist/front/bundle.js"></script>
         @endif
     </body>
 </html>
