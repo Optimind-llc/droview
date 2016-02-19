@@ -18,6 +18,7 @@ class CreatePlansTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('en');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
 
@@ -26,6 +27,7 @@ class CreatePlansTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('path');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
 
@@ -33,6 +35,8 @@ class CreatePlansTable extends Migration
         //飛行タイプ・飛行場所を指定
         Schema::create('plans', function ($table){
             $table->increments('id');
+            $table->boolean('active');
+            $table->string('description')->nullable();
             $table->integer('type_id')->unsigned()->index();
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->integer('place_id')->unsigned()->index();

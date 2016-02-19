@@ -8,7 +8,7 @@ use App\Http\Requests\Request;
  * Class ActivateUserRequest
  * @package App\Http\Requests\Api\Backend\Flight
  */
-class TimetableRequest extends Request
+class PlanRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

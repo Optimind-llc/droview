@@ -1,0 +1,166 @@
+<?php
+
+namespace App\Repositories\Backend\Plan;
+
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+//Models
+use App\Models\Access\User;
+use App\Models\Ticket;
+use App\Models\Pin;
+use App\Models\Flight\Flight;
+use App\Models\Flight\Plan;
+use App\Models\Flight\Type;
+use App\Models\Flight\Place;
+//Exceptions
+use App\Exceptions\NotFoundException;
+
+/**
+ * Class EloquentPlanRepository
+ * @package App\Repositories\Flight
+ */
+class EloquentPlanRepository implements PlanContract
+{
+    /**
+     * @return Plan
+     */
+    public function findOrThrowException(int $id) :Plan
+    {
+    	$user = Plan::find($id);
+
+        if (!is_null($user)) {
+            return $user;
+        }
+
+        throw new NotFoundException('plan.notFound');
+    }
+
+    /**
+     * @return bool
+     */
+    public function countForUpdate(int $type_id, int $place_id) :bool
+    {
+    	$plans = Plan::where('type_id', $type_id)
+    		->where('place_id', $place_id)
+    		->lockForUpdate()
+    		->count();
+
+        if (!$plans === 0) {
+        	return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAll() :Collection
+    {
+        $plans = Plan::with([
+            'type' => function ($query) {
+                $query->select(['id', 'name', 'en']);
+            },
+            'place' => function ($query) {
+                $query->select(['id', 'name', 'path']);
+            },
+            'flights' => function ($query) {
+                $query->with([
+                    'users' => function ($query) {
+                        $query->select(['users.id']);
+                    }
+                ])
+                ->select('flights.id', 'flights.plan_id');
+            }
+        ])
+        ->get(['id', 'type_id', 'place_id', 'active', 'description']);
+
+        return $plans;
+    }
+
+    /**
+     * @return Plan
+     */
+    public function findById(int $id, bool $with = false) :Plan
+    {
+        $plan = Plan::with([
+            'type' => function ($query) {
+                $query->select(['id', 'name', 'en']);
+            },
+            'place' => function ($query) {
+                $query->select(['id', 'name', 'path']);
+            },
+            'flights' => function ($query) {
+                $query->with([
+                    'users' => function ($query) {
+                        $query->select(['users.id']);
+                    }
+                ])
+                ->select('flights.id', 'flights.plan_id');
+            }
+        ])
+        ->find($id);
+
+        if (is_null($plan)) {
+            throw new NotFoundException('users.notFound');
+        }
+
+        return $plan;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function create(int $type_id, int $place_id, string $description) :bool
+    {
+        DB::beginTransaction();
+        if ($this->countForUpdate($type_id, $place_id))
+        {
+	        $plan = new Plan;
+    	    $plan->type_id = $type_id;
+        	$plan->place_id = $place_id;
+        	$plan->description = $description;
+
+        	if ($plan->save()) {
+	            DB::commit();
+	            return true;
+           	}
+
+           	DB::rollback();
+           	throw new NotFoundException('users.notFound');
+        }
+        else
+        {
+            DB::rollback();
+            throw new NotFoundException('users.notFound');
+        }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function update(int $id, array $input) :bool
+    {
+    	$plan = $this->findOrThrowException($id);
+    	$plan->description = $input['description'];
+
+    	if ($plan->save()) {
+    		return true;
+    	}
+
+    	return false;
+    }
+
+    public function changeStatus(int $id, int $status) :bool
+    {
+    	$plan = $this->findOrThrowException($id);
+    	$plan->active = $status;
+
+    	if ($plan->save()) {
+    		return true;
+    	}
+
+    	return false;
+    }
+}

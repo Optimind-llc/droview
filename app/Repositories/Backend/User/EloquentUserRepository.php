@@ -39,9 +39,6 @@ class EloquentUserRepository implements UserContract
     }
 
     /**
-     * @param  $id
-     * @param  bool               $withRoles
-     * @throws GeneralException
      * @return mixed
      */
     public function findOrThrowException($id, $withRoles = false)

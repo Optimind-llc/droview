@@ -21,8 +21,14 @@ class PlanTableSeeder extends Seeder {
 		$place_ids = Place::get(['id'])->toArray();
 
 		foreach ($type_ids as $type_id) {
-			foreach ($place_ids as $place_id) {
-				Plan::create(['type_id' => $type_id['id'], 'place_id' => $place_id['id']]);
+			shuffle($place_ids);
+			for ($i=0; $i < 6; $i++) { 
+				Plan::create([
+					'active' => true,
+					'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa.',
+					'type_id' => $type_id['id'],
+					'place_id' => $place_ids[$i]['id']
+				]);
 			}
 		}
 

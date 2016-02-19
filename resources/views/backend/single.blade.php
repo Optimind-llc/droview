@@ -17,10 +17,12 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/earlyaccess/notosansjp.css' rel='stylesheet' type='text/css'>
   </head>
+  <body style="padding-bottom: 0;">
     <div id="root"></div>
     @if ($env === 'local')
         <script src="http://localhost:3001/static/bundle.js"></script>
     @elseif ($env === 'production')
         <script src="/dist/admin/bundle.js"></script>
     @endif
+  </body>
 </html>

@@ -5,88 +5,83 @@ namespace App\Http\Controllers\Backend\Api;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
-//Models
-use App\Models\Access\User;
-use App\Models\Ticket;
-use App\Models\Pin;
-use App\Models\Flight\Flight;
-use App\Models\Flight\Plan;
-use App\Models\Flight\Type;
-use App\Models\Flight\Place;
+use Illuminate\Support\Facades\DB;
+use App\Repositories\Backend\Flight\FlightContract;
 //Exceptions
 use App\Exceptions\ApiException;
 use App\Exceptions\NotFoundException;
 //Requests
 use App\Http\Requests\Api\Backend\Flight\TimetableRequest;
+use App\Http\Requests\Api\Backend\Flight\PlanRequest;
 
 class FlightController extends Controller
 {
+    protected $flights;
 
-    public function index()
+    public function __construct(
+        FlightContract $flights
+    )
     {
-        return view('backend.flight.index', compact('tickets', 'sum'));
+        $this->flights = $flights;
     }
 
     public function timetables(TimetableRequest $request)
     {
-    	$timetables = array();
-    	$plan_id = $this->getPlanId($request->type, $request->place);
+    	$timetables = [];
+        $plan_id = $request->plan;
+        $range = $request->range;
+        $timestamp = $request->timestamp;
 
-    	foreach ($request->days as $n)
-    	{
-    		$day = $this->getCarbon($n);
-    		array_push($timetables, $this->getTimetable($plan_id, $day));
-    	}
-
-    	return \Response::json($timetables);
-    }
-
-    protected function getPlanId($type_id = 1, $place_id = 1)
-    {
-        $plan_id = Plan::where('type_id', '=', $type_id)
-            ->where('place_id', '=', $place_id)
-            ->firstOrFail(['id']);
-
-        if(!$plan_id) {
-        	throw new NotFoundException('server.plan.notFound');
+        for ($i = $range[0]; $i <= $range[1]; $i++) {
+            array_push(
+                $timetables,
+                $this->flights->getTimetable($plan_id, $timestamp, $i)
+            );
         }
 
-        return $plan_id->id;
+        $response = [
+            'periods' => $this->flights->getPeriods(),
+            'timetables' => $timetables
+        ];
+
+        return \Response::json($response, 200);
     }
 
-    protected function getTimetable($plan_id, $day)
+    public function open(PlanRequest $request)
     {
-    	return array(
-    		$this->getDate($day),
-    		$this->getFlight($plan_id, $day)
-    	);
+        $plan_id = $request->plan;
+        $timestamp = $request->timestamp;
+        $period = $request->period;
+
+        if (!$this->flights->create($plan_id, $timestamp, $period)) {
+            throw new NotFoundException('flight.destroy.fail');
+        }
+
+        $response = [
+            'periods' => $this->flights->getPeriods(),
+            'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+        ];
+
+        return \Response::json($response, 200);
     }
 
-    protected function getFlight($plan_id = 1, $day = false)
+    public function close(PlanRequest $request)
     {
-    	if (!$day) $day = $this->getCarbon();
+        $id = $request->id;
+        $plan_id = $request->plan;
+        $timestamp = $request->timestamp;
 
-        $flights = Flight::with(['users' => function ($query) {
-			$query->select('users.id');
-		}])
-    	->where('flight_at', '>', Carbon::now()->addMinute(config('flight.reservation_period')))
-        ->where('flight_at', '>=', $day)
-        ->where('flight_at', '<', $day->copy()->addDay())
-        ->where('plan_id', '=', $plan_id)
-        ->get(['id', 'flight_at', 'numberOfDrones']);
+        if (!$this->flights->destroy($id)) {
+            throw new NotFoundException('flight.destroy.fail');
+        }
 
-        return $flights;
-    }
+        $response = [
+            'periods' => $this->flights->getPeriods(),
+            'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+        ];
 
-    protected function getDate($day = false)
-    {
-    	if (!$day) $day = $this->getCarbon();
-        return array($day->month, $day->day, $day->dayOfWeek);
-    }
-
-    protected function getCarbon($num = 0)
-    {
-        return Carbon::now()->today()->addDay($num);
+        return \Response::json($response, 200);
     }
 }
+
+

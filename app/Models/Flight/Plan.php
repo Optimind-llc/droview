@@ -15,4 +15,9 @@ class Plan extends Model
     {
         return $this->belongsTo('App\Models\Flight\Place');
     }
+
+    public function flights()
+    {
+        return $this->hasMany('App\Models\Flight\Flight');
+    }
 }
