@@ -65,6 +65,7 @@ class EloquentFlightRepository implements FlightContract
             $flight->plan_id = $plan_id;
             $flight->flight_at = $flight_at;
             $flight->period = $period;
+            $flight->numberOfDrones = 1;
             $flight->save();
 
             DB::commit();

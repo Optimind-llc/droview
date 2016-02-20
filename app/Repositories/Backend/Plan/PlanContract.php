@@ -35,10 +35,20 @@ interface PlanContract
     /**
      * @return bool
      */
-    public function create(int $type_id, int $place_id, string $description) :bool;
+    public function create(int $type_id, int $place_id, string $description) :Plan;
 
     /**
      * @return Collection
      */
     public function update(int $id, array $input) :bool;
+
+    /**
+     * @return Collection
+     */
+    public function delete(int $id) :bool;
+
+    /**
+     * @return bool
+     */
+    public function changeStatus(int $id, int $status) :bool;
 }

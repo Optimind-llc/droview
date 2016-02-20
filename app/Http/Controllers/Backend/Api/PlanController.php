@@ -16,56 +16,55 @@ use App\Http\Requests\Api\Backend\Flight\PlanRequest;
 
 class PlanController extends Controller
 {
-    protected $plans;
     /**
-     * @param  $id
-     * @param  EditUserRequest $request
-     * @return mixed
+     * @param PlanContract
      */
-    public function __construct(
-        PlanContract $plans
-    )
+    protected $plans;
+
+    /**
+     * @param PlanContract $plans
+     */
+    public function __construct(PlanContract $plans)
     {
         $this->plans = $plans;
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function plans(PlanRequest $request)
     {
-        $plans = $this->plans->getAll()->toArray();
+        $plansCollection = $this->plans->getAll();
+        $plans = $plansCollection->toArray();
 
         foreach ($plans as &$plan)
         {
-            unset($plan['type_id'], $plan['place_id']);
             foreach ($plan['flights'] as &$flight)
             {
                 unset($flight['plan_id'],
-                    $flight['flight_at'],
-                    $flight['numberOfDrones'],
                     $flight['period'],
                     $flight['updated_at'],
                     $flight['created_at'],
                     $flight['created_at']);
                 $flight['users'] = count($flight['users']);
             }
+            unset($plan['type_id'], $plan['place_id']);
         }
 
         return \Response::json(['plans' => $plans], 200);
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function plan($id, PlanRequest $request)
     {
         $plan = $this->plans->findById($id);
-        return \Response::json(['plan' => $plan], 200);
+        return \Response::json(['plans' => [$plan]], 200);
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(PlanRequest $request)
     {
@@ -75,11 +74,12 @@ class PlanController extends Controller
             $request->description
         );
 
-        return \Response::json('ok', 200);
+        $plan = $this->plans->findById($plan->id);
+        return \Response::json(['plans' => [$plan]], 200);
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update($id, PlanRequest $request)
     {
@@ -88,7 +88,7 @@ class PlanController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deactivate($id, PlanRequest $request)
     {
@@ -97,7 +97,7 @@ class PlanController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function activate($id, PlanRequest $request)
     {
@@ -106,10 +106,11 @@ class PlanController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id, PlanRequest $request)
     {
+        $plan = $this->plans->delete($id);
         return \Response::json('ok', 200);
     }
 }

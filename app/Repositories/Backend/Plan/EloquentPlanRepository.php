@@ -71,7 +71,12 @@ class EloquentPlanRepository implements PlanContract
                         $query->select(['users.id']);
                     }
                 ])
-                ->select('flights.id', 'flights.plan_id');
+                ->select(
+                    'flights.id',
+                    'flights.plan_id',
+                    'flights.numberOfDrones',
+                    'flights.flight_at'
+                );
             }
         ])
         ->get(['id', 'type_id', 'place_id', 'active', 'description']);
@@ -97,7 +102,12 @@ class EloquentPlanRepository implements PlanContract
                         $query->select(['users.id']);
                     }
                 ])
-                ->select('flights.id', 'flights.plan_id');
+                ->select(
+                    'flights.id',
+                    'flights.plan_id',
+                    'flights.numberOfDrones',
+                    'flights.flight_at'
+                );
             }
         ])
         ->find($id);
@@ -110,9 +120,9 @@ class EloquentPlanRepository implements PlanContract
     }
 
     /**
-     * @return Collection
+     * @return Plan
      */
-    public function create(int $type_id, int $place_id, string $description) :bool
+    public function create(int $type_id, int $place_id, string $description) :Plan
     {
         DB::beginTransaction();
         if ($this->countForUpdate($type_id, $place_id))
@@ -120,11 +130,12 @@ class EloquentPlanRepository implements PlanContract
 	        $plan = new Plan;
     	    $plan->type_id = $type_id;
         	$plan->place_id = $place_id;
-        	$plan->description = $description;
+            $plan->description = $description;
+            $plan->active = 1;
 
         	if ($plan->save()) {
 	            DB::commit();
-	            return true;
+	            return $plan;
            	}
 
            	DB::rollback();
@@ -142,16 +153,33 @@ class EloquentPlanRepository implements PlanContract
      */
     public function update(int $id, array $input) :bool
     {
-    	$plan = $this->findOrThrowException($id);
-    	$plan->description = $input['description'];
+        $plan = $this->findOrThrowException($id);
+        $plan->description = $input['description'];
 
-    	if ($plan->save()) {
-    		return true;
-    	}
+        if ($plan->save()) {
+            return true;
+        }
 
-    	return false;
+        return false;
     }
 
+    /**
+     * @return bool
+     */
+    public function delete(int $id) :bool
+    {
+        $plan = $this->findOrThrowException($id);
+
+        if ($plan->delete()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
     public function changeStatus(int $id, int $status) :bool
     {
     	$plan = $this->findOrThrowException($id);
