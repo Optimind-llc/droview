@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use App\Repositories\Backend\Type\TypeContract;
 //Models
 use App\Models\Access\User;
 use App\Models\Ticket;
@@ -20,30 +20,63 @@ use App\Exceptions\ApiException;
 use App\Exceptions\NotFoundException;
 //Requests
 use App\Http\Requests\Api\Backend\Flight\TimetableRequest;
-use App\Http\Requests\Api\Backend\Flight\PlanRequest;
+use App\Http\Requests\Api\Backend\Flight\TypeRequest;
 
 class TypeController extends Controller
 {
+    /**
+     * @param TypeContract
+     */
+    protected $types;
 
-    public function index()
+    /**
+     * @param TypeContract $types
+     */
+    public function __construct(TypeContract $types)
     {
-        return view('backend.flight.index', compact('tickets', 'sum'));
+        $this->types = $types;
     }
 
-    public function create()
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function types(TypeRequest $request)
     {
-        $type = new Type;
-        $type->name = 'サンプル';
-        $type->en = 'sample';
-
-        if ($type->save()) {
-            return \Response::json($type_id, 200);
-        }
-        
-        throw new NotFoundException('type.create.fail');
+        $types = $this->types->all()->toArray();
+        return \Response::json(['types' => $types], 200);
     }
 
-    public function getPlacesByType($type_id, $filter)
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(TypeRequest $request)
+    {
+        $type = $this->types->create($request->except('q'));
+        $types = $this->types->all()->toArray();
+        return \Response::json(['types' => $types], 200);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id, TypeRequest $request)
+    {
+        $type = $this->types->update($id, $request->except('q'));       
+        $types = $this->types->all()->toArray();
+        return \Response::json(['types' => $types], 200);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($id, TypeRequest $request)
+    {
+        $type = $this->types->delete($id);
+        $types = $this->types->all()->toArray();
+        return \Response::json(['types' => $types], 200);
+    }
+
+    public function places($type_id, $filter)
     {
         $opened = Type::find($type_id)
             ->places()

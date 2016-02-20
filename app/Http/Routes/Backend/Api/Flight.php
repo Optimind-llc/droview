@@ -16,8 +16,12 @@ Route::group(['prefix' => 'flight'], function (){
 	Route::patch('/plan/{id}/activate', 'PlanController@activate');
 	Route::delete('/plan/{id}', 'PlanController@delete');
 
-	Route::get('/type/{id}/places/{filter}', 'TypeController@getPlacesByType');
+	Route::get('/types/fetch', 'TypeController@types');
+	Route::get('/type/fetch', 'TypeController@type');
 	Route::post('/type', 'TypeController@create');
+	Route::patch('/type/{id}', 'TypeController@update');
+	Route::delete('/type/{id}', 'TypeController@delete');
+	Route::get('/type/{id}/places/{filter}', 'TypeController@places');
 	
 	Route::post('/timetables', 'FlightController@timetables');
 	Route::post('/flight', 'FlightController@open');

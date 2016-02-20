@@ -160,7 +160,7 @@ class EloquentPlanRepository implements PlanContract
             return true;
         }
 
-        return false;
+        throw new NotFoundException('plans.update.faile');
     }
 
     /**
@@ -174,7 +174,7 @@ class EloquentPlanRepository implements PlanContract
             return true;
         }
 
-        return false;
+        throw new NotFoundException('plans.delete.faile');
     }
 
     /**
@@ -189,6 +189,6 @@ class EloquentPlanRepository implements PlanContract
     		return true;
     	}
 
-    	return false;
+        throw new NotFoundException('plans.changeStatus.faile');
     }
 }
