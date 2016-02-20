@@ -42,9 +42,13 @@ class Flight extends Model
 	}
 
 	//講座を予約しているユーザー数
-	public function numberOfUsers()
+	public function numberOfUsers(bool $forUpdate = false)
 	{
-		$numberOfUsers = $this->users()->count();
+		if ($forUpdate) {
+			$numberOfUsers = $this->users()->lockForUpdate()->count();
+		} else {
+			$numberOfUsers = $this->users()->count();
+		}
 
 		return $numberOfUsers;
 	}
@@ -84,5 +88,21 @@ class Flight extends Model
         else {
 			return false;
         }
+	}
+
+    /**
+     * return true if the flight can be deleted
+     * @return bool
+     */
+	public function canBeDeleted() : bool
+	{
+		$countUsers = $this->users()->lockForUpdate()->count();
+		$isFuture = Carbon::createFromFormat('Y-m-d H:i:s', $this->flight_at)->isFuture();
+
+		if ($countUsers === 0 && $isFuture) {
+			return true;
+		}
+
+		return false;
 	}
 }

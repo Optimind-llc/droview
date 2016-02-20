@@ -12,18 +12,9 @@ use Illuminate\Database\Eloquent\Collection;
 interface FlightContract
 {
     /**
-     * return false if same flight exist alresdy
-     * @param  integer $plan_id
-     * @param  Carbon  $flight_at
-     * @param  integer $period
-     * @return bool
-     */
-    public function countForUpdate(int $plan_id, Carbon $flight_at, int $period) :bool;
-
-    /**
      * @return integer
      */
-    public function getPeriods() :int;
+    public function getConfig() :array;
 
     /**
      * @param  integer $plan_id
@@ -56,10 +47,20 @@ interface FlightContract
     public function getFlight(int $plan_id, int $timestamp, int $i) :Collection;
 
     /**
+     * return false if same flight exist alresdy
+     * @param  integer $plan_id
+     * @param  Carbon  $flight_at
+     * @param  integer $period
+     * @return bool
+     */
+    public function countForUpdate(int $plan_id, Carbon $flight_at, int $period) :bool;
+
+    /**
      * @param  integer $timestamp
      * @param  integer $i
      * @param  integer $period
      * @return Carbon
      */
-    public function getDateObject(int $timestamp, $i = 0, $period = false) :Carbon;
+    public function getDateObject(int $timestamp, int $i = 0, bool $period = false) :Carbon;
+
 }

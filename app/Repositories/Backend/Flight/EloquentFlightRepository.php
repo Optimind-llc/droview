@@ -23,41 +23,18 @@ use App\Exceptions\NotFoundException;
 class EloquentFlightRepository implements FlightContract
 {
     /**
-     * return false if same flight exist alresdy
-     * @return bool
-     */
-    public function countForUpdate(int $plan_id, Carbon $flight_at, int $period) :bool
-    {
-    	//DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
-        $flight = Flight::where('flight_at', '=', $flight_at)
-            ->where('plan_id', '=', $plan_id)
-            ->where('period', '=', $period)
-            ->get();
-
-        if (is_null($flight)) {
-        	return false;
-        }
-
-        return true;
-    }
-
-    /**
      * @return integer
      */
-    public function getPeriods() :int
+    public function getConfig() :array
     {
         $a = config('flight.start_at'); //開始時刻
         $b = config('flight.end_at');   //終了時刻
         $c = config('flight.time');     //1フライトの時間
-        $n = ( $b - $a ) * 60 / $c;
 
-        return $n;
+        return [$a, $b, $c];
     }
 
     /**
-     * @param  integer $plan_id
-     * @param  integer $timestamp
-     * @param  integer $i
      * @return array
      */
     public function getTimetable(int $plan_id, int $timestamp, int $i = 0) :array
@@ -71,27 +48,15 @@ class EloquentFlightRepository implements FlightContract
     }
 
     /**
-     * @param  integer $id
-     * @return bool
-     */
-    public function destroy(int $id) :bool
-    {
-        if (Flight::destroy($id)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param  integer $plan_id
-     * @param  integer $timestamp
-     * @param  integer $period
      * @return bool
      */
     public function create(int $plan_id, int $timestamp, int $period) :bool
     {
     	$flight_at = $this->getDateObject($timestamp, 0, $period);
+
+        if ($flight_at->isPast()) {
+           return false;
+        }
 
         DB::beginTransaction();
         if ($this->countForUpdate($plan_id, $flight_at, $period))
@@ -112,9 +77,26 @@ class EloquentFlightRepository implements FlightContract
     }
 
     /**
-     * @param  integer $plan_id
-     * @param  integer $timestamp
-     * @param  integer $i
+     * @return bool
+     */
+    public function destroy(int $id) :bool
+    {
+        DB::beginTransaction();
+        if (Flight::find($id)->canBeDeleted())
+        {
+            if (Flight::destroy($id)) {
+                DB::commit();
+                return true;
+            }
+            return false;
+        }
+        else {
+            DB::rollback();
+            return false;
+        }
+    }
+
+    /**
      * @return bool
      */
     public function getFlight(int $plan_id, int $timestamp, int $i) :Collection
@@ -134,12 +116,28 @@ class EloquentFlightRepository implements FlightContract
     }
 
     /**
-     * @param  integer $timestamp
-     * @param  integer $i
-     * @param  integer $period
+     * return false if same flight exist already
+     * @return bool
+     */
+    public function countForUpdate(int $plan_id, Carbon $flight_at, int $period) :bool
+    {
+        $flight = Flight::where('flight_at', '=', $flight_at)
+            ->where('plan_id', '=', $plan_id)
+            ->where('period', '=', $period)
+            ->lockForUpdate()
+            ->get();
+
+        if (is_null($flight)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return Carbon
      */
-    public function getDateObject(int $timestamp, $i = 0, $period = false) :Carbon
+    public function getDateObject(int $timestamp, int $i = 0, bool $period = false) :Carbon
     {
         $date = Carbon::createFromTimestamp($timestamp)->addDay($i);
 

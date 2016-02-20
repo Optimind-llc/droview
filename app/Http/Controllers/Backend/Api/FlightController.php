@@ -16,15 +16,22 @@ use App\Http\Requests\Api\Backend\Flight\PlanRequest;
 
 class FlightController extends Controller
 {
+    /**
+     * @var FlightContract
+     */
     protected $flights;
 
-    public function __construct(
-        FlightContract $flights
-    )
+    /**
+     * @param FlightContract $flights
+     */
+    public function __construct(FlightContract $flights)
     {
         $this->flights = $flights;
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function timetables(TimetableRequest $request)
     {
     	$timetables = [];
@@ -40,13 +47,16 @@ class FlightController extends Controller
         }
 
         $response = [
-            'periods' => $this->flights->getPeriods(),
+            'config' => $this->flights->getConfig(),
             'timetables' => $timetables
         ];
 
         return \Response::json($response, 200);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function open(PlanRequest $request)
     {
         $plan_id = $request->plan;
@@ -58,13 +68,16 @@ class FlightController extends Controller
         }
 
         $response = [
-            'periods' => $this->flights->getPeriods(),
+            'config' => $this->flights->getConfig(),
             'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
         ];
 
         return \Response::json($response, 200);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function close(PlanRequest $request)
     {
         $id = $request->id;
@@ -76,7 +89,7 @@ class FlightController extends Controller
         }
 
         $response = [
-            'periods' => $this->flights->getPeriods(),
+            'config' => $this->flights->getConfig(),
             'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
         ];
 
