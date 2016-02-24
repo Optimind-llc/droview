@@ -35,7 +35,7 @@ class FlightController extends Controller
     public function timetables(TimetableRequest $request)
     {
     	$timetables = [];
-        $plan_id = $request->plan;
+        $plan_id = $request->plan_id;
         $range = $request->range;
         $timestamp = $request->timestamp;
 
@@ -59,12 +59,12 @@ class FlightController extends Controller
      */
     public function open(PlanRequest $request)
     {
-        $plan_id = $request->plan;
+        $plan_id = $request->plan_id;
         $timestamp = $request->timestamp;
         $period = $request->period;
 
         if (!$this->flights->create($plan_id, $timestamp, $period)) {
-            throw new NotFoundException('flight.destroy.fail');
+            throw new NotFoundException('flight.open.fail');
         }
 
         $response = [
@@ -81,11 +81,11 @@ class FlightController extends Controller
     public function close(PlanRequest $request)
     {
         $id = $request->id;
-        $plan_id = $request->plan;
+        $plan_id = $request->plan_id;
         $timestamp = $request->timestamp;
 
         if (!$this->flights->destroy($id)) {
-            throw new NotFoundException('flight.destroy.fail');
+            throw new NotFoundException('flight.close.fail');
         }
 
         $response = [

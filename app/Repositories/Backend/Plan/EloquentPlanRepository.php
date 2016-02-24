@@ -54,9 +54,9 @@ class EloquentPlanRepository implements PlanContract
     }
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getAll() :Collection
+    public function getAll() :array
     {
         $plans = Plan::with([
             'type' => function ($query) {
@@ -79,7 +79,22 @@ class EloquentPlanRepository implements PlanContract
                 );
             }
         ])
-        ->get(['id', 'type_id', 'place_id', 'active', 'description']);
+        ->get(['id', 'type_id', 'place_id', 'active', 'description'])
+        ->toArray();
+
+        foreach ($plans as &$plan)
+        {
+            foreach ($plan['flights'] as &$flight)
+            {
+                unset($flight['plan_id'],
+                    $flight['period'],
+                    $flight['updated_at'],
+                    $flight['created_at'],
+                    $flight['created_at']);
+                $flight['users'] = count($flight['users']);
+            }
+            unset($plan['type_id'], $plan['place_id']);
+        }
 
         return $plans;
     }

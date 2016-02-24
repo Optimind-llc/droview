@@ -23,7 +23,8 @@
         "symfony/dom-crawler": "2.8.*|3.0.*",
         "barryvdh/laravel-debugbar": "^2.1",
         "webpay/webpay": "2.2.2",
-        "firebase/php-jwt": "^3.0"
+        "firebase/php-jwt": "^3.0",
+        "barryvdh/laravel-ide-helper": "^2.1"
     },
     "autoload": {
         "classmap": [

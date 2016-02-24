@@ -102,8 +102,7 @@ class EloquentFlightRepository implements FlightContract
      */
     public function getFlight(int $plan_id, int $timestamp, int $i) :Collection
     {
-        if (!$timestamp) $date = $this->getDateObject();
-        else $date = $this->getDateObject($timestamp, $i);
+        $date = $this->getDateObject($timestamp, $i);
 
         $flights = Flight::with(['users' => function ($query) {
 			$query->select('users.id');
@@ -140,7 +139,12 @@ class EloquentFlightRepository implements FlightContract
      */
     public function getDateObject(int $timestamp, int $i = 0, bool $period = false) :Carbon
     {
-        $date = Carbon::createFromTimestamp($timestamp)->addDay($i);
+        $from_timestamp = Carbon::createFromTimestamp($timestamp);
+        $year = $from_timestamp->year;
+        $month = $from_timestamp->month;
+        $day = $from_timestamp->day;    
+
+        $date= Carbon::create($year, $month, $day, 0, 0, 0)->addDay($i);
 
         if ($period) {
             $date->addHours(config('flight.start_at'))

@@ -23,9 +23,9 @@ interface PlanContract
     public function countForUpdate(int $type_id, int $place_id) :bool;
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getAll() :Collection;
+    public function getAll() :array;
 
     /**
      * @return Plan
@@ -38,12 +38,12 @@ interface PlanContract
     public function create(int $type_id, int $place_id, string $description) :Plan;
 
     /**
-     * @return Collection
+     * @return bool
      */
     public function update(int $id, array $input) :bool;
 
     /**
-     * @return Collection
+     * @return bool
      */
     public function delete(int $id) :bool;
 

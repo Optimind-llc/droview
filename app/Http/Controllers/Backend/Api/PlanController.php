@@ -34,23 +34,7 @@ class PlanController extends Controller
      */
     public function plans(PlanRequest $request)
     {
-        $plansCollection = $this->plans->getAll();
-        $plans = $plansCollection->toArray();
-
-        foreach ($plans as &$plan)
-        {
-            foreach ($plan['flights'] as &$flight)
-            {
-                unset($flight['plan_id'],
-                    $flight['period'],
-                    $flight['updated_at'],
-                    $flight['created_at'],
-                    $flight['created_at']);
-                $flight['users'] = count($flight['users']);
-            }
-            unset($plan['type_id'], $plan['place_id']);
-        }
-
+        $plans = $this->plans->getAll();
         return \Response::json(['plans' => $plans], 200);
     }
 
@@ -75,7 +59,8 @@ class PlanController extends Controller
         );
 
         $plan = $this->plans->findById($plan->id);
-        return \Response::json(['plans' => [$plan]], 200);
+        $plans = $this->plans->getAll();
+        return \Response::json(['plans' => $plans], 200);
     }
 
     /**
@@ -84,7 +69,8 @@ class PlanController extends Controller
     public function update($id, PlanRequest $request)
     {
         $plan = $this->plans->update($id, $request->except('q'));        
-        return \Response::json('ok', 200);
+        $plans = $this->plans->getAll();
+        return \Response::json(['plans' => $plans], 200);
     }
 
     /**
@@ -93,7 +79,8 @@ class PlanController extends Controller
     public function deactivate($id, PlanRequest $request)
     {
         $plan = $this->plans->changeStatus($id, 0);
-        return \Response::json('ok', 200);
+        $plans = $this->plans->getAll();
+        return \Response::json(['plans' => $plans], 200);
     }
 
     /**
@@ -102,7 +89,8 @@ class PlanController extends Controller
     public function activate($id, PlanRequest $request)
     {
         $plan = $this->plans->changeStatus($id, 1);
-        return \Response::json('ok', 200);
+        $plans = $this->plans->getAll();
+        return \Response::json(['plans' => $plans], 200);
     }
 
     /**
@@ -111,6 +99,7 @@ class PlanController extends Controller
     public function delete($id, PlanRequest $request)
     {
         $plan = $this->plans->delete($id);
-        return \Response::json('ok', 200);
+        $plans = $this->plans->getAll();
+        return \Response::json(['plans' => $plans], 200);
     }
 }
