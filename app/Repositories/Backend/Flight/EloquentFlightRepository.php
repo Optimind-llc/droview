@@ -137,7 +137,7 @@ class EloquentFlightRepository implements FlightContract
     /**
      * @return Carbon
      */
-    public function getDateObject(int $timestamp, int $i = 0, bool $period = false) :Carbon
+    public function getDateObject(int $timestamp, int $i = 0, $period = false) :Carbon
     {
         $from_timestamp = Carbon::createFromTimestamp($timestamp);
         $year = $from_timestamp->year;
