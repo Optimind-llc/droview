@@ -43,26 +43,6 @@ class ApiController extends Controller {
 		return view('frontend.user.single.index', compact('domain', 'env'));
 	}
 
-	public function getTimetable(Request $inputs)
-	{
-		$result = $this->getLectures($inputs['flight_type'], $inputs['place'], $inputs['week']);
-		return \Response::json($result);
-	}
-
-	public function getDefaultStatus()
-	{
-		$result['selector']['types'] = Type::all(['id', 'name', 'en']);
-		$result['selector']['places'] = Place::all(['id', 'path']);
-		$result['selector']['plans'] = Plan::all(['type_id', 'place_id']);
-
-		$min_type_id = Plan::min('type_id');
-		$min_place_id = Plan::where('type_id', '=', $min_type_id)->min('place_id');
-		$week = '0';
-		$result['timetable']['key'] = $min_type_id . '_' . $min_place_id . '_' . $week;
-		$result['timetable']['data'] = $this->getLectures($min_type_id, $min_place_id, $week);
-		return \Response::json($result);
-	}
-
 	public function getUserInfo()
 	{
 		$user = \Auth::user();
@@ -119,117 +99,6 @@ class ApiController extends Controller {
 		return \Response::json($result);
 	}
 
-	public function getTestToken(Request $inputs)
-	{
-		//未処理のチケット消費を実行
-		\Auth::user()->consumptionTicket();
-
-		$res = array();
-		$res['msg'] = $this->validateReservation($inputs['id']);
-
-		if ($res['msg']['type'] === 'success') {
-			$user = \Auth::user();
-			$key = config('flight.jwt_key');
-			$value = array(
-				'test' => 'test',
-				'flight_id' => $inputs['id'],
-	        	'name' => $user->name,
-				'email' => $user->email,
-				'start' => 'test',
-				'end' => 'test',
-				'result' => array()
-			);
-			$res['jwt'] = JWT::encode($value, $key);
-		}
-
-        return \Response::json($res);
-	}
-
-	public function reserve(Request $inputs)
-	{
-		$res = array();
-		$key = config('flight.jwt_key');
-		$decoded = (array) JWT::decode($inputs['token'], $key, array('HS256'));
-		//try catchで認証失敗を追加
-		$flight_id = $decoded['flight_id'];
-		$res['msg'] = $this->validateReservation($flight_id);
-
-		if ($res['msg']['type'] === 'success') {
-			$res['msg']['msg'] = '予約が完了しました';
-			$user = \Auth::user();
-
-			//情報を追加してJWTを再生成
-			$plan = Flight::findOrFail($flight_id)
-				->plan()
-				->first(['type_id', 'place_id']);
-			$decoded['type'] = Type::findOrFail($plan['type_id'])->name;
-			$decoded['place'] = Place::findOrFail($plan['place_id'])->name;
-			$decoded['start'] = Flight::findOrFail($flight_id)
-				->getEnableAccessTime()
-				->timestamp;
-			$decoded['end'] = Flight::findOrFail($flight_id)
-				->getFinishTime()
-				->timestamp;
-			$jwt_token = JWT::encode($decoded, $key);
-	
-			//予約情報をデータベースに保存
-	        \DB::table('flight_user')->insert([
-	            'user_id' => $user->id,
-	            'flight_id' => $flight_id,
-	            'environment_id' => '1',
-	            'status' => '0',
-	            'jwt' => $jwt_token
-	        ]);
-
-	        //FlightUserのidをJWTのキーとして利用
-	        $unique_id = FlightUser::where('user_id', '=', $user->id)
-				->where('flight_id', '=', $flight_id)
-				->first()
-				->id;
-
-			//JWT、予約実行後の予約数をレスポンスに格納
-			$res['jwt'] = array($unique_id => $jwt_token);
-			$res['reservations'] = \Auth::user()->numberOfReserved();
-
-	        //Queue jobを使ってメール送信
-	        $this->dispatch(new SendConfirmReservationEmail($user));
-		}
-
-        return \Response::json($res);
-	}
-
-	protected function getJwt()
-	{
-		$jwts = \Auth::user()->getJwt();
-		return \Response::json($jwts);
-	}
-
-	protected function validateReservation($flight_id)
-	{
-        $user = \Auth::user();
-
-        if ($user->reachTheLimitOfReservations()){
-            $msg = array(
-            	'type' => 'error',
-            	'msg' => 'overLimit');
-        } else if ($user->alreadyReservedAtSameTime($flight_id)){
-            $msg = array(
-            	'type' => 'error',
-            	'msg' => 'doubleBooking');
-        } else if ($user->notHaveEnoughTickets())
-        {
-            $msg = array(
-            	'type' => 'error',
-            	'msg' => 'noTicket');
-        } else {
-            $msg = array(
-            	'type' => 'success',
-            	'msg' => '');
-		}
-
-        return $msg;
-	}
-
     public function cancel(Request $inputs)
     {
         $id = $inputs['id'];
@@ -266,7 +135,7 @@ class ApiController extends Controller {
 	{
         $user = \Auth::user();
         $tickets = $user->tickets()->get(['amount','created_at','method'])->toArray();
-        return \Response::json($tickets);
+        return \Response::json(['ticketLogs' => $tickets]);
 	}
 
     public function addByWebpay(Request $inputs)

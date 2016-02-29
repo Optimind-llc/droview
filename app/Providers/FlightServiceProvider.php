@@ -24,6 +24,16 @@ class FlightServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
+            \App\Repositories\Frontend\Flight\FlightContract::class,
+            \App\Repositories\Frontend\Flight\EloquentFlightRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Frontend\Plan\PlanContract::class,
+            \App\Repositories\Frontend\Plan\EloquentPlanRepository::class
+        );
+
+        $this->app->bind(
             \App\Repositories\Backend\Flight\FlightContract::class,
             \App\Repositories\Backend\Flight\EloquentFlightRepository::class
         );

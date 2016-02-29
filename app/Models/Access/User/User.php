@@ -157,7 +157,7 @@ class User extends Authenticatable
      * @return bool 
      */
     public function reachTheLimitOfReservations() {
-        if ($this->numberOfReserved() >= config('flight.enable_number_of_reservations')) {
+        if ($this->numberOfReserved() >= config('flight.limit_of_reservations')) {
             return true;
         }
         else {
@@ -166,7 +166,7 @@ class User extends Authenticatable
     }
 
     /**
-     * チケッットの所持数が十分かどうか
+     * チケットの所持数が十分かどうか
      *
      * @return bool 
      */

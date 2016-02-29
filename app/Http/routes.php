@@ -5,6 +5,9 @@ Route::post('admin/single/validation/user', 'ValidationController@user');
 Route::post('admin/single/validation/role', 'ValidationController@role');
 Route::get('admin/single/getAddress/{post1}/{post2}', 'ValidationController@getAddress');
 
+//for tets
+Route::get('dbtest/{user_id}/{flight_id}', 'DBtestController@dbtest');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('myprofile', 'ValidationController@profile');
 });
@@ -24,6 +27,7 @@ Route::group(['middleware' => 'web'], function() {
      */
     Route::group(['namespace' => 'Frontend'], function () {
         require (__DIR__ . '/Routes/Frontend/Frontend.php');
+        require (__DIR__ . '/Routes/Frontend/Flight.php');
         require (__DIR__ . '/Routes/Frontend/Access.php');
     });
 });

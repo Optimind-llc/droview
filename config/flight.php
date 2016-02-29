@@ -44,7 +44,7 @@ return array(
 	/*
 	 * 予約可能上限
 	 */
-	'enable_number_of_reservations' => 3,
+	'limit_of_reservations' => 3,
 
 	/*
 	 * 同時に受講できるユーザー数

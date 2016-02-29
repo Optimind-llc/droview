@@ -8,6 +8,7 @@ use Carbon\Carbon;
 class Flight extends Model
 {
     protected $fillable = ['plan_id', 'flight_at', 'numberOfDrons'];
+    protected $dates = ['flight_at'];
 
     /**
      * planテーブルとの接続
@@ -44,16 +45,11 @@ class Flight extends Model
 	//講座を予約しているユーザー数
 	public function numberOfUsers(bool $forUpdate = false)
 	{
-		if ($forUpdate) {
-			$numberOfUsers = $this->users()->lockForUpdate()->count();
-		} else {
-			$numberOfUsers = $this->users()->count();
-		}
-
+		$numberOfUsers = $this->users()->lockForUpdate()->count();
 		return $numberOfUsers;
 	}
 
-	//講座を予約しているユーザー数
+	//講座を予約数が上限に達しているか
 	public function reachTheLimitOfUsers()
 	{
         if ($this->numberOfUsers() >= $this->numberOfDrons) {

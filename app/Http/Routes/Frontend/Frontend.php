@@ -16,8 +16,6 @@ Route::post('api/getDefaultStatus','ApiController@getDefaultStatus');
 Route::post('api/getUserInfo','ApiController@getUserInfo');
 Route::post('api/updateUserProf','ApiController@updateUserProf');
 Route::post('api/changePassword','ApiController@changePassword');
-Route::post('api/getTestToken','ApiController@getTestToken');
-Route::post('api/reserve','ApiController@reserve');
 Route::post('api/rsvList','ApiController@getReservationList');
 Route::post('api/cancel','ApiController@cancel');
 Route::post('api/getLog','ApiController@getLog');
@@ -38,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('mypage/reserved', 'ApiController@index');
 	Route::get('mypage/reserve', 'ApiController@index')->name('frontend.mypage');
+	Route::get('mypage/timetable/{id}', 'ApiController@index');
 	Route::get('mypage/ticket', 'ApiController@index');
 	Route::get('mypage/log', 'ApiController@index');
 	Route::get('mypage/profile', 'ApiController@index');
