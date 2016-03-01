@@ -190,7 +190,11 @@ class FlightController extends Controller
         } else {
 
         $user->flights()->attach($flight_id, array(
-            'environment_id' => 1,
+            'browser' => $request['browser'],
+            'ip_address' => $request['ip_address'],
+            'up_load' => $request['up_load'],
+            'down_load' => $request['down_load'],
+            'connection_method' => $request['connection_method'],
             'status' => 0,
             'jwt' => $jwt
         ));

@@ -17,7 +17,9 @@ use App\Services\Flight\GetReservations;
 use App\Jobs\SendConfirmReservationEmail;
 use App\Jobs\SendCancelReservationEmail;
 use App\Jobs\SendConfirmPaymentEmail;
-
+//Exceptions
+use App\Exceptions\NotFoundException;
+//Models
 use App\Models\Access\User\User;
 use App\Models\Flight\Flight;
 use App\Models\Flight\Plan;
@@ -95,40 +97,46 @@ class ApiController extends Controller {
 
 	public function getReservationList()
 	{
-        $result = $this->getReservations();
-		return \Response::json($result);
+		$limit = Carbon::now()->subMinute(config('flight.flight_time'));
+		$flights = \Auth::user()
+			->flights()
+			->with('plan.type', 'plan.place')
+			->where('flight_at', '>=', $limit)
+			->get();
+
+		return \Response::json(['reservations' => $flights]);
+
+  //       $result = $this->getReservations();
+		// return \Response::json($result);
 	}
 
     public function cancel(Request $inputs)
     {
         $id = $inputs['id'];
-        $flight_id = FlightUser::findOrFail($id)->flight_id;
+        $flight = Flight::with('plan.type', 'plan.place')->find($id);
 
-        if (Flight::findOrFail($flight_id)->canCancel()) {
-        	$user = \Auth::user();
-
-	        \DB::table('flight_user')->where('id', '=', $id)->delete();
-	        $msg = array(
-	        	'type' => 'success',
-	        	'msg' => '予約をキャンセルしました'
-	        );
-	        $res['msg'] = $msg;
-	        $res['reservations'] = $user->numberOfReserved();
-	        $res['data'] = $this->getReservations();
-
-	        //Queue jobを使ってメール送信
-	        $this->dispatch(new SendCancelReservationEmail($user));
-
-	        return \Response::json($res);
-        } else {
-	        $msg = array(
-	        	'type' => 'error',
-	        	'msg' => 'overLimit'
-	        );
-	        $res['msg'] = $msg;
-
-	        return \Response::json($res);        	
+        if (is_null($flight)) {
+        	throw new NotFoundException('flight.notFound');
         }
+
+        if ($flight->flight_at->subMinute(config('flight.enable_cancel'))->isPast()) {
+        	throw new NotFoundException('cancel.fail.overLimit');
+        }
+
+    	$user = \Auth::user();
+    	$user->flights()->detach($id);
+
+        //Queue jobを使ってメール送信
+        $this->dispatch(new SendCancelReservationEmail($user));
+
+		$limit = Carbon::now()->subMinute(config('flight.flight_time'));
+		$flights = $user
+			->flights()
+			->with('plan.type', 'plan.place')
+			->where('flight_at', '>=', $limit)
+			->get();
+
+        return \Response::json(['reservations' => $flights]);
     }
 
 	public function getLog()

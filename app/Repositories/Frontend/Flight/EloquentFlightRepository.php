@@ -84,46 +84,6 @@ class EloquentFlightRepository implements FlightContract
      */
     public function confirmReservation(int $flight_id, User $user) :Flight
     {
-        $flight = $this->findOrThrowException($flight_id);
-        //予約可能人数
-        $numberOfDrones = $flight->numberOfDrones;
-        //フライト開始時刻
-        $flight_at = $flight->flight_at;
-        //予約中のユーザー数
-        $users = $flight->users()->lockForUpdate()->count();
-
-        if ($flight_at->subMinute(config('flight.reservation_period'))->isPast()) {
-            DB::rollback();
-            throw new NotFoundException('reserve.fail.isPast');         
-        }
-
-        if ($users >= $numberOfDrones) {
-            DB::rollback();
-            throw new NotFoundException('reserve.fail.crowded');         
-        }
-
-        //完了していないフライト
-        $unfinished = $user->flights()->where('status', '0')->lockForUpdate()->count();
-        //同時刻に予約しているフライト
-        $atTheSameTime = $user->flights()->where('flight_at', $flight_at)->count();
-        //所持しているチケット数
-        $tickets = $user->tickets()->sum('amount');
-
-        if ($unfinished >= config('flight.limit_of_reservations')) {
-            DB::rollback();
-            throw new NotFoundException('reserve.fail.overLimit');            
-        }
-
-        if ($unfinished >= $tickets) {
-            DB::rollback();
-            throw new NotFoundException('reserve.fail.notEnoughTickets');            
-        }
-
-        if ($atTheSameTime >= 1) {
-            DB::rollback();
-            throw new NotFoundException('reserve.fail.notEnoughTickets');            
-        }
-
         return $flight;
     }
 

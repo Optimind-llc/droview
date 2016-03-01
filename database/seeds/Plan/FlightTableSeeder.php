@@ -27,7 +27,7 @@ class FlightTableSeeder extends Seeder {
 		$n = ( $b - $a ) * 60 / $c;
 		
 		// 14日分全て開講
-		for ($i = 0; $i < 14; $i++) {
+		for ($i = -7; $i < 14; $i++) {
 			for ($ii = 1; $ii <= $n; $ii++) {
 				foreach ($ids as $key => $id) {
 					Flight::create([

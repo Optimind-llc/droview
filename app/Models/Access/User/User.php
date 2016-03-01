@@ -49,7 +49,7 @@ class User extends Authenticatable
     public function flights() {
         return $this
             ->belongsToMany('App\Models\Flight\Flight')
-            ->withPivot('id', 'environment_id', 'status', 'jwt');
+            ->withPivot('id', 'status', 'jwt', 'browser', 'ip_address', 'up_load', 'down_load', 'connection_method');
     }
 
     /**

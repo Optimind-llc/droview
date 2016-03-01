@@ -27,9 +27,7 @@ class Flight extends Model
      */
 	public function users()
 	{
-		return $this
-			->belongsToMany('App\Models\Access\User\User')
-			->withPivot('id','environment_id','status');
+		return $this->belongsToMany('App\Models\Access\User\User');
 	}
 
     /**
@@ -75,7 +73,7 @@ class Flight extends Model
 	}
 
 	//キャンセル可能であるか
-	public function canCancel()
+	public function canBeCanceled()
 	{
 		$flight_at = Carbon::createFromFormat('Y-m-d H:i:s', $this->flight_at);
         if ($flight_at->subMinute(config('flight.enable_cancel'))->isFuture()) {

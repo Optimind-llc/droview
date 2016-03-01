@@ -8,7 +8,7 @@ class FlightUser extends Model
 {
 
 	protected $table = 'flight_user';
-    protected $fillable = ['user_id', 'flight_id', 'environment_id'];
+    protected $fillable = ['user_id', 'flight_id'];
 
 	public function user()
 	{
@@ -19,9 +19,4 @@ class FlightUser extends Model
 	{
 		return $this->belongsTo('App\Models\Flight\Flight','id','flight_id');
 	}
-
-    public function env()
-    {
-        return $this->hasOne('App\Models\Flight\Environment', 'id', 'environment_id');
-    }
 }

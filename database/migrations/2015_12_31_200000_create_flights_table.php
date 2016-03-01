@@ -30,8 +30,11 @@ class CreateFlightsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('flight_id')->unsigned()->index();
             $table->foreign('flight_id')->references('id')->on('flights')->onDelete('cascade');
-            $table->integer('environment_id')->unsigned()->index();
-            $table->foreign('environment_id')->references('id')->on('environments')->onDelete('cascade');            
+            $table->string('browser');
+            $table->string('ip_address');
+            $table->integer('up_load');
+            $table->integer('down_load');
+            $table->string('connection_method');
             $table->tinyInteger('status');
             $table->string('jwt');
             $table->timestamps();
