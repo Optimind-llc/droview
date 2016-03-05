@@ -100,13 +100,21 @@ class EloquentPlaceRepository implements PlaceContract
      */
     public function delete(int $id) :bool
     {
-        $place = $this->findOrThrowException($id);
+        DB::beginTransaction();
 
-        if ($place->delete()) {
-            return true;
+        $place = Place::find($id);
+
+        if ($place->plans()->lockForUpdate()->count() > 0) {
+            DB::rollback();
+            throw new NotFoundException('place.hasPlans');
+
+        } else {
+
+            $place->delete();
+            DB::commit();
         }
 
-        throw new NotFoundException('places.delete.faile');
+        return true;
     }
 
     /**

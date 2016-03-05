@@ -31,12 +31,12 @@ class DBtestController extends Controller
         if ($flight_at->subMinute(config('flight.reservation_period'))->isPast()) {
             DB::rollback();
             throw new NotFoundException('reserve.fail.isPast');         
-        }
+        } else {
 
         if ($users >= $numberOfDrones) {
             DB::rollback();
             throw new NotFoundException('reserve.fail.crowded');         
-        }
+        } else {
 
         $user = User::find($user_id);
         //完了していないフライト
@@ -49,26 +49,51 @@ class DBtestController extends Controller
         if ($unfinished >= config('flight.limit_of_reservations')) {
             DB::rollback();
             throw new NotFoundException('reserve.fail.overLimit');            
-        }
+        } else {
 
         if ($unfinished >= $tickets) {
             DB::rollback();
             throw new NotFoundException('reserve.fail.notEnoughTickets');            
-        }
+        } else {
 
         if ($atTheSameTime >= 1) {
             DB::rollback();
             throw new NotFoundException('reserve.fail.notEnoughTickets');            
-        }
+        } else {
 
         $user->flights()->attach($flight_id, array(
-            'environment_id' => 1,
             'status' => 0,
             'jwt' => 'DBtest'
         ));
 
         DB::commit();
 
-        return 'user->flights:'.$unfinished.',user->tickets:'.$tickets.', flights->flight_at:'.$flight_at.',flights->limitOfReservations'.$numberOfDrones.',flights->users'.$users;
+        }}}}}
+
+        return 'ok';
+    }
+
+    public function dbcheck()
+    {
+        $users = DB::table('flight_user')
+            ->select(DB::raw('user_id, count(*) as reservations'))
+            ->groupBy('user_id')
+            ->orderBy('reservations', 'desc')
+            ->get();
+
+        $flights = DB::table('flight_user')
+            ->select(DB::raw('flight_id, count(*) as reservations'))
+            ->groupBy('flight_id')
+            ->orderBy('reservations', 'desc')
+            ->get();
+
+        return \Response::json([
+            'user' => $users,
+            'flight' => $flights
+        ], 200);
     }
 }
+
+
+
+

@@ -3,12 +3,26 @@
 namespace App\Models\Flight;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Flight extends Model
 {
+	use SoftDeletes;
+
+    /**
+     * 複数代入する属性
+     *
+     * @var array
+     */
     protected $fillable = ['plan_id', 'flight_at', 'numberOfDrons'];
-    protected $dates = ['flight_at'];
+
+    /**
+     * 日付により変更を起こすべき属性
+     *
+     * @var array
+     */
+    protected $dates = ['flight_at', 'deleted_at'];
 
     /**
      * planテーブルとの接続
@@ -31,48 +45,10 @@ class Flight extends Model
 	}
 
     /**
-     * flightUserテーブルとの接続
+     * return true if the flight can be Canceled
      *
-     * @return object
+     * @return bool
      */
-	public function flightUser()
-	{
-		return $this->hasMany('App\Models\Flight\FlightUser');
-	}
-
-	//講座を予約しているユーザー数
-	public function numberOfUsers(bool $forUpdate = false)
-	{
-		$numberOfUsers = $this->users()->lockForUpdate()->count();
-		return $numberOfUsers;
-	}
-
-	//講座を予約数が上限に達しているか
-	public function reachTheLimitOfUsers()
-	{
-        if ($this->numberOfUsers() >= $this->numberOfDrons) {
-            return true;
-        }
-        else {
-			return false;
-        }
-	}
-
-	//フライト画面へアクセスできる時間
-	public function getEnableAccessTime()
-	{
-		return Carbon::createFromFormat('Y-m-d H:i:s', $this->flight_at)
-			->subMinute(config('flight.enable_access_flight'));
-	}
-
-	//フライト終了時間
-	public function getFinishTime()
-	{
-		return Carbon::createFromFormat('Y-m-d H:i:s', $this->flight_at)
-			->addMinute(config('flight.flight_time'));
-	}
-
-	//キャンセル可能であるか
 	public function canBeCanceled()
 	{
 		$flight_at = Carbon::createFromFormat('Y-m-d H:i:s', $this->flight_at);
@@ -86,12 +62,13 @@ class Flight extends Model
 
     /**
      * return true if the flight can be deleted
+     *
      * @return bool
      */
 	public function canBeDeleted() : bool
 	{
 		$countUsers = $this->users()->lockForUpdate()->count();
-		$isFuture = Carbon::createFromFormat('Y-m-d H:i:s', $this->flight_at)->isFuture();
+		$isFuture = $this->flight_at->isFuture();
 
 		if ($countUsers === 0 && $isFuture) {
 			return true;

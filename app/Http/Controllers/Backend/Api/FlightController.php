@@ -34,16 +34,14 @@ class FlightController extends Controller
      */
     public function timetables(TimetableRequest $request)
     {
-    	$timetables = [];
         $plan_id = $request->plan_id;
         $range = $request->range;
         $timestamp = $request->timestamp;
 
+        $timetables = [];
+
         for ($i = $range[0]; $i <= $range[1]; $i++) {
-            array_push(
-                $timetables,
-                $this->flights->getTimetable($plan_id, $timestamp, $i)
-            );
+            $timetables[] = $this->flights->getTimetable($plan_id, $timestamp, $i);
         }
 
         $response = [
@@ -57,20 +55,45 @@ class FlightController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function open(PlanRequest $request)
+    public function update(PlanRequest $request)
     {
-        $plan_id = $request->plan_id;
-        $timestamp = $request->timestamp;
-        $period = $request->period;
+        $flight = $this->flights->update($request->id, $request->capacity);
 
-        if (!$this->flights->create($plan_id, $timestamp, $period)) {
-            throw new NotFoundException('flight.open.fail');
-        }
+        $plan_id = $flight->plan_id;
+        $timestamp = $flight->flight_at->timestamp;
 
         $response = [
-            'config' => $this->flights->getConfig(),
-            'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+            'plan_id' => $plan_id,
+            'date' => $this->flights->getDateObject($timestamp)->timestamp,
+            'flight' => $flight
         ];
+
+        return \Response::json($response, 200);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function open(PlanRequest $request)
+    {
+        $flight = $this->flights->restore($request->id, $request->capacity);
+
+        $plan_id = $flight->plan_id;
+        $timestamp = $flight->flight_at->timestamp;
+
+        // 1フライトのみ更新
+        $response = [
+            'plan_id' => $plan_id,
+            'date' => $this->flights->getDateObject($timestamp)->timestamp,
+            'flight' => $flight
+        ];
+
+        // 1日全部更新
+        // $response = [
+        //     'plan_id' => $plan_id,
+        //     'config' => $this->flights->getConfig(),
+        //     'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+        // ];
 
         return \Response::json($response, 200);
     }
@@ -80,21 +103,48 @@ class FlightController extends Controller
      */
     public function close(PlanRequest $request)
     {
-        $id = $request->id;
-        $plan_id = $request->plan_id;
-        $timestamp = $request->timestamp;
+        $flight = $this->flights->delete($request->id);
 
-        if (!$this->flights->destroy($id)) {
-            throw new NotFoundException('flight.close.fail');
-        }
+        $plan_id = $flight->plan_id;
+        $timestamp = $flight->flight_at->timestamp;
 
         $response = [
-            'config' => $this->flights->getConfig(),
-            'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+            'plan_id' => $plan_id,
+            'date' => $this->flights->getDateObject($timestamp)->timestamp,
+            'flight' => $flight
         ];
+
+        // 1日全部更新
+        // $response = [
+        //     'plan_id' => $plan_id,
+        //     'config' => $this->flights->getConfig(),
+        //     'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+        // ];
 
         return \Response::json($response, 200);
     }
+
+    // /**
+    //  * @return \Illuminate\Http\JsonResponse
+    //  */
+    // public function create(PlanRequest $request)
+    // {
+    //     $plan_id = $request->plan_id;
+    //     $timestamp = $request->timestamp;
+    //     $period = $request->period;
+
+    //     if (!$this->flights->create($plan_id, $timestamp, $period)) {
+    //         throw new NotFoundException('flight.open.fail');
+    //     }
+
+    //     $response = [
+    //         'config' => $this->flights->getConfig(),
+    //         'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
+    //     ];
+
+    //     return \Response::json($response, 200);
+    // }
+
 }
 
 

@@ -3,12 +3,14 @@
 Route::group(['prefix' => 'flight'], function (){
 	Route::get('/', 'IndexController@index');
 	Route::get('/plans', 'IndexController@index');
+	Route::get('/plans/{id}/timetable', 'IndexController@index');
+	Route::get('/plans/{id}/edit', 'IndexController@index');
+
 	Route::get('/types', 'IndexController@index');
+
 	Route::get('/places', 'IndexController@index');
-	Route::get('/timetable/{id}', 'IndexController@index');
-	Route::get('/plan/{id}/edit', 'IndexController@index');
-	Route::get('/place/{id}/edit', 'IndexController@index');
-	Route::get('/place/create', 'IndexController@index');
+	Route::get('/places/{id}/edit', 'IndexController@index');
+	Route::get('/places/create', 'IndexController@index');
 
 	Route::get('/plans/fetch', 'PlanController@plans');
 	Route::get('/plan/{id}/fetch', 'PlanController@plan');
@@ -31,9 +33,10 @@ Route::group(['prefix' => 'flight'], function (){
 	Route::post('/place/{id}/update', 'PlaceController@update');
 	Route::delete('/place/{id}', 'PlaceController@delete');
 	Route::post('/place/picture', 'PlaceController@updatePicture');
-	Route::get('/place/{id}/picture', 'PlaceController@picture');
+	Route::get('/places/{id}/picture', 'PlaceController@picture');
 
 	Route::post('/timetables', 'FlightController@timetables');
-	Route::post('/flight', 'FlightController@open');
-	Route::delete('/flight', 'FlightController@close');
+	Route::patch('/flight', 'FlightController@update');
+	Route::patch('/flight/open', 'FlightController@open');
+	Route::delete('/flight/close', 'FlightController@close');
 });

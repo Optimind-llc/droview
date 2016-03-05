@@ -33,7 +33,7 @@ class EloquentTypeRepository implements TypeContract
             return $type;
         }
 
-        throw new NotFoundException('plan.notFound');
+        throw new NotFoundException('type.notFound');
     }
 
     /**
@@ -47,7 +47,7 @@ class EloquentTypeRepository implements TypeContract
             return $type;
         }
 
-        throw new NotFoundException('plan.notFound');
+        throw new NotFoundException('type.notFound');
     }
 
     /**
@@ -55,16 +55,27 @@ class EloquentTypeRepository implements TypeContract
      */
     public function create(array $input) :Type
     {
-        $type = new Type;
-        $type->name = $input['name'];
-        $type->en = $input['en'];
-        $type->description = $input['description'];
+        DB::beginTransaction();
 
-    	if ($type->save()) {
-            return $type;
+        $type = Type::where('name', $input['name'])
+            ->lockForUpdate()
+            ->first();
+
+        if (!is_null($type)) {
+            DB::rollback();
+            throw new NotFoundException('type.sameNameExist');
+
+        } else {      
+            $type = new Type;
+            $type->name = $input['name'];
+            $type->en = $input['en'];
+            $type->description = $input['description'];
+            $type->save();
+
+            DB::commit();
        	}
 
-       	throw new NotFoundException('types.create.faile');
+        return $type;
     }
 
     /**
@@ -72,16 +83,32 @@ class EloquentTypeRepository implements TypeContract
      */
     public function update(int $id, array $input) :bool
     {
-        $type = $this->findOrThrowException($id);
-        $type->name = $input['name'];
-        $type->en = $input['en'];
-        $type->description = $input['description'];
+        DB::beginTransaction();
 
-        if ($type->save()) {
-            return true;
-        }
+        $type = Type::where('name', $input['name'])
+            ->lockForUpdate()
+            ->first();
 
-        throw new NotFoundException('types.update.faile');
+        if (!is_null($type) && $type->id !== $id) {
+            DB::rollback();
+            throw new NotFoundException('type.sameNameExist');
+        } else {
+        
+        $type = Type::find($id);
+
+        if (is_null($type)) {
+            DB::rollback();
+            throw new NotFoundException('type.notFound');
+        } else {
+
+            $type->name = $input['name'];
+            $type->en = $input['en'];
+            $type->description = $input['description'];
+            $type->save();
+            DB::commit();
+        }}
+        
+        return true;
     }
 
     /**
@@ -89,12 +116,20 @@ class EloquentTypeRepository implements TypeContract
      */
     public function delete(int $id) :bool
     {
-        $type = $this->findOrThrowException($id);
+        DB::beginTransaction();
 
-        if ($type->delete()) {
-            return true;
+        $type = Type::find($id);
+
+        if ($type->plans()->lockForUpdate()->count() > 0) {
+            DB::rollback();
+            throw new NotFoundException('type.hasPlans');
+
+        } else {
+
+            $type->delete();
+            DB::commit();
         }
 
-        throw new NotFoundException('plans.delete.faile');
+        return true;
     }
 }

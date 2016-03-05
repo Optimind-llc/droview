@@ -13,15 +13,16 @@ class CreateFlightsTable extends Migration
     public function up()
     {
         //フライト情報
-        //OPEN状態にするとフライトプランごとに作成される
         Schema::create('flights', function ($table){
             $table->increments('id');
             $table->integer('plan_id')->unsigned()->index();
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');;
             $table->integer('period');
-            $table->timestamp('flight_at');
+            $table->dateTime('flight_at');
             $table->tinyInteger('numberOfDrones');
             $table->timestamps();
+            $table->softDeletes();
+            $table->unique(['plan_id', 'flight_at']);
         });
     
         Schema::create('flight_user', function($table){

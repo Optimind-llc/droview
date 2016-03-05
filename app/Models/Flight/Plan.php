@@ -20,19 +20,4 @@ class Plan extends Model
     {
         return $this->hasMany('App\Models\Flight\Flight');
     }
-
-    // public function canBeDeleted(int $plan_id)
-    // {
-    //     $this->with([
-    //         'flights' => function ($query) {
-    //             $query->with([
-    //                 'users' => function ($query) {
-    //                     $query->select(['users.id']);
-    //                 }
-    //             ])
-    //             ->select('flights.id', 'flights.plan_id');
-    //         }
-    //     ])
-    //     ->find($plan_id);
-    // }
 }

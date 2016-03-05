@@ -7,6 +7,8 @@ Route::get('admin/single/getAddress/{post1}/{post2}', 'ValidationController@getA
 
 //for tets
 Route::get('dbtest/{user_id}/{flight_id}', 'DBtestController@dbtest');
+Route::get('dbcheck', 'DBtestController@dbcheck');
+Route::get('admin/single/dbcheck', 'DBtestController@dbcheck');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('myprofile', 'ValidationController@profile');

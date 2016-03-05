@@ -20,6 +20,7 @@ class CreatePlansTable extends Migration
             $table->string('en');
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         //飛行場所
@@ -29,6 +30,7 @@ class CreatePlansTable extends Migration
             $table->string('path');
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         //飛行プラン
@@ -42,6 +44,7 @@ class CreatePlansTable extends Migration
             $table->integer('place_id')->unsigned()->index();
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

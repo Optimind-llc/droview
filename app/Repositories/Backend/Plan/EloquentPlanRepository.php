@@ -79,7 +79,7 @@ class EloquentPlanRepository implements PlanContract
                 );
             }
         ])
-        ->get(['id', 'type_id', 'place_id', 'active', 'description'])
+        ->get(['id', 'type_id', 'place_id', 'active', 'description', 'created_at', 'updated_at'])
         ->toArray();
 
         foreach ($plans as &$plan)
@@ -140,27 +140,53 @@ class EloquentPlanRepository implements PlanContract
     public function create(int $type_id, int $place_id, string $description) :Plan
     {
         DB::beginTransaction();
-        if ($this->countForUpdate($type_id, $place_id))
-        {
-	        $plan = new Plan;
-    	    $plan->type_id = $type_id;
-        	$plan->place_id = $place_id;
+
+        $plan = Plan::where('type_id', $type_id)
+            ->where('place_id', $place_id)
+            ->lockForUpdate()
+            ->first();
+
+        if (!is_null($plan)) {
+            DB::rollback();
+            throw new NotFoundException('plan.alreadyExist');
+
+        } else {
+            $plan = new Plan;
+            $plan->type_id = $type_id;
+            $plan->place_id = $place_id;
             $plan->description = $description;
             $plan->active = 1;
+            $plan->save();
 
-        	if ($plan->save()) {
-	            DB::commit();
-	            return $plan;
-           	}
+            $a = config('flight.start_at'); //開始時刻
+            $b = config('flight.end_at');   //終了時刻
+            $c = config('flight.time');     //1フライトの時間
 
-           	DB::rollback();
-           	throw new NotFoundException('users.notFound');
+            $flight_at = Carbon::today()->addhour($a);
+            $n = ( $b - $a ) * 60 / $c;
+            
+            $flights = [];
+
+            for ($i = 0; $i < 21; $i++) {
+                for ($ii = 1; $ii <= $n; $ii++) {
+                    $flights[] = [
+                        'plan_id' => $plan->id,
+                        'period' => $ii,
+                        'flight_at' => $flight_at->toDateTimeString(),
+                        'numberOfDrones' => '0',
+                        'deleted_at' => $flight_at->toDateTimeString()
+                    ];
+                    $flight_at->addMinute($c);
+                }
+                $sub = 24 - ( $b - $a );
+                $flight_at->addHour($sub);
+            }
+        
+            DB::table('flights')->insert($flights);
+            DB::commit();
         }
-        else
-        {
-            DB::rollback();
-            throw new NotFoundException('users.notFound');
-        }
+
+        return $plan;
     }
 
     /**
@@ -175,7 +201,7 @@ class EloquentPlanRepository implements PlanContract
             return true;
         }
 
-        throw new NotFoundException('plans.update.faile');
+        throw new NotFoundException('plan.update.faile');
     }
 
     /**
@@ -183,13 +209,20 @@ class EloquentPlanRepository implements PlanContract
      */
     public function delete(int $id) :bool
     {
-        $plan = $this->findOrThrowException($id);
+        DB::beginTransaction();
 
-        if ($plan->delete()) {
-            return true;
+        $plan = Plan::find($id);
+
+        if ($plan->flights()->lockForUpdate()->count() > 0) {
+            DB::rollback();
+            throw new NotFoundException('plan.hasFlights');
+
+        } else {
+            $plan->delete();
+            DB::commit();
         }
 
-        throw new NotFoundException('plans.delete.faile');
+        return true;
     }
 
     /**
@@ -197,13 +230,22 @@ class EloquentPlanRepository implements PlanContract
      */
     public function changeStatus(int $id, int $status) :bool
     {
-    	$plan = $this->findOrThrowException($id);
-    	$plan->active = $status;
+        DB::beginTransaction();
 
-    	if ($plan->save()) {
-    		return true;
-    	}
+        $plan = Plan::find($id);
 
-        throw new NotFoundException('plans.changeStatus.faile');
+        if ($status === 0 && $plan->flights()->lockForUpdate()->count() > 0) {
+            DB::rollback();
+            throw new NotFoundException('plan.hasFlights');
+
+            return false;
+
+        } else {
+            $plan->active = $status;
+            $plan->save();
+            DB::commit();
+        }
+
+        return true;
     }
 }
