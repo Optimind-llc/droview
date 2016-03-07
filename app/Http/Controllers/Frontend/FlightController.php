@@ -206,7 +206,7 @@ class FlightController extends Controller
 
         }}}}}
 
-        $this->dispatch(new SendConfirmReservationEmail($user));
+        //$this->dispatch(new SendConfirmReservationEmail($user));
 
         $plan_id = $flight->plan_id;
         $timestamp = $flight->flight_at->timestamp;
