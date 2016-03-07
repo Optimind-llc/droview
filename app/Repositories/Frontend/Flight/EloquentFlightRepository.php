@@ -74,7 +74,7 @@ class EloquentFlightRepository implements FlightContract
         ->where('flight_at', '>=', $date)
         ->where('flight_at', '<', $date->copy()->addDay())
         ->where('plan_id', '=', $plan_id)
-        ->get(['id', 'flight_at', 'period', 'numberOfDrones']);
+        ->get(['id', 'flight_at', 'period', 'numberOfDrones', 'deleted_at']);
 
         return $flights;
     }

@@ -10,6 +10,7 @@ use App\Repositories\Frontend\Flight\FlightContract;
 //Models
 use App\Models\Access\User\User;
 use App\Models\Flight\Flight;
+use App\Models\ReservationLog;
 //Exceptions
 use App\Exceptions\ApiException;
 use App\Exceptions\NotFoundException;
@@ -67,11 +68,13 @@ class FlightController extends Controller
      */
     public function confirmReservation(PlanRequest $request)
     {
-
-
         $flight_id = $request['id'];
 
         DB::beginTransaction();
+
+        $user = \Auth::user();
+        // //未処理のチケット消費を実行        
+        // $user->consumptionTicket();
 
         $flight = Flight::find($flight_id);
         //予約可能人数
@@ -90,10 +93,6 @@ class FlightController extends Controller
             DB::rollback();
             throw new NotFoundException('reserve.fail.crowded');         
         }
-
-        $user = \Auth::user();
-        // //未処理のチケット消費を実行        
-        // $user->consumptionTicket();
 
         //完了していないフライト
         $unfinished = $user->flights()->where('status', '0')->lockForUpdate()->count();
@@ -119,15 +118,15 @@ class FlightController extends Controller
 
         DB::commit();
 
-        $start = $flight->getEnableAccessTime()->timestamp;
-        $end = $flight->getEnableAccessTime()->timestamp;
+        // $start = $flight->getEnableAccessTime()->timestamp;
+        // $end = $flight->getEnableAccessTime()->timestamp;
 
         $flight->toArray();
 
         $flight['user_name'] = $user->name;
         $flight['user_email'] = $user->email;
-        $flight['start'] = $start;
-        $flight['end'] = $end;
+        // $flight['start'] = $start;
+        // $flight['end'] = $end;
 
         $key = config('flight.jwt_key');
         $flight['jwt'] = JWT::encode($flight, $key);
@@ -140,14 +139,12 @@ class FlightController extends Controller
      */
     public function reserve(PlanRequest $request)
     {
-        //未処理のチケット消費を実行
-        $user = \Auth::user();
-        $user->consumptionTicket();
-
         $flight_id = $request['id'];
         $jwt = $request['jwt'];
 
         DB::beginTransaction();
+
+        $user = \Auth::user();
 
         $flight = Flight::find($flight_id);
         //予約可能人数
@@ -198,6 +195,12 @@ class FlightController extends Controller
             'status' => 0,
             'jwt' => $jwt
         ));
+
+        $user->reservationLogs()->create([
+            'executor_id' => $user->id,
+            'flight_id' => $user->id,
+            'action' => 1,
+        ]);
 
         DB::commit();
 

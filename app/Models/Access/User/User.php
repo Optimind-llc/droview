@@ -71,6 +71,15 @@ class User extends Authenticatable
     }
 
     /**
+     * ticketテーブルとの接続
+     *
+     * @return object 
+     */
+    public function reservationLogs() {
+        return $this->hasMany('App\Models\ReservationLog');
+    }
+
+    /**
      * 現在のチケット残数
      *
      * @return intval 

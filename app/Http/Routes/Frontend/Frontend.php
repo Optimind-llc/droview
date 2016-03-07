@@ -38,7 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('mypage/reserve', 'ApiController@index')->name('frontend.mypage');
 	Route::get('mypage/timetable/{id}', 'ApiController@index');
 	Route::get('mypage/ticket', 'ApiController@index');
-	Route::get('mypage/log', 'ApiController@index');
 	Route::get('mypage/profile', 'ApiController@index');
 	Route::get('mypage/todo', 'ApiController@index');
 	Route::get('mypage/test', 'ApiController@test');

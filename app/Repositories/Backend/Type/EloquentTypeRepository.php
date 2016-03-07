@@ -72,6 +72,13 @@ class EloquentTypeRepository implements TypeContract
             $type->description = $input['description'];
             $type->save();
 
+            $plan = new Plan;
+            $plan->type_id = $type->id;
+            $plan->place_id = Place::first()->id;
+            $plan->active = 0;
+            $plan->description = 'Automatic generated';
+            $plan->save();
+
             DB::commit();
        	}
 
@@ -85,14 +92,16 @@ class EloquentTypeRepository implements TypeContract
     {
         DB::beginTransaction();
 
-        $type = Type::where('name', $input['name'])
-            ->lockForUpdate()
-            ->first();
+        if (isset($input['name'])) {
+            $type = Type::where('name', $input['name'])
+                ->lockForUpdate()
+                ->first();
 
-        if (!is_null($type) && $type->id !== $id) {
-            DB::rollback();
-            throw new NotFoundException('type.sameNameExist');
-        } else {
+            if (!is_null($type) && $type->id !== $id) {
+                DB::rollback();
+                throw new NotFoundException('type.sameNameExist');
+            }
+        }
         
         $type = Type::find($id);
 
@@ -101,12 +110,19 @@ class EloquentTypeRepository implements TypeContract
             throw new NotFoundException('type.notFound');
         } else {
 
-            $type->name = $input['name'];
-            $type->en = $input['en'];
-            $type->description = $input['description'];
+            if (isset($input['name'])) {
+                $type->name = $input['name'];
+            }
+            if (isset($input['en'])) {
+                $type->en = $input['en'];
+            }
+            if (isset($input['description'])) {
+                $type->description = $input['description'];
+            }
+
             $type->save();
             DB::commit();
-        }}
+        }
         
         return true;
     }

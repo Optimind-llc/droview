@@ -23,7 +23,14 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/mypage/reserved';
+
+    /**
+     * Where to redirect Admin user after login.
+     *
+     * @var string
+     */
+    protected $adminRedirectTo = '/admin/single';
 
     /**
      * Where to redirect users after they logout
@@ -38,5 +45,31 @@ class AuthController extends Controller
     public function __construct(UserContract $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * ユーザーロールによってログイン後のリダイレクト先を変更
+     * Override following class method.
+     * vendor/laravel/framework/src/Illuminate/Foundation/Auth/RedirectsUsers.php
+     *
+     * @var string
+     */
+    public function redirectPath()
+    {
+        // if (property_exists($this, 'redirectPath')) {
+        //     return $this->redirectPath;
+        // }
+
+        // return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+
+        $user = \Auth::user();
+        if ($user->hasRole('Administrator'))
+        {
+           return property_exists($this, 'adminRedirectTo') ? $this->adminRedirectTo : '/home';
+        
+        } else
+        {
+           return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';            
+        }
     }
 }

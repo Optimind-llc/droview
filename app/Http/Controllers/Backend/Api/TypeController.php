@@ -61,7 +61,7 @@ class TypeController extends Controller
      */
     public function update($id, TypeRequest $request)
     {
-        $type = $this->types->update($id, $request->except('q'));       
+        $type = $this->types->update($id, $request->all());
         $types = $this->types->all()->toArray();
         return \Response::json(['types' => $types], 200);
     }

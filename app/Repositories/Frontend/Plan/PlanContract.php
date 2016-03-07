@@ -25,30 +25,10 @@ interface PlanContract
     /**
      * @return array
      */
-    public function getAll() :array;
+    public function all() :array;
 
     /**
      * @return Plan
      */
     public function findById(int $id) :Plan;
-
-    /**
-     * @return bool
-     */
-    public function create(int $type_id, int $place_id, string $description) :Plan;
-
-    /**
-     * @return bool
-     */
-    public function update(int $id, array $input) :bool;
-
-    /**
-     * @return bool
-     */
-    public function delete(int $id) :bool;
-
-    /**
-     * @return bool
-     */
-    public function changeStatus(int $id, int $status) :bool;
 }

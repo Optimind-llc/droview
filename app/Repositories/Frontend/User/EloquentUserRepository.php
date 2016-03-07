@@ -74,7 +74,7 @@ class EloquentUserRepository implements UserContract
     {
         if ($provider) {
             $user = User::create([
-                'name' => $data['name'],
+                'user_id' => $data['user_id'],
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
@@ -85,9 +85,7 @@ class EloquentUserRepository implements UserContract
             ]);
         } else {
             $user = User::create([
-                'name' => $data['name'],
-                'first_name' => isset($input['first_name']) ? $input['first_name'] : "",
-                'last_name' => isset($input['last_name']) ? $input['last_name'] : "",
+                'user_id' => $data['user_id'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -135,26 +133,25 @@ class EloquentUserRepository implements UserContract
          * Which triggers the script to use some default values in the create method
          */
         if (! $user) {
-            // echo "<pre>";
-            // var_dump($data);
-            // echo "</pre>";
+            if ($provider === 'facebook') {
+                // echo "<pre>";
+                // var_dump($data);
+                // echo "</pre>";
 
-            $name = isset($data->name) ? $data->name != '' ? $data->name : 'No Name' : 'No Name';
+                $user_id = isset($data->name) ? $data->name : 'No Name';
+                $first_name = isset($data->user['first_name']) ? $data->user['first_name'] : 'No First Name';
+                $last_name = isset($data->user['last_name']) ? $data->user['last_name'] : 'No Last Name';
+            }
 
-            $first_name = isset($data->user['first_name']) ?
-                $data->user['first_name'] :
-                isset($data->user['name']['givenName']) ?
-                $data->user['name']['givenName'] : '';
+            if ($provider === 'google') {
+                $user_id = isset($data->name) ? $data->name : 'No Name';
 
-            $last_name = isset($data->user['last_name']) ?
-                $data->user['last_name'] :
-                isset($data->user['name']['familyName']) ?
-                $data->user['name']['givenName'] : '';
-
-            //echo $first_name . $last_name;
+                $first_name = isset($data->user['name']['givenName']) ? $data->user['name']['givenName'] : 'No First Name';
+                $last_name = isset($data->user['name']['familyName']) ? $data->user['name']['familyName'] : 'No Last Name';
+            }
 
             $user = $this->create([
-                'name' => $name,
+                'user_id' => $user_id,
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'email' => $data->email,

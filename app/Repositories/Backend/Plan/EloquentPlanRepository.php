@@ -128,7 +128,7 @@ class EloquentPlanRepository implements PlanContract
         ->find($id);
 
         if (is_null($plan)) {
-            throw new NotFoundException('users.notFound');
+            throw new NotFoundException('plan.notFound');
         }
 
         return $plan;
