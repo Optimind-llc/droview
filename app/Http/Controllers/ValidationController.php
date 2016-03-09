@@ -36,7 +36,7 @@ class ValidationController extends Controller
 			throw new NotFoundException('server.users.notFound');
 		}
 
-	    return response($html);
+	    return \Response::json(json_decode($html));
 	}
 
     public function User(ValidateUserRequest $request)
