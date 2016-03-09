@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 use App\Models\Flight\Plan;
-use App\Models\Flight\type;
+use App\Models\Flight\Type;
 use App\Models\Flight\Place;
 
 class PlanTableSeeder extends Seeder {
