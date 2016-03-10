@@ -70,7 +70,7 @@ class PlaceController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $input = $request->except('q', 'file');
+            $input = $request->except('file');
             $place = $this->places->update($id, $input, $file);
         }
         else {
@@ -97,7 +97,9 @@ class PlaceController extends Controller
      */
     public function picture($id)
     {
-        $picture = $this->places->getPicture($id);
-        return \Response::make($picture, 200, ['Content-Type' => 'image/*']);
+        $picture = $users = DB::table('imgs')->where('id', $id)->first();
+        //var_dump($picture->data);
+        //$picture = $this->places->getPicture($id);
+        return \Response::make($picture->data, 200, ['Content-Type' => 'image/*']);
     }    
 }

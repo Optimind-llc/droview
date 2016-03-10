@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/', 'LandingPageController@index')->name('frontend.index');
+
 Route::get('mypage/reserved', 'Backend\Flight\FlightController@index')->name('admin.flight');
 Route::post('admin/single/validation/user', 'ValidationController@user');
 Route::post('admin/single/validation/role', 'ValidationController@role');

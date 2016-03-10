@@ -27,7 +27,8 @@ class CreatePlansTable extends Migration
         Schema::create('places', function ($table){
             $table->increments('id');
             $table->string('name');
-            $table->string('path');
+            $table->integer('img_id')->unsigned()->index();
+            $table->foreign('img_id')->references('id')->on('imgs');
             $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
