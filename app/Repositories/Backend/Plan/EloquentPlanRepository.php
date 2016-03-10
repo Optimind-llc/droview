@@ -63,7 +63,7 @@ class EloquentPlanRepository implements PlanContract
                 $query->select(['id', 'name', 'en']);
             },
             'place' => function ($query) {
-                $query->select(['id', 'name', 'path']);
+                $query->select(['id', 'name']);
             },
             'flights' => function ($query) {
                 $query->with([
@@ -109,7 +109,7 @@ class EloquentPlanRepository implements PlanContract
                 $query->select(['id', 'name', 'en']);
             },
             'place' => function ($query) {
-                $query->select(['id', 'name', 'path']);
+                $query->select(['id', 'name']);
             },
             'flights' => function ($query) {
                 $query->with([

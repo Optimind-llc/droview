@@ -10,4 +10,9 @@ class Place extends Model
 	{
 		return $this->hasMany('App\Models\Flight\Plan');
 	}
+
+	public function img()
+	{
+		return $this->belongsTo('App\Models\Flight\Img');
+	}
 }

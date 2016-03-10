@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Storage;
+use Image;
 //Models
 use App\Models\Access\User;
 use App\Models\Ticket;
@@ -15,6 +16,7 @@ use App\Models\Flight\Flight;
 use App\Models\Flight\Plan;
 use App\Models\Flight\Type;
 use App\Models\Flight\Place;
+use App\Models\Flight\Img;
 //Exceptions
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Api\Backend\Flight\PlaceRequest;
@@ -58,19 +60,27 @@ class EloquentPlaceRepository implements PlaceContract
      */
     public function store(array $input, $file = null) :Place
     {
+        DB::beginTransaction();
+
         $place = new Place;
         $place->name = $input['name'];
         $place->description = $input['description'];
 
-        if ($place->save()) {
-            if (isset($file)) {
-                $this->putPicture($place->id, $file);
-            }
+        if (isset($file)) {
+            $img = new Img;
+            $img->data = file_get_contents($file);
+            $img->save();
 
-            return $place;
+            $place->img_id = $img->id;
+
+            $place->save();
+            DB::commit();
+
+        } else {
+            DB::commit();
         }
 
-        throw new NotFoundException('places.update.faile');
+        return $place;
     }
 
     /**
@@ -81,8 +91,11 @@ class EloquentPlaceRepository implements PlaceContract
     	$place = $this->findOrThrowException($id);
 
     	if (isset($file)) {
-    		$this->putPicture($id, $file);
-    		$place->path = '/admin/single/flight/place/'. $id . '/picture';
+            $img = new Img;
+            $img->data = file_get_contents($file);
+            $img->save();
+
+            $place->img_id = $img->id;
     	}
 
         $place->name = $input['name'];
@@ -137,7 +150,13 @@ class EloquentPlaceRepository implements PlaceContract
      */
     public function getPicture(int $id) :string
     {
-        $contents = Storage::get('/place/' . $id . '.jpg');
+        $place = Place::find($id);
+
+        if (!is_null($place)) {
+            throw new NotFoundException('plan.notFound');
+        }
+        
+        $contents = Storage::get('/place/' . $place->path);
         return $contents;
     }
 }

@@ -15,6 +15,7 @@ use App\Models\Flight\Flight;
 use App\Models\Flight\Plan;
 use App\Models\Flight\Type;
 use App\Models\Flight\Place;
+use App\Models\Flight\Img;
 //Exceptions
 use App\Exceptions\NotFoundException;
 //Requests
@@ -51,7 +52,7 @@ class PlaceController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $input = $request->except('q', 'file');
+            $input = $request->except('file');
             $place = $this->places->store($input, $file);
         }
         else {
@@ -95,11 +96,13 @@ class PlaceController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function picture($id)
+    public function picture($place_id)
     {
-        $picture = $users = DB::table('imgs')->where('id', $id)->first();
-        //var_dump($picture->data);
-        //$picture = $this->places->getPicture($id);
-        return \Response::make($picture->data, 200, ['Content-Type' => 'image/*']);
+        $picture = Place::find($place_id)->img->data;
+        // echo "<pre>";
+        // var_dump($place);
+        // echo "</pre>";
+        //$picture = $this->places->getPicture($place_id);
+        return \Response::make($picture, 200, ['Content-Type' => 'image/*']);
     }    
 }
