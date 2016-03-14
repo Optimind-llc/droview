@@ -1,0 +1,80 @@
+.main-content{
+  padding-left: 30px;
+}
+
+.reservation{
+  .panel-heading{
+    position: relative;
+    .panel-title{
+      font-weight: 600;
+    }
+    button{
+      position: absolute;
+      right: 10px;
+      top: 3px;
+    }
+  }
+  .panel-body{
+    .main-status{
+      img{
+        width: 100%;
+      }
+    }
+    .connection-status{
+
+    }
+  }
+}
+
+.connection-status{
+  h4{
+    margin-left: 20px;
+
+    span.help{
+      margin-left: 20px;
+      font-size: 12px;
+      color: #6A7585;
+    }
+  }
+}
+
+.status-body{
+  margin: 10px 0 0 20px;
+
+  tr{
+    //font-size: 12px;
+    span{
+      font-weight: 600;
+    }
+  }
+}
+
+.cancel{
+  p{
+    margin-right: 20px;
+    color: #da4453;
+    display: block;
+    text-align: right;
+    &:hover{
+      color: #ed5565;
+    }
+  }
+}
+
+.example-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+}
+
+.example-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0;
+}
