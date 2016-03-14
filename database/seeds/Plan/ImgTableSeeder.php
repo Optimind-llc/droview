@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-use Storage;
+//use Storage;
 
 class ImgTableSeeder extends Seeder {
 
