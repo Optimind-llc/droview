@@ -11,7 +11,7 @@ module.exports = {
     './src-admin/index',
   ],
   output: {
-    path: path.join(__dirname, '../dist/admin'),
+    path: path.join(__dirname, '../../public/dist/admin'),
     filename: 'bundle.js',
     publicPath: '/dist/admin/'
   },

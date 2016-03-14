@@ -11,7 +11,7 @@ module.exports = {
     './src-front/index'
   ],
   output: {
-    path: path.join(__dirname, '../dist/front'),
+    path: path.join(__dirname, '../../public/dist/front'),
     filename: 'bundle.js',
     publicPath: '/dist/front/'
   },
