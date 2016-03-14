@@ -1,0 +1,10 @@
+{
+  "bootstrapVersion": 3,
+  "useFlexbox": true,
+
+  "styleLoaders": ["style", "css", "sass"],
+  "bootstrapCustomizations": "./resources/assets/landingPage/css/main.scss",
+
+  "styles": true,
+  "scripts": false,
+}

@@ -260,3 +260,37 @@ html[xmlns] .flexslider .slides {
     right: 10px;
   }
 }
+
+
+
+div.tech-container>a {
+    color: #686868!important;
+    width: 100%;
+    margin: 30px 8px 0;
+    display: table;
+    position: relative;
+    float: left;
+}
+
+div.tech-container div.tech-pattern {
+    border: 1px solid #e8e8e8;
+    border-bottom: 15px solid #e8e8e8;
+    display: inline-block;
+    vertical-align: top;
+    height: 380px;
+}
+
+div.tech-container div.tech-pattern img {
+    margin: auto!important;
+    margin-top: 27px!important;
+    display: table;
+    text-align: center;
+}
+
+div.tech-container div.tech-pattern p:last-of-type {
+    text-decoration: underline!important;
+    color: #77d4ff!important;
+    font-style: italic!important;
+    margin-bottom: 40px!important;
+}
+
