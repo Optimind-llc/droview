@@ -1,0 +1,7 @@
+/.idea/
+/node_modules/
+/webpack/dist/
+/webpack-admin/dist/
+/coverage/
+/screenshots/
+/dist/

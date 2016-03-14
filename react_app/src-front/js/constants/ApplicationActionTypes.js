@@ -1,0 +1,8 @@
+export const CANGE_LOCALE = 'CANGE_LOCALE';
+export const CONNECTION_TEST_ON = 'CONNECTION_TEST_ON';
+export const CONNECTION_TEST_OFF = 'CONNECTION_TEST_OFF';
+
+// export const SIDEVAR_ON = 'SIDEVAR_ON';
+// export const SIDEVAR_OFF = 'SIDEVAR_OFF';
+// export const CHANGE_SIDEVAR = 'CHANGE_SIDEVAR';
+

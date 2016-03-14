@@ -1,0 +1,58 @@
+general:
+  branches:
+    only:
+      - master
+      - build
+      - deploy
+      - stable
+
+machine:
+  timezone:
+    Asia/Tokyo
+  node:
+    version: 5.5.0
+  environment:
+    LARABEL_CLONE_URL: git@github.com:HoritaWorks/laravel_app.git
+    BUILD_LARABEL_PUSH_BRANCH: build
+    BUILD_LARABEL_CLONE_BRANCH: master
+    STABLE_LARABEL_CLONE_BRANCH: stable
+    STABLE_LARABEL_PUSH_BRANCH: stable-verify
+    NEXT_BUILD_PROJECT: laravel-prod-image
+
+
+
+dependencies:
+  pre:
+    - node -v
+    - npm -v
+  override:
+    - rm -rf node_modules
+    - npm install
+    - npm install npm@3.7.2 -g
+    - npm rebuild node-sass
+
+test:
+  override:
+    - npm run test
+    - npm run build
+
+
+deployment:
+  build:
+    branch: build
+    commands:
+      - "git clone -b $BUILD_LARABEL_CLONE_BRANCH $LARABEL_CLONE_URL"
+      - "cp -Rf dist laravel_app/public"
+      - git rev-parse --abbrev-ref HEAD > app-front-version
+      - git --no-pager log --pretty=oneline --abbrev-commit | head -n 1 >> app-front-version
+      - mv app-front-version laravel_app/public
+      - "mv release.sh laravel_app && cd laravel_app && sh release.sh $BUILD_LARABEL_PUSH_BRANCH"
+      # - "curl -X POST https://circleci.com/api/v1/project/HoritaWorks/${NEXT_BUILD_PROJECT}/tree/master?circle-token=${CIRCLE_CI_API_KEY}"
+
+  stable:
+    branch: stable
+    commands:
+      - "git clone -b $STABLE_LARABEL_CLONE_BRANCH $LARABEL_CLONE_URL"
+      - "cp -Rf dist laravel_app/public"
+      - "mv release.sh laravel_app && cd laravel_app && sh release.sh $STABLE_LARABEL_PUSH_BRANCH"
+      # - "curl -X POST https://circleci.com/api/v1/project/HoritaWorks/${NEXT_BUILD_PROJECT}/tree/master?circle-token=${CIRCLE_CI_API_KEY}"

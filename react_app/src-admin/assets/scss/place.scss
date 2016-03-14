@@ -1,0 +1,57 @@
+.placs-card-wrap {
+	display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+	.flightCard {
+    width: 200px;
+    height: 200px;
+    margin: 10px 5px 40px 5px;
+	}
+}
+
+.dropable-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 15px;
+}
+
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 15px;
+  background-color: rgba(0,0,0,0.5);
+  opacity: 60%;
+
+  .border {
+    border: 2px solid white;
+    border-radius: 5px;
+    height: 100%;
+
+    i {
+      display: block;
+      color: white;
+      font-size: 40px;
+      position: absolute;
+      top: 40%;
+      left: 50%;  
+      margin-top: -20px;
+      margin-left: -21px;
+    }
+
+    p {
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      margin-top: -20px;
+      margin-left: -196px;
+    }
+  }    
+
+}
