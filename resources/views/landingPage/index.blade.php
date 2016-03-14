@@ -29,12 +29,13 @@
       <a class="logo" href="/">H works</a>
       <nav class="navigation" role="navigation">
         <ul class="primary-nav">
-          <li><a href="#intro">About</a></li>
-          <li><a href="#services">services</a></li>
-          <li><a href="#works">Works</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#solution">Solution</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#portfolio">portfolio</a></li>
           <li><a href="#teams">Our Team</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="/">Blog</a></li>
         </ul>
       </nav>
       <a href="#" class="nav-toggle">Menu<span></span></a> </div>
@@ -50,135 +51,198 @@
     </div>
   </div>
 </section>
-<!-- header section --> 
+<!-- header section -->
 
-<!-- Intro Section -->
-<section id="introduction" class="section introduction">
+<!-- About Section -->
+<section id="about" class="section about">
   <div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>H works　とは</h3>
+      <h3>面白さをとことん探求する</h3>
+      <p>H works は面白さをとことん追求するという理念をもとに設立した組織です。</p>
+      <p>面白さを突き詰める、面白さをとことん追求するという理念をもとに設立した組織である。我々が世の中にある面白いものを発見するために日々アンテナを高く張っている。面白いと思うものに結果がでるまで全力で取り組み、新しい価値を世の中に創造するユーザーからの評価を常に大事にし、より良いもの作りに取り組む我々が取り組む重大なテーマであるインターネットとコンピューターサイエンスに新しい価値を創造します。</p>
+      <p>H works は面白さをとことん追求するという理念をもとに設立した組織です。</p>
+      <p>
+      ユーザーの切実なニーズをくみ取り、最適な手段を模索する
+      本組織発祥の地名古屋から世界に向けて発信する。
+      世界トップレベルに達する私たちは諦めません
+      達するまで
+      日々努力を怠りません
+      プロジェクトに最適な開発リソースを提供します。
+      </p>
+    </div>
+  </div>
+</section>
+<!-- About Section -->
+
+<!-- Solution Section -->
+<section id="solution" class="section solution">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>サービス・ソリューション</h3>
+    </div>
+    <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-strategy"></span>
+      <div class="services-content">
+        <h5>シングルアプリケーション化</h5>
+        <p>既存のシステムをシングルアプリケーションに構築し直します。デザインの流用が可能であるかどうかで料金が異なります。ご相談ください。</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-briefcase"></span>
+      <div class="services-content">
+        <h5>Webページプラグイン導入</h5>
+        <p>現在ご利用中のHPにJavascriptを１行加えるだけで機能追加を行うことができます。</p>
+        <p>現在以下のプラグインをご提供できます。</p>
+        <ul>
+          <li>予約システム</li>
+          <li>チャットシステム</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-tools"></span>
+      <div class="services-content">
+        <h5>低コストでセキュアなサーバー導入支援</h5>
+        <p></p>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-tools"></span>
+      <div class="services-content">
+        <h5>アジャイル開発に関するコンサルティング</h5>
+        <p></p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Solution Section -->
+
+<!-- Technology Section -->
+<section id="technology" class="technology">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>テクノロジー</h3>
+    </div>
     <div class="row">
-      <div class="col-md-4 col-sm-6">
-        <div class="intro-content">
-          <h2>H works とは</h2>
+      <div class="col-md-3 col-sm-6">
+        <div class="tech-container">
+          <a href="">
+            <div class="tech-pattern text-center clear-fix">
+              <h2>Javascript</h2>
+              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>Read more &gt;&gt;</p>
+            </div>
+          </a>
         </div>
       </div>
-      <div class="col-md-8 col-sm-6">
-        <div class="intro-content">
-          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas sed diam eget risus varius blandit sit amet non magna. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
-          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas sed diam eget risus varius blandit sit amet non magna. Nullam quis risus eget urna mollis ornare vel eu leo. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. </p>
+      <div class="col-md-3 col-sm-6">
+        <div class="tech-container">
+          <a href="">
+            <div class="tech-pattern text-center clear-fix">
+              <h2>Javascript</h2>
+              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>Read more &gt;&gt;</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="tech-container">
+          <a href="">
+            <div class="tech-pattern text-center clear-fix">
+              <h2>Javascript</h2>
+              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>Read more &gt;&gt;</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="tech-container">
+          <a href="">
+            <div class="tech-pattern text-center clear-fix">
+              <h2>OS virtualization</h2>
+              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>Read more &gt;&gt;</p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- Intro Section --> 
+<!-- Technology Section -->
 
 <!-- intro section -->
 <section id="intro" class="section intro">
   <div class="container">
     <div class="col-md-8 col-md-offset-2 text-center">
-      <h3>H works について</h3>
-      <p>Start Bootstrap has everything you need to get your new website up and in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
+      <h3>開発に関して</h3>
+      <h5>初期の要件定義はあまり意味がない</h5>
+        <p>新規サービスを立ち上げる時、初期システム開発時点で完璧なシステムを作ることは非常に難しいです。どれだけ入念に市場調査を行い、ユーザーに対してヒアリングやインタビューを繰り返していたとしても、ユーザーに利用してもらわない段階で、サイトをリリースする前の段階で把握できることには限界があります。WEBサービスを成功させるためには、無理をして完璧なシステムを初期でつくるのではなく、可能な限り早くプロトタイプとなるサービスをリリースし、できるだけ早い段階で、多くのユーザーに利用してもらい、そのフィードバックをもとに、システム改善を継続的に行っていくことが重要です。</p>
+        <p>これはいわゆる、リーンスタートアップやアジャイル開発と呼ばれているものであり、新規Webサービスを立ち上げる際に積極的に採用されています。</p>
+      <h5>スピードが重要</h5>
+        <p>一般的な受託開発の場合、ご担当者と開発会社にて要件定義を行って、ドキュメントを作成し、要件をFIXしていきます。仕様を途中で変更すると非常に高いコストがかかるため、初期の要件定義に多くの時間を費やし完璧なものを作成します。また、ここでできるだけ多くの機能を盛り込んだほうが受注額を高くすることができるので、どうしても高機能なものになってしまい開発時間も長くなってしまいます。</p>
+        <p>我々はこれらとは全く別の方法で開発を請け負います</p>
+        <p>初回の要件定義では必要最低限の機能のみを洗い出し、あってもなくても良い機能はすべて削ぎ落とします。またデザインも必要最低限に抑え、早くプロトタイプとしてリリースすることを目指します。</p>
+        <p>システムの規模にもよりますが、数週間から１ヶ月で実際にユーザーが利用できるものを作成します。クライアント様がご希望であれば、弊社のサーバーにてプロトタイプの実稼働させることもいたします。</p>
+      <h5>満足いくまで改善</h5>
+        <p>プロトタイプ完成後は実際のユーザーに利用してもらい、それらのフィードバックからシステム改善が必要であれば対応します。</p>
+        <p>１サイクルごとに料金が発生しますが、クライアント様にご満足いただけるまで何度でもシステム改善を行います。</p>
     </div>
   </div>
 </section>
 <!-- intro section -->
 
-<!-- services section -->
-<section id="services" class="services service-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-strategy"></span>
-        <div class="services-content">
-          <h5>Strategy & Consulting</h5>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec nulla non metus.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-briefcase"></span>
-        <div class="services-content">
-          <h5>corporate identity</h5>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec nulla non metus.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-tools"></span>
-        <div class="services-content">
-          <h5>web design and development</h5>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec nulla non metus.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-genius"></span>
-        <div class="services-content">
-          <h5>Branding</h5>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec nulla non metus.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-megaphone"></span>
-        <div class="services-content">
-          <h5>Digital marketing</h5>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec nulla non metus.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-trophy"></span>
-        <div class="services-content">
-          <h5>Promotion material</h5>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec nulla non metus.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- services section --> 
 <!-- work section -->
-<section id="works" class="works section no-padding">
-  <p>ポートフォリオ</p>
+<section id="portfolio" class="works portfolio">
   <div class="container-fluid">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>ポートフォリオ</h3>
+    </div>
     <div class="row no-gutter">
-      <div class="col-lg-3 col-md-6 col-sm-6 work">
-        <a href="/login" class="work-box">
-          <img src="/landing-page/images/droview_logo.png" alt="">
-          <div class="overlay">
-            <div class="overlay-caption">
-              <h5>Project Name</h5>
-              <p>Website Design</p>
+      <div class="col-lg-4 col-md-6 col-sm-6 work">
+        <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
+          <a href="/droview" class="work-box">
+            <img src="/landing-page/images/droview.png" alt="">
+            <div class="overlay">
+              <div class="overlay-caption">
+                <h5>Droview</h5>
+                <p>予約管理システム</p>
+              </div>
             </div>
-          </div>
-          <!-- overlay --> 
-        </a>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work">
-        <a href="/" class="work-box">
-          <img src="/landing-page/images/work-2.jpg" alt="">
-          <div class="overlay">
-            <div class="overlay-caption">
-              <h5>Project Name</h5>
-              <p>Website Design</p>
-            </div>
-          </div>
-          <!-- overlay --> 
+            <!-- overlay --> 
           </a>
+        </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work">
-        <a href="/" class="work-box">
-          <img src="/landing-page/images/work-3.jpg" alt="">
-          <div class="overlay">
-            <div class="overlay-caption">
-              <h5>Project Name</h5>
-              <p>Website Design</p>
+      <div class="col-lg-4 col-md-6 col-sm-6 work">
+        <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
+          <a href="/" class="work-box">
+            <img src="/landing-page/images/work-2.jpg" alt="">
+            <div class="overlay">
+              <div class="overlay-caption">
+                <h5>Project Name</h5>
+                <p>Website Design</p>
+              </div>
             </div>
-          </div>
-          <!-- overlay --> 
-        </a>
+            <!-- overlay --> 
+            </a>
+        </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work">
-        <a class="work-box" href="/">
-          <img src="/landing-page/images/work-4.jpg" alt="">
-          <div class="overlay">
-            <div class="overlay-caption">
-              <h5>Project Name</h5>
-              <p>Website Design</p>
+      <div class="col-lg-4 col-md-6 col-sm-6 work">
+        <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
+          <a href="/" class="work-box">
+            <img src="/landing-page/images/work-3.jpg" alt="">
+            <div class="overlay">
+              <div class="overlay-caption">
+                <h5>Project Name</h5>
+                <p>Website Design</p>
+              </div>
             </div>
-          </div>
-        <!-- overlay --> 
-        </a>
+            <!-- overlay --> 
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -188,13 +252,18 @@
 <section id="teams" class="section teams">
   <div class="container">
     <div class="row">
+    </div>
+    <div class="row">
       <div class="col-md-3 col-sm-6"></div>
       <div class="col-md-3 col-sm-6">
         <div class="person"> <img src="/landing-page/images/team-2.jpg" alt="" class="img-responsive">
           <div class="person-content">
             <h4>Nakajima Akinori</h4>
             <h5 class="role">共同代表：インフラエンジニア</h5>
-            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p>名古屋大学大学院　工学研究科卒業</p>
+            <p>在学中は倒立振子の制御に関する解析を行う</p>
+            <p>サーバーインフラ周辺の知識に精通、仮想コンテナ技術を活用しセキュアでスケール可能なサーバーを構築するための技術や知見を多く有しており、開発環境構築やサーバーデプロイなどを担当</p>
+            <p>現在、AWSのクローンを構築するために独自の研究開発を行っている</p>
           </div>
           <ul class="social-icons clearfix">
             <li><a href="#" class=""><span class="fa fa-facebook"></span></a></li>
@@ -209,7 +278,10 @@
           <div class="person-content">
             <h4>Saito Shiichi</h4>
             <h5 class="role">共同代表：フルスタックエンジニア</h5>
-            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p>名古屋大学大学院　環境学研究科在学</p>
+            <p>日本全国の映画サークルを巻き込んだ映画コンテストを企画運営する。その際、映画データベースおよびWebシステムを構築</p>
+            <p>HTML5, CSS, Javascriptを活用したフロントサイドからPHP, MySQL, Redisを活用したサーバーサイドまで幅広く開発</p>
+            <p>React.jsを活用したシングルアプリケーション構築を最も得意としている</p>
           </div>
           <ul class="social-icons clearfix">
             <li><a href="#" class=""><span class="fa fa-facebook"></span></a></li>
@@ -274,7 +346,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 conForm">
-        <h5>お気軽にお問い合わせください</h5>
+        <h5>お問い合わせ</h5>
         <p>H works はお客様からのご要望になんでも全力でご対応します</p>
         <div id="message"></div>
         <form method="post" action="php/contact.php" name="cform" id="cform">
