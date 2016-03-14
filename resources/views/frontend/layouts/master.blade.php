@@ -7,39 +7,24 @@
         <meta name="_token" content="{{ csrf_token() }}" />
 
         <title>@yield('title', app_name())</title>
-
-        <!-- Meta -->
-        <meta name="description" content="@yield('meta_description', 'Default Description')">
-        <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
-        @yield('meta')
-
         <!-- Styles -->
-        <link rel="stylesheet" type="text/css" href="build/css/bootstrap-social.css">
-        @yield('before-styles-end')
-        {!! Html::style(elixir('css/frontend.css')) !!}
-        @yield('after-styles-end')
-
+        <link rel="stylesheet" type="text/css" href="/build/css/bootstrap-social.css">
+        <link rel="stylesheet" type="text/css" href="/build/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/droview/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/droview/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="/droview/css/droview.css">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
     </head>
     <body id="app-layout">
-
-        @include('frontend.includes.nav')
-
-        <div class="container">
-            @include('includes.partials.messages')
-            @yield('content')
-        </div><!-- container -->
+        @yield('content')
 
         <!-- JavaScripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
-        {!! Html::script('js/vendor/bootstrap.min.js') !!}
-
-        @yield('before-scripts-end')
-        {!! Html::script(elixir('js/frontend.js')) !!}
-        @yield('after-scripts-end')
-
-        @include('includes.partials.ga')
+        <script src="/vender/js/jquery.min.js"></script>
+        <script src="/vender/js/bootstrap.min.js"></script>
+        <script src="/droview/js/jquery.backstretch.min.js"></script>
+        <script src="/droview/js/jquery.countdown.js"></script>
+        <script src="/droview/js/jquery.subscribe.js"></script>
+        <script src="/droview/js/main.js"></script>
     </body>
 </html>

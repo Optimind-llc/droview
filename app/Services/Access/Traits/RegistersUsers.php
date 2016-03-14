@@ -35,6 +35,15 @@ trait RegistersUsers
         } else {
             auth()->login($this->user->create($request->all()));
             event(new UserRegistered(access()->user()));
+
+            $ticket = [
+                'user_id' => \Auth::user()->id,
+                'amount' => 10,
+                'method' => 'seeds'
+            ];
+
+            DB::table('tickets')->insert($ticket);
+
             return redirect($this->redirectPath());
         }
     }

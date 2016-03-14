@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\GeneralException;
 use Laravel\Socialite\Facades\Socialite;
 use App\Events\Frontend\Auth\UserLoggedIn;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class UseSocialite
@@ -60,7 +61,13 @@ trait UseSocialite
          * Log the user in
          */
         auth()->login($user, true);
+            $ticket = [
+                'user_id' => \Auth::user()->id,
+                'amount' => 10,
+                'method' => 'seeds'
+            ];
 
+            DB::table('tickets')->insert($ticket);
         /**
          * User authenticated, check to see if they are active.
          */

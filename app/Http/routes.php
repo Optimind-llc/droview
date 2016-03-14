@@ -12,9 +12,13 @@ Route::get('dbtest/{user_id}/{flight_id}', 'DBtestController@dbtest');
 Route::get('dbcheck', 'DBtestController@dbcheck');
 Route::get('admin/single/dbcheck', 'DBtestController@dbcheck');
 
+Route::get('admin/single/flight/places/{id}/picture', 'Backend\Api\PlaceController@picture');
+
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('myprofile', 'ValidationController@profile');
 });
+
 
 
 Route::group(['middleware' => 'web'], function() {
@@ -36,22 +40,7 @@ Route::group(['middleware' => 'web'], function() {
     });
 });
 
-/**
- * Backend Routes
- * Namespaces indicate folder structure
- * Admin middleware groups web, auth, and routeNeedsPermission
- */
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
-    /**
-     * These routes need view-backend permission
-     * (good if you want to allow more than one group in the backend,
-     * then limit the backend features by different roles or permissions)
-     *
-     * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
-     */
-    require (__DIR__ . '/Routes/Backend/Dashboard.php');
-    require (__DIR__ . '/Routes/Backend/Access.php');
-    require (__DIR__ . '/Routes/Backend/LogViewer.php');
 
     Route::group(['namespace' => 'Api', 'prefix' => 'single'], function () {
         require (__DIR__ . '/Routes/Backend/Api/Dashboard.php');

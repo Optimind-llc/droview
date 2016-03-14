@@ -33,7 +33,7 @@ Route::group(['prefix' => 'flight'], function (){
 	Route::post('/place/{id}/update', 'PlaceController@update');
 	Route::delete('/place/{id}', 'PlaceController@delete');
 	Route::post('/place/picture', 'PlaceController@updatePicture');
-	Route::get('/places/{id}/picture', 'PlaceController@picture');
+	//Route::get('/places/{id}/picture', 'PlaceController@picture');
 
 	Route::post('/timetables', 'FlightController@timetables');
 	Route::patch('/flight', 'FlightController@update');

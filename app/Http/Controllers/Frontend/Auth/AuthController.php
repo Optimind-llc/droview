@@ -23,7 +23,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/mypage/reserved';
+    protected $redirectTo = '/droview/reserved';
 
     /**
      * Where to redirect Admin user after login.
