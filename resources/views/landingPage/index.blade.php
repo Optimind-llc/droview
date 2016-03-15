@@ -126,7 +126,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h2>Javascript</h2>
-              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <img src="" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
               <p>Read more &gt;&gt;</p>
             </div>
@@ -138,7 +138,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h2>Javascript</h2>
-              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <img src="" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
               <p>Read more &gt;&gt;</p>
             </div>
@@ -150,7 +150,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h2>Javascript</h2>
-              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <img src="" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
               <p>Read more &gt;&gt;</p>
             </div>
@@ -162,7 +162,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h2>OS virtualization</h2>
-              <img src="http://www.orientsoftware.net/Media/Default/Images/Technology/NET.jpg" class="img-responsive">
+              <img src="" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
               <p>Read more &gt;&gt;</p>
             </div>

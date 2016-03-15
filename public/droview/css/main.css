@@ -27,27 +27,28 @@ h5 {
 	text-transform: uppercase;
 	font-weight: 700;
 }
-.btn {
+
+#btn_to_demo {
+	position: absolute;
+	top: 65%;
+	left:0;
+	right: 0;
 	color: #fff;
 	font-size: 13px;
 	font-weight: 600;
-	border-bottom:3px solid rgba(255, 255, 255, 0.3);
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 0px;
-	border-radius: 0px;
-	letter-spacing:3px;
-	line-height:30px;
+	letter-spacing: 3px;
+	line-height: 30px;
+	text-align: center;
+	margin: auto;
 	display: inline-block;
 	text-transform: uppercase;
-	margin-top: 150px;
 }
-.btn:hover, .btn:focus {
+#btn_to_demo:hover, #btn_to_demo:focus {
 	color: #fff;
-	border-bottom:3px solid rgba(229, 46, 46, 1);
 }
-.btn-large {
-	padding: 15px 40px;
-}
+
 /* ------------------------------------------------------------------------------
 	Global Styles
 -------------------------------------------------------------------------------*/
@@ -87,14 +88,6 @@ ul li {
 /* ------------------------------------------------------------------------------
 	Banner
 -------------------------------------------------------------------------------*/
-
-.main_logo {
-	margin: 0 auto;
-    width:240px;
-    height:171px;
-    background-image:url(/droview/images/droview_logo.svg);
-    background-size:100%;
-}
 .banner-area {
 	position: relative;
 }
@@ -109,8 +102,8 @@ ul li {
 }
 .banner-text {
 	position: static;
-	padding-top: 12%;
-	padding-bottom: 12%;
+	padding-top: 25%;
+	padding-bottom: 35%;
 }
 .banner-text h1 {
 	margin-top:10%;
@@ -293,6 +286,115 @@ ul li {
 	font-weight:400px;
 	color:#b3b3b3;
 }
+
+#conept h3 {
+    text-align: center;
+    font-family: "MS PMincho", "ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", serif;
+    font-size: 24px;
+    height: 100px;
+    padding-top: 15px;
+    line-height: 1.8em;
+    letter-spacing: 0.4em;
+    text-shadow: 4px 5px 5px #d9eab7;
+    margin: auto;
+}
+
+.concept1_wrap {
+    position: relative;
+    margin: 100px 0 100px 0;
+}
+.concept1_wrap svg{
+    display: block;
+    margin: auto;
+}
+
+#owner_wrap {
+	fill: #F7E7CE;
+}
+#owner_wrap:hover {
+	fill: #F7E7CE;
+}
+
+.owner_content_wrap {
+	width: 850px;
+	height: 100px;
+	margin-top: 50px;
+	background-color: #F7E7CE;
+}
+.user_content_wrap {
+	width: 850px;
+	height: 100px;
+	margin-top: 50px;
+	background-color: #DBEFFC;
+}
+.content_head {
+	height: 100px;
+	line-height: 100px;
+	border-right: dotted 2px #666666;
+}
+.content_head h4{
+	line-height: 80px;
+}
+
+#arrow_wrap {
+    margin: 100px 0 100px 0;
+}
+
+#arrow_wrap svg {
+    display: block;
+    margin: auto;	
+}
+
+.what_is_droview {
+	text-align: center;
+}
+
+.btn05 {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    width: 200px;
+    position: relative;
+    perspective: 300px;
+    -webkit-perspective: 300px;
+}
+ 
+.btn05 img {
+    text-align: center;
+    display: block;
+    width: 200px;
+    padding: 30px 0;
+    position:absolute;
+    top: 800px;
+    margin-top: -30px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: 0.8s;
+}
+.btn05 .back {
+    transform:rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+}
+ 
+.btn05:hover .front {
+    transform:rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+}
+ 
+.btn05:hover .back {
+    transform:rotateY(360deg);
+    -webkit-transform:rotateY(360deg);
+}
+
+
+#path1 {
+	transition: 3s;
+	fill: white;
+}
+#path1:hover {
+	fill: black;
+}
+
 /* ------------------------------------------------------------------------------
 	 Footer
 -------------------------------------------------------------------------------*/

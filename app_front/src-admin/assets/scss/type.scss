@@ -1,0 +1,162 @@
+.type-wrap {
+    .left-panel-wrap {
+        height: 530px;
+        padding-top: 20px;
+        overflow: scroll;
+    }
+
+    .right-panel-wrap {
+
+        h4 {
+            margin-top: 20px;
+        }
+        .right-panel {
+            height: 457px;
+            border: solid #9E9E9E 1px;
+            margin-top: 10px;
+            position: relative;
+
+            p.select {
+                margin-top: 200px;
+            }
+
+            p.saving-progress {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+
+                &::before {
+                    content: attr(data-label);
+                    color: #1E88E5;
+                }
+            }           
+        }
+    }
+
+    .type-switch-wrap {
+        margin: 20px 0px 10px 0px;
+        .either {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            border-radius: 5px;
+
+            input[type=radio] {
+                display: none;
+                margin: 0;
+
+                & + label {
+                    position: static;
+                    float: left;
+                    display: block;
+                    text-align: center;
+                    width: 50%;
+                    margin: 0;
+                    height: 40px;
+                    line-height: 40px;
+
+                    &::before {
+                        box-sizing: border-box;
+                        content: attr(data-label);
+
+                        position: absolute;
+                        z-index: 1;
+                         
+                        display: block;
+                        width: 50%;
+
+                        color: transparent;
+                        background: transparent;
+                        height: 50px;
+                    }
+                }
+
+                &:checked + label {
+                    &::after　{
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+
+                        box-sizing: border-box;
+                        display: block;
+                        left: 5px;
+                    }   
+                }
+
+                & + label.switch-opened {
+                    color: #BDBDBD;
+
+                    &::before {
+                        color: #BDBDBD;
+                    }      
+                    &::after {
+                        color: #BDBDBD;
+                    }                
+                }
+
+                &:checked + label.switch-opened {
+                    color: #BDBDBD;
+
+                    &::before {
+                        color: #FFF;
+                    }
+                    &::after {
+                        color: #FFF;
+                    }
+                }
+                & + label.switch-closed {
+                    color: #BDBDBD;
+
+                    &::before {
+                        color: #BDBDBD;
+                    }
+                    &::after {
+                        color: #BDBDBD;
+                    }
+                }
+
+                &:checked + label.switch-closed {
+                    color: #BDBDBD;
+
+                    &::before {
+                        color: #FFF;
+                    }
+                    &::after {
+                        color: #FFF;
+                    }
+                }
+            }
+
+            input[type=radio] + label + input[type=radio] + label::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                z-index: 0;
+
+                display: block;
+                margin: auto;
+                border: 2px solid #fff;
+
+                transition: all 300ms;
+            }
+
+            input[type=radio]:checked + label + input[type=radio] + label::after {
+                left: 0;
+                right: 50%;
+                background: #37BC9B;
+                border-radius: 5px;
+            }
+            input[type=radio] + label + input[type=radio]:checked + label::after {
+                left: 50%;
+                right: 0;
+                background: #37BC9B;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+.aaa{
+    position: absolute;
+}

@@ -1,0 +1,230 @@
+.timetable-header {
+	width: 100%;
+	height: 100px;
+	background-size: cover;
+	border-radius: 4px;
+	display: inline-block;
+	margin-bottom: 30px; 
+
+	& > * {
+		color: white;
+		text-align: left;
+    	text-shadow: 1px 1px 1px black,
+    				 -1px 1px 1px black,
+    				 1px -1px 1px black,
+    				 -1px -1px 1px black;
+    	margin: 0;
+	}
+
+	h3 {
+		margin: 20px 0 0 20px;
+
+		&::before {
+			content: "\f08d";
+			font-family: FontAwesome;
+		}
+
+		span {
+			margin-left: 10px;
+		}
+
+		span.place {
+			margin-left: 30px;
+			font-size: 20px;
+		}
+
+		span.date {
+			margin-left: 30px;
+			font-size: 20px;
+		}		
+	}
+
+	p {
+		text-align: right;
+		margin: 0 30px 5px 0; 
+	}
+}
+
+.timetable-body {
+	height: 500px;
+
+	.info {
+		margin-right: 45px;
+		margin-bottom: 10px;	
+	}
+
+	.date-wrap {
+	    height: 50px;
+	    display: flex;
+
+		.date{
+			margin: 0 5px 0 5px;
+			flex-basis: 80px;
+			flex-grow: 1;
+			border-radius: 4px;
+			height: 36px;
+			margin-bottom: 10px;
+
+			p {
+				text-align:center;
+				padding-top: 8px;
+			}
+
+			&.active{
+				position: relative;
+
+				p:before{
+					content: "";
+					display: block;
+					border-radius: 4px 4px 0 0;
+					height: 5px;
+					width: 100%;
+					position: absolute;
+				    right: 0px;
+		    		top: 0px;			
+				}
+			}
+		}
+
+		.weekday{
+			background-color: #D8D8D8;
+			p {
+				color:#000000;
+			}
+
+			&.active p:before{
+				background-color: #9B9B9B;
+			}
+		}
+
+		.saturday{
+			background-color: #9BD7EC;
+			p {
+				color:#005BC5;
+			}
+
+			&.active p:before{
+				background-color: #4A90E2;		
+			}
+		}
+
+		.sunday{
+			background-color: #FEDEE2;
+
+			p{
+				color:#CF0000;
+			}
+
+			&.active p:before{
+				background-color: #D0021B;	
+			}
+		}
+	}
+
+	.timetable-wrap {
+		height: 400px;
+	    display: flex;
+	    overflow-y: scroll;
+
+	    .timetable-columns {
+			margin: 0 5px 0 5px;
+			flex-basis: 80px;
+			flex-grow: 1;
+	    }
+	}
+
+	.btn-date {
+		position: absolute;
+		top: 193px;
+		height: 450px;
+		width: 35px;
+		border: 0;
+		border-radius: 4px;
+
+		&::after{
+			content: "\f04b";
+			font-family: FontAwesome;
+			position: absolute;
+			top: 210px;
+		}
+
+		&.back {
+			left: 47px;
+
+			&::after{
+			    left: 11px;
+			    transform: rotate(180deg);
+			}
+		}
+
+		&.next {
+			right: 50px;
+
+			&::after{
+			    right: 11px;
+
+			}
+		}
+
+        &.disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+	}
+
+	.rsv{
+		border: solid #979797 1px;
+		border-radius: 4px;
+		height: 34px;
+		width: 100%;
+		margin-bottom: 5px;
+
+		p {
+			text-align:center;
+			margin-top: 5px;
+		}
+
+        &.past {
+            pointer-events: none !important;
+            border: solid #E0E0E0 1px !important;
+            background-color: #FFF !important;
+            p {color: #9E9E9E !important;} 
+        }
+
+        &.closed {
+        	pointer-events: none;
+            background-color: #EEEEEE;
+            p { color: #616161; }
+        }
+
+        &.opened {
+            background-color: #37BC9B;
+            p { color: #FFF; }
+
+            &.crowded {
+                pointer-events: none;
+                opacity: .5;   
+            }
+
+            &.myReservation{
+                pointer-events: none;
+                opacity: 1 !important;
+	            background-color: #f4d313 !important;
+	            p { color: #FFF !important; }          	
+            }
+        }
+
+		&.example{
+			width: 70px;
+			height: 28px;
+			margin-left: 7px;
+			font-size: 1.2rem;
+			float: right;
+		}
+	}
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); } 
+}

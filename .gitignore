@@ -1,7 +1,7 @@
 /vendor
 /node_modules
-Homestead.yaml
-Homestead.json
+/Homestead.yaml
+/Homestead.json
 
 /public/css/frontend.css
 /public/css/frontend.css.map
@@ -11,6 +11,9 @@ Homestead.json
 /public/js/frontend.js.map
 /public/js/backend.js
 /public/js/backend.js.map
+
+/app_front/node_modules/
+/react_app/node_modules/
 
 .DS_Store
 Thumbs.db
