@@ -40,6 +40,14 @@ class AuthController extends Controller
     protected $redirectAfterLogout = '/droview';
 
     /**
+     * Where to redirect users after they logout
+     * droview/loginに変更したい
+     *
+     * @var string
+     */
+    protected $loginPath = '/login';
+
+    /**
      * @param UserContract $user
      */
     public function __construct(UserContract $user)

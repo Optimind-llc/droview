@@ -3,8 +3,6 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-//use Storage;
-
 class ImgTableSeeder extends Seeder {
 
 	public function run() {

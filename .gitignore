@@ -2,6 +2,7 @@
 /node_modules
 /Homestead.yaml
 /Homestead.json
+/xdebug.log
 
 /public/css/frontend.css
 /public/css/frontend.css.map
