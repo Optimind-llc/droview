@@ -10,21 +10,23 @@
         <!-- Styles -->
         <link rel="stylesheet" type="text/css" href="/build/css/bootstrap-social.css">
         <link rel="stylesheet" type="text/css" href="/build/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/droview/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/vender/css/colorbox.css">
         <link rel="stylesheet" type="text/css" href="/droview/css/responsive.css">
-        <link rel="stylesheet" type="text/css" href="/droview/css/droview.css">
+        <link rel="stylesheet" type="text/css" href="/droview/css/main.css">
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+        <link href="/vender/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!--<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>-->
     </head>
     <body id="app-layout">
         @yield('content')
-
         <!-- JavaScripts -->
         <script src="/vender/js/jquery.min.js"></script>
         <script src="/vender/js/bootstrap.min.js"></script>
+        <script src="/vender/js/jquery.colorbox-min.js"></script>
         <script src="/droview/js/jquery.backstretch.min.js"></script>
         <script src="/droview/js/jquery.countdown.js"></script>
         <script src="/droview/js/jquery.subscribe.js"></script>
         <script src="/droview/js/main.js"></script>
+        @yield('after_js')
     </body>
 </html>
