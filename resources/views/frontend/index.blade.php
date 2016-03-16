@@ -323,8 +323,10 @@
       
       <!-- subscribe form -->
       <div class="col-sm-12 col-md-5 subscribe-form"> 
-
-         <div class="row" id="login-dp">
+        @if (Auth::check())
+            <a class="btn btn-primary" href="/droview/reserve" role="button">マイページへ</a>
+        @else
+        <div class="row" id="login-dp">
             <div class="col-md-12">
               Droviewのβ版を体験する
               <div class="social-buttons">
@@ -356,6 +358,8 @@
               初めての方は <a href="/register"><b>利用登録</b></a>
             </div>
          </div>
+        @endif
+
 
 
 

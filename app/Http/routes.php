@@ -29,6 +29,7 @@ Route::group(['middleware' => 'web'], function() {
 });
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['namespace' => 'Api', 'prefix' => 'single'], function () {
+        require (__DIR__ . '/Routes/Backend/Api/Dashboard.php');
         require (__DIR__ . '/Routes/Backend/Api/Access.php');
         require (__DIR__ . '/Routes/Backend/Api/Flight.php');
         require (__DIR__ . '/Routes/Backend/Api/Pin.php');

@@ -21,8 +21,8 @@ Route::group(['namespace' => 'Auth'], function () {
      */
     Route::group(['middleware' => 'guest'], function () {
         // Authentication Routes
-        Route::get('droview/login', 'AuthController@showLoginForm')->name('auth.login');
-        Route::post('droview/login', 'AuthController@login');
+        Route::get('login', 'AuthController@showLoginForm')->name('auth.login');
+        Route::post('login', 'AuthController@login');
         // Socialite Routes
         Route::get('login/{provider}', 'AuthController@loginThirdParty')->name('auth.provider');
 
