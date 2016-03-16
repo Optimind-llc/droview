@@ -40,12 +40,11 @@ class AuthController extends Controller
     protected $redirectAfterLogout = '/droview';
 
     /**
-     * Where to redirect users after they logout
-     * droview/loginに変更したい
+     * 用認証ページにアクセスした時のリダイレクト先
      *
      * @var string
      */
-    protected $loginPath = '/login';
+    //protected $loginPath = 'droview/login';
 
     /**
      * @param UserContract $user
@@ -55,7 +54,7 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
-    /**
+    /*
      * ユーザーロールによってログイン後のリダイレクト先を変更
      * Override following class method.
      * vendor/laravel/framework/src/Illuminate/Foundation/Auth/RedirectsUsers.php
