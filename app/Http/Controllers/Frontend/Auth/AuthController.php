@@ -39,13 +39,6 @@ class AuthController extends Controller
     protected $redirectAfterLogout = '/droview/reserve';
 
     /**
-     * Where to redirect users after they logout
-     *
-     * @var string
-     */
-    protected $loginPath = 'droview/reserve';
-
-    /**
      * @param UserContract $user
      */
     public function __construct(UserContract $user)
