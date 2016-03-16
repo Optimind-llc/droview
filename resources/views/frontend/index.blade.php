@@ -317,18 +317,48 @@
 <section id="subscribes" class="subscribe">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-5 subscribe-title">
+      <div class="col-sm-12 col-md-7 subscribe-title">
         <h2>Subscribe now.</h2>
       </div>
       
       <!-- subscribe form -->
-      <div class="col-sm-12 col-md-7 subscribe-form"> 
-               
-        <form method="post" action="php/subscribe.php" name="subscribeform" id="subscribeform">
-          <input type="text" name="email" placeholder="Enter your email address to get notified" id="subemail" />
-          <input type="submit" name="send" value="Notify me" id="subsubmit" class="btn2" />
-        </form>
-        
+      <div class="col-sm-12 col-md-5 subscribe-form"> 
+
+         <div class="row" id="login-dp">
+            <div class="col-md-12">
+              Droviewのβ版を体験する
+              <div class="social-buttons">
+                <a href="/login/facebook" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                <a href="/login/google" class="btn btn-go"><i class="fa fa-twitter"></i> Google</a>
+              </div>
+              <form class="form" role="form" method="post" action="/droview/login" accept-charset="UTF-8" id="login-nav">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                   <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                   <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="exampleInputPassword2">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                  <div class="help-block text-right">
+                    <a href="/password/reset">パスワードを忘れた場合</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-block">ログイン</button>
+                </div>
+                <div class="checkbox">
+                  <label><input name="remember" type="checkbox" value="1"> 自動でログインする</label>
+                </div>
+              </form>
+            </div>
+            <div class="bottom text-center">
+              初めての方は <a href="/register"><b>利用登録</b></a>
+            </div>
+         </div>
+
+
+
         <!-- subscribe message -->
         <div id="mesaj"></div>
         <!-- subscribe message --> 

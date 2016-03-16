@@ -25,13 +25,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('profile/edit', 'ProfileController@edit')->name('frontend.user.profile.edit');
         Route::patch('profile/update', 'ProfileController@update')->name('frontend.user.profile.update');
     });
-
-	Route::get('mypage/reserved', 'ApiController@index');
-	Route::get('mypage/reserve', 'ApiController@index')->name('frontend.mypage');
-	Route::get('mypage/timetable/{id}', 'ApiController@index');
-	Route::get('mypage/ticket', 'ApiController@index');
-	Route::get('mypage/profile', 'ApiController@index');
-	Route::get('mypage/flight', 'ApiController@flight');
 	Route::delete('auth', 'Auth\AuthController@destroy');
-
 });

@@ -266,10 +266,11 @@ html[xmlns] .flexslider .slides {
 div.tech-container>a {
     color: #686868!important;
     width: 100%;
-    margin: 30px 8px 0;
+    margin: 30px 8px 80px;
     display: table;
     position: relative;
     float: left;
+
 }
 
 div.tech-container div.tech-pattern {
@@ -277,7 +278,7 @@ div.tech-container div.tech-pattern {
     border-bottom: 15px solid #e8e8e8;
     display: inline-block;
     vertical-align: top;
-    height: 380px;
+    height: 300px;
 }
 
 div.tech-container div.tech-pattern img {
@@ -287,10 +288,7 @@ div.tech-container div.tech-pattern img {
     text-align: center;
 }
 
-div.tech-container div.tech-pattern p:last-of-type {
-    text-decoration: underline!important;
-    color: #77d4ff!important;
-    font-style: italic!important;
-    margin-bottom: 40px!important;
+div.tech-container div.tech-pattern p {
+    margin: auto!important;
+    margin: 27px 10px 0 10px!important;
 }
-

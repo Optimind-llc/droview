@@ -15,7 +15,6 @@ use App\Services\Access\Traits\AuthenticatesAndRegistersUsers;
  */
 class AuthController extends Controller
 {
-
     use AuthenticatesAndRegistersUsers, ConfirmUsers, ThrottlesLogins, UseSocialite;
 
     /**
@@ -37,15 +36,14 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectAfterLogout = '/droview';
+    protected $redirectAfterLogout = '/droview/reserve';
 
     /**
      * Where to redirect users after they logout
-     * droview/loginに変更したい
      *
      * @var string
      */
-    protected $loginPath = '/login';
+    protected $loginPath = 'droview/reserve';
 
     /**
      * @param UserContract $user
@@ -55,7 +53,7 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
-    /**
+    /*
      * ユーザーロールによってログイン後のリダイレクト先を変更
      * Override following class method.
      * vendor/laravel/framework/src/Illuminate/Foundation/Auth/RedirectsUsers.php
@@ -64,17 +62,10 @@ class AuthController extends Controller
      */
     public function redirectPath()
     {
-        // if (property_exists($this, 'redirectPath')) {
-        //     return $this->redirectPath;
-        // }
-
-        // return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
-
         $user = \Auth::user();
         if ($user->hasRole('Administrator'))
         {
            return property_exists($this, 'adminRedirectTo') ? $this->adminRedirectTo : '/home';
-        
         } else
         {
            return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';            

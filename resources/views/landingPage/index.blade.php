@@ -117,54 +117,56 @@
 <!-- Technology Section -->
 <section id="technology" class="technology">
   <div class="container">
-    <div class="col-md-8 col-md-offset-2 text-center">
-      <h3>テクノロジー</h3>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <h3>テクノロジー</h3>
+      </div>
     </div>
+
     <div class="row">
       <div class="col-md-3 col-sm-6">
         <div class="tech-container">
           <a href="">
             <div class="tech-pattern text-center clear-fix">
-              <h2>Javascript</h2>
-              <img src="" class="img-responsive">
-              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
-              <p>Read more &gt;&gt;</p>
+              <h3>フロントエンド</h3>
+              <img src="/img/logos/front_logos.png" class="img-responsive">
+              <p>javascriptのフレームワークReact.jsをベースに開発 レイアウトはbootstrapやMaterial-UIコンポーネントを積極的に活用</p>
             </div>
           </a>
         </div>
       </div>
+
       <div class="col-md-3 col-sm-6">
         <div class="tech-container">
           <a href="">
             <div class="tech-pattern text-center clear-fix">
-              <h2>Javascript</h2>
-              <img src="" class="img-responsive">
+              <h3>データベース</h3>
+              <img src="/img/logos/database_logos.png" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
-              <p>Read more &gt;&gt;</p>
             </div>
           </a>
         </div>
       </div>
+
       <div class="col-md-3 col-sm-6">
         <div class="tech-container">
           <a href="">
             <div class="tech-pattern text-center clear-fix">
-              <h2>Javascript</h2>
-              <img src="" class="img-responsive">
+              <h3>バックエンド</h3>
+              <img src="/img/logos/back_logos.png" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
-              <p>Read more &gt;&gt;</p>
             </div>
           </a>
         </div>
       </div>
+
       <div class="col-md-3 col-sm-6">
         <div class="tech-container">
           <a href="">
             <div class="tech-pattern text-center clear-fix">
-              <h2>OS virtualization</h2>
-              <img src="" class="img-responsive">
+              <h3>サーバーインフラ</h3>
+              <img src="/img/logos/infra_logos.png" class="img-responsive">
               <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
-              <p>Read more &gt;&gt;</p>
             </div>
           </a>
         </div>
@@ -205,11 +207,11 @@
       <div class="col-lg-4 col-md-6 col-sm-6 work">
         <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
           <a href="/droview" class="work-box">
-            <img src="/landing-page/images/droview.png" alt="">
+            <img src="/img/top/logo2.png" alt="">
             <div class="overlay">
               <div class="overlay-caption">
                 <h5>Droview</h5>
-                <p>予約管理システム</p>
+                <p>遠隔ドローンシステム</p>
               </div>
             </div>
             <!-- overlay --> 

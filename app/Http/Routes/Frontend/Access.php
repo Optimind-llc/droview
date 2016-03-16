@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Auth'], function () {
      * These routes require the user to be logged in
      */
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('logout', 'AuthController@logout')->name('auth.logout');
+        Route::get('droview/logout', 'AuthController@logout')->name('auth.logout');
 
         // Change Password Routes
         Route::get('password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');
@@ -21,17 +21,13 @@ Route::group(['namespace' => 'Auth'], function () {
      */
     Route::group(['middleware' => 'guest'], function () {
         // Authentication Routes
-        Route::get('login', 'AuthController@showLoginForm')
-            ->name('auth.login');
-        Route::post('login', 'AuthController@login');
-
+        Route::get('droview/login', 'AuthController@showLoginForm')->name('auth.login');
+        Route::post('droview/login', 'AuthController@login');
         // Socialite Routes
-        Route::get('login/{provider}', 'AuthController@loginThirdParty')
-            ->name('auth.provider');
+        Route::get('login/{provider}', 'AuthController@loginThirdParty')->name('auth.provider');
 
         // Registration Routes
-        Route::get('register', 'AuthController@showRegistrationForm')
-            ->name('auth.register');
+        Route::get('register', 'AuthController@showRegistrationForm')->name('auth.register');
         Route::post('register', 'AuthController@register');
 
         // Confirm Account Routes

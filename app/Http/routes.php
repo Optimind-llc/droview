@@ -1,8 +1,6 @@
 <?php
 
 Route::get('/', 'LandingPageController@index')->name('frontend.index');
-
-Route::get('mypage/reserved', 'Backend\Flight\FlightController@index')->name('admin.flight');
 Route::post('admin/single/validation/user', 'ValidationController@user');
 Route::post('admin/single/validation/role', 'ValidationController@role');
 Route::get('admin/single/getAddress/{post1}/{post2}', 'ValidationController@getAddress');
@@ -18,17 +16,7 @@ Route::get('admin/single/flight/places/{id}/picture', 'Backend\Api\PlaceControll
 Route::group(['middleware' => 'auth'], function () {
     Route::get('myprofile', 'ValidationController@profile');
 });
-
-
-
 Route::group(['middleware' => 'web'], function() {
-    /**
-     * Switch between the included languages
-     */
-    Route::group(['namespace' => 'Language'], function () {
-        require (__DIR__ . '/Routes/Language/Language.php');
-    });
-
     /**
      * Frontend Routes
      * Namespaces indicate folder structure
@@ -39,11 +27,8 @@ Route::group(['middleware' => 'web'], function() {
         require (__DIR__ . '/Routes/Frontend/Access.php');
     });
 });
-
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
-
     Route::group(['namespace' => 'Api', 'prefix' => 'single'], function () {
-        require (__DIR__ . '/Routes/Backend/Api/Dashboard.php');
         require (__DIR__ . '/Routes/Backend/Api/Access.php');
         require (__DIR__ . '/Routes/Backend/Api/Flight.php');
         require (__DIR__ . '/Routes/Backend/Api/Pin.php');
