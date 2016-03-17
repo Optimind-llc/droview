@@ -65,13 +65,13 @@ class App extends Component {
                 <MenuItem
                   id="link-to-top"
                   primaryText="Top"
-                  onTouchTap={() => window.location.href = '/'}
+                  onTouchTap={() => window.location.href = '/droview'}
                   className="link-top"
                 />
                 <MenuItem
                   id="link-to-mypage"
                   primaryText="My Page"
-                  onTouchTap={() => window.location.href = '/mypage/reserve'}
+                  onTouchTap={() => window.location.href = '/droview/reserve'}
                 />
                 <MenuItem
                   id="sign-out"
