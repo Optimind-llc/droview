@@ -8,3 +8,90 @@
 @import "profile";
 @import "log";
 @import "react-bs-table";
+
+
+#fh5co-header {
+  float: left;
+  width: 100%;
+  position: relative;
+  z-index: 99;
+  top: 0;
+  margin-bottom: 50px;
+}
+#fh5co-header > .navbar {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  border-radius: 0px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-bottom: 0;
+  background: #fff;
+  -webkit-box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  border: transparent; }
+@media screen and (max-width: 480px) {
+  #fh5co-header > .navbar {
+    padding-left: 0px;
+    padding-right: 0px; } }
+#fh5co-header > .navbar li a {
+  text-transform: uppercase;
+  color: #000;
+  font-weight: normal;
+  font-family: "Montserrat", arial, sans-serif; }
+#fh5co-header > .navbar li a > span .border {
+  display: block;
+  height: 3px;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s; }
+#fh5co-header > .navbar li a > span .border:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #FBB040;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out; }
+#fh5co-header > .navbar li a:hover, #fh5co-header > .navbar li a:focus {
+  outline: none; }
+#fh5co-header > .navbar li a:hover > span, #fh5co-header > .navbar li a:focus > span {
+  outline: none; }
+#fh5co-header > .navbar li a:hover > span .border:before, #fh5co-header > .navbar li a:focus > span .border:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1); }
+#fh5co-header > .navbar li.active a {
+  background: transparent; }
+#fh5co-header > .navbar li.active a > span .border {
+  background: #FBB040; }
+#fh5co-header .navbar-brand {
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-family: "Montserrat", arial, sans-serif;
+  color: #000; }
+#fh5co-header .navbar-brand:hover {
+  color: #ccc; }

@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Auth'], function () {
      * These routes require the user to be logged in
      */
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('droview/logout', 'AuthController@logout')->name('auth.logout');
+        Route::get('logout', 'AuthController@logout')->name('auth.logout');
 
         // Change Password Routes
         Route::get('password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');

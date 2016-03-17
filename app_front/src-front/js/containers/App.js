@@ -14,18 +14,35 @@ class App extends Component {
     const { locale, alerts, routing, children, actions: {deleteSideAlerts} } = this.props;
 
     return (
-      <div className="container">
-        <AppBar title="H works" style={{marginBottom: 40}}/>
-        <Navigation/>
-        <div className="content col-md-10">
-          <div style={{marginLeft: 30}}>
-          {children}
+      <div>
+        <header id="fh5co-header" role="banner">
+          <nav className="navbar navbar-default" role="navigation">
+            <div className="container-fluid">
+              <div className="navbar-header"> 
+                {/* Mobile Toggle Menu Button */}
+                <a href="#" className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><i /></a>
+                <a className="navbar-brand" href="/droview">Droview</a>
+              </div>
+              <div id="fh5co-navbar" className="navbar-collapse collapse">
+                <ul className="nav navbar-nav navbar-right">
+                  <li><a href="/logout"><span>ログアウト <span className="border" /></span></a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div className="container">
+          <Navigation/>
+          <div className="content col-md-10">
+            <div style={{marginLeft: 30}}>
+            {children}
+            </div>
           </div>
+          <Alert
+            alerts={alerts}
+            deleteSideAlerts={deleteSideAlerts}
+          />
         </div>
-        <Alert
-          alerts={alerts}
-          deleteSideAlerts={deleteSideAlerts}
-        />
       </div>
     );
   }
