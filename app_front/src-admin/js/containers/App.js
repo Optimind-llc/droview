@@ -75,8 +75,8 @@ class App extends Component {
                 />
                 <MenuItem
                   id="sign-out"
+                  className="sign-out"
                   primaryText="Sign out"
-                  onTouchTap={() => window.location.href = '/logout'}
                   onClick={() => window.location.href = '/logout'}
                 />
               </IconMenu>

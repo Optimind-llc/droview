@@ -25,7 +25,9 @@ class App extends Component {
               </div>
               <div id="fh5co-navbar" className="navbar-collapse collapse">
                 <ul className="nav navbar-nav navbar-right">
-                  <li><a href="/logout"><span>ログアウト <span className="border" /></span></a></li>
+                  <li><a href="/logout" id="logout">
+                    <span>ログアウト <span className="border"/></span>
+                  </a></li>
                 </ul>
               </div>
             </div>
