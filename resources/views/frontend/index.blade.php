@@ -336,8 +336,8 @@
               <form class="form" role="form" method="post" action="/login" accept-charset="UTF-8" id="login-nav">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                   <label class="sr-only" name="email" for="input-email">Email address</label>
-                   <input type="email" class="form-control" id="input-email" placeholder="Email address" required>
+                   <label class="sr-only" for="input-email">Email address</label>
+                   <input type="email" name="email" class="form-control" id="input-email" placeholder="Email address" required>
                 </div>
                 <div class="form-group">
                   <label class="sr-only" for="input-password">Password</label>
