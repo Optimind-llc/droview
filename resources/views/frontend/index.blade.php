@@ -333,21 +333,21 @@
                 <a href="/login/facebook" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
                 <a href="/login/google" class="btn btn-go"><i class="fa fa-twitter"></i> Google</a>
               </div>
-              <form class="form" role="form" method="post" action="/droview/login" accept-charset="UTF-8" id="login-nav">
+              <form class="form" role="form" method="post" action="/login" accept-charset="UTF-8" id="login-nav">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                   <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                   <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                   <label class="sr-only" name="email" for="input-email">Email address</label>
+                   <input type="email" class="form-control" id="input-email" placeholder="Email address" required>
                 </div>
                 <div class="form-group">
-                  <label class="sr-only" for="exampleInputPassword2">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                  <label class="sr-only" for="input-password">Password</label>
+                  <input type="password" name="password" class="form-control" id="input-password" placeholder="Password" required>
                   <div class="help-block text-right">
                     <a href="/password/reset">パスワードを忘れた場合</a>
                   </div>
                 </div>
                 <div class="form-group">
-                   <button type="submit" class="btn btn-primary btn-block">ログイン</button>
+                   <button type="submit" class="btn btn-primary btn-block" id="login">ログイン</button>
                 </div>
                 <div class="checkbox">
                   <label><input name="remember" type="checkbox" value="1"> 自動でログインする</label>
