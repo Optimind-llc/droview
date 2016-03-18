@@ -351,7 +351,8 @@
         <h5>お問い合わせ</h5>
         <p>H works はお客様からのご要望になんでも全力でご対応します</p>
         <div id="message"></div>
-        <form method="post" action="php/contact.php" name="cform" id="cform">
+        <form method="post" action="/contact" name="cform" id="cform">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <input name="name" id="name" type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="お名前" >
           <input name="email" id="email" type="email" class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 noMarr" placeholder="ご連絡先" >
           <textarea name="comments" id="comments" cols="" rows="" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="お問い合わせ内容"></textarea>

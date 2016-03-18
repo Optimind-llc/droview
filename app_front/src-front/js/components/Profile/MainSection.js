@@ -36,9 +36,9 @@ class MainSection extends Component {
           </div>
         </div>}
         <div>
-          <button type="button" className="btn btn-default" onClick={this.handleClick.bind(this)}>
+          {/*<button type="button" className="btn btn-default" onClick={this.handleClick.bind(this)}>
             <p id="signout">退会する</p>
-          </button>
+          </button>*/}
         </div>
       </div>
     );

@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', 'LandingPageController@index')->name('frontend.index');
+Route::post('/contact', 'LandingPageController@contact')->name('frontend.contact');
+
 Route::post('admin/single/validation/user', 'ValidationController@user');
 Route::post('admin/single/validation/role', 'ValidationController@role');
 Route::get('admin/single/getAddress/{post1}/{post2}', 'ValidationController@getAddress');
