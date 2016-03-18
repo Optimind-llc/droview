@@ -29,8 +29,8 @@ class LandingPageController extends Controller
     	$email = $request->email;
     	$comments = $request->comments;
 
-        $file = $name . $email . $comments . '.txt';
-        $string = $name . $email . $comments;
+        $file = $name . $email . $comments;
+        $string = $name .' / '. $email .' / '. $comments .' / '. '.txt';
 
         file_put_contents('/app/web/storage/'.$file , $string);
         //$this->dispatch(new SendContactEmail($name, $email, $comments));
