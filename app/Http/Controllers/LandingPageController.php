@@ -32,7 +32,7 @@ class LandingPageController extends Controller
         $file = $name . $email . $comments . '.txt';
         $string = $name . $email . $comments;
 
-        file_put_contents('/app/web/strage', $string);
+        file_put_contents('/app/web/storage'.$file , $string);
         //$this->dispatch(new SendContactEmail($name, $email, $comments));
     	return view('landingPage.contact',compact('name', 'email', 'comments'));
     }
