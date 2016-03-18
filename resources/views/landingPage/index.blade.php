@@ -44,9 +44,7 @@
   <div class="container">
     <div class="col-md-10 col-md-offset-1">
       <div class="banner-text text-center">
-        <h1>H works メインタイトル</h1>
-        <p>Lorem ipsum dolor sit ametcursus magna vel scelerisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna vel scelerisque nisl consectetur et.nisl consectetur et.</p>
-        <a href="#" class="btn btn-large">Find out more</a> </div>
+        <h1>面白さを追求する</h1>
       <!-- banner text --> 
     </div>
   </div>
@@ -58,17 +56,13 @@
   <div class="container">
     <div class="col-md-8 col-md-offset-2 text-center">
       <h3>H works　とは</h3>
-      <h3>面白さをとことん探求する</h3>
-      <p>H works は面白さをとことん追求するという理念をもとに設立した組織です。</p>
-      <p>面白さを突き詰める、面白さをとことん追求するという理念をもとに設立した組織である。我々が世の中にある面白いものを発見するために日々アンテナを高く張っている。面白いと思うものに結果がでるまで全力で取り組み、新しい価値を世の中に創造するユーザーからの評価を常に大事にし、より良いもの作りに取り組む我々が取り組む重大なテーマであるインターネットとコンピューターサイエンスに新しい価値を創造します。</p>
       <p>H works は面白さをとことん追求するという理念をもとに設立した組織です。</p>
       <p>
-      ユーザーの切実なニーズをくみ取り、最適な手段を模索する
-      本組織発祥の地名古屋から世界に向けて発信する。
-      世界トップレベルに達する私たちは諦めません
-      達するまで
-      日々努力を怠りません
-      プロジェクトに最適な開発リソースを提供します。
+        名古屋を拠点として、全世界へ面白いものをお届けします。世界トップレベルに面白いものを提供するために日々アンテナを高くします。
+        世界トップレベルに面白いものを提供するために日々アンテナを高くします。
+        世の中に新しい付加価値をもたらすために、日々新しいプロダクトの開発にトライしています。
+        開発するプロダクトはユーザーの切実なニーズを取り込み無駄なものを一切つけません。
+        本当に必要なものをいかに早く正確に作るかに重点を置いています。
       </p>
     </div>
   </div>
@@ -89,25 +83,32 @@
     </div>
     <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-briefcase"></span>
       <div class="services-content">
-        <h5>Webページプラグイン導入</h5>
+        <h5>WEBページへのプラグイン導入</h5>
         <p>現在ご利用中のHPにJavascriptを１行加えるだけで機能追加を行うことができます。</p>
         <p>現在以下のプラグインをご提供できます。</p>
         <ul>
           <li>予約システム</li>
           <li>チャットシステム</li>
+          <li>ビデオチャットシステム</li>
         </ul>
       </div>
     </div>
     <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-tools"></span>
       <div class="services-content">
         <h5>低コストでセキュアなサーバー導入支援</h5>
-        <p></p>
+        <p>
+          海外製のVPSを利用し低コスト・スケーラブルでセキュアーなサーバーソリューションを提供します。
+          現在お使いのサーバーの維持費や管理コストでお困りの方は是非ご相談ください。
+        </p>
       </div>
     </div>
     <div class="col-md-6 col-sm-6 services text-center"> <span class="icon icon-tools"></span>
       <div class="services-content">
-        <h5>アジャイル開発に関するコンサルティング</h5>
-        <p></p>
+        <h5>アジャイル開発環境の導入支援</h5>
+        <p>
+          アジャイルに適したCIサーバーの構築やローカル開発環境の導入支援を行います。
+          開発環境構築のコスト、CIサーバーの設計にお困りの方はご連絡ください。
+        </p>
       </div>
     </div>
   </div>
@@ -119,7 +120,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center">
-        <h3>テクノロジー</h3>
+        <h3>パートナーシップ</h3>
       </div>
     </div>
 
@@ -130,7 +131,7 @@
             <div class="tech-pattern text-center clear-fix">
               <h3>フロントエンド</h3>
               <img src="/img/logos/front_logos.png" class="img-responsive">
-              <p>javascriptのフレームワークReact.jsをベースに開発 レイアウトはbootstrapやMaterial-UIコンポーネントを積極的に活用</p>
+              <p>React.jsによるシングルアプリケーション開発、レスポンシブデザインを得意としています</p>
             </div>
           </a>
         </div>
@@ -142,7 +143,7 @@
             <div class="tech-pattern text-center clear-fix">
               <h3>データベース</h3>
               <img src="/img/logos/database_logos.png" class="img-responsive">
-              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>スケーラブルで耐障害性のある設計をおこなっております。mariadb galera clusterとconsulを組み合わせ、耐障害性とスケールアップを意識しています。</p>
             </div>
           </a>
         </div>
@@ -154,7 +155,7 @@
             <div class="tech-pattern text-center clear-fix">
               <h3>バックエンド</h3>
               <img src="/img/logos/back_logos.png" class="img-responsive">
-              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>主にLaravel(PHP)を用い、webアプリケーションを構築しています。また、socket.ioを用いた非同期双方向通信サービスも構築いたします。</p>
             </div>
           </a>
         </div>
