@@ -41,7 +41,17 @@
 </section>
 <!--header section -->
 
-
+<!-- Concept Section -->
+<section id="concept">
+  <div class="container">
+    <div class="row">
+      <div class=" center-box">
+        <h3>現在、観光資源をお持ちの方を募集しております<br>本サービスに関心をお持ちの方はぜひご連絡ください</h3>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
 
 <!-- Concept Section -->
 <section id="concept">

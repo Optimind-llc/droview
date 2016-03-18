@@ -171,7 +171,7 @@
             <div class="tech-pattern text-center clear-fix">
               <h3>サーバーインフラ</h3>
               <img src="/img/logos/infra_logos.png" class="img-responsive">
-              <p>Orient Software was founded to focus on the .NET platform. We continuously deliver valuable products using .NET.</p>
+              <p>dockerと各種ミドルウェア(consul-template, consul, registrator)を用いて、サーバー構築、運用、デプロイを完全自動化しています。</p>
             </div>
           </a>
         </div>
