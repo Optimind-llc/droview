@@ -45,6 +45,10 @@
     <div class="col-md-10 col-md-offset-1">
       <div class="banner-text text-center">
         <h1>面白さを追求する</h1>
+        <p>
+          イノベーションは面白さを追求するという人間本来の欲求を追い求めたときにのみ出現すると考えています。<br/>
+          このアプローチをとることにより名古屋から世界へ向けてイノベーションの創出を行います。
+        <p>
       <!-- banner text --> 
     </div>
   </div>

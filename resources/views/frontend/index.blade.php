@@ -205,7 +205,7 @@
 </section>
 
 <!-- Solution Section -->
-<section id="solution">
+<!--<section id="solution">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -239,7 +239,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 
 <!-- Services Section -->
 <section id="services">
@@ -259,9 +259,9 @@
               <div class="timeline-heading">
                   <h4 class="subheading">Step1 会員登録</h4>
               </div>
-              <div class="timeline-body">
+              <!--<div class="timeline-body">
                   <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed. . Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed</p>
-              </div>
+              </div>-->
           </div>
         </li>
         <li class="timeline-inverted">
@@ -272,9 +272,9 @@
               <div class="timeline-heading">
                   <h4 class="subheading">Step2 チケット購入</h4>
               </div>
-              <div class="timeline-body">
+              <!--<div class="timeline-body">
                   <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
+              </div>-->
           </div>
         </li>
         <li>
@@ -285,9 +285,9 @@
               <div class="timeline-heading">
                   <h4 class="subheading">Step3 フライトを予約</h4>
               </div>
-              <div class="timeline-body">
+              <!--<div class="timeline-body">
                   <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
+              </div>-->
           </div>
         </li>
         <li class="timeline-inverted">
@@ -298,9 +298,9 @@
               <div class="timeline-heading">
                   <h4 class="subheading">Step4 ドローンを操縦</h4>
               </div>
-              <div class="timeline-body">
+              <!--<div class="timeline-body">
                   <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
+              </div>-->
           </div>
         </li>
         <li class="timeline-inverted">
@@ -359,9 +359,6 @@
             </div>
          </div>
         @endif
-
-
-
 
         <!-- subscribe message -->
         <div id="mesaj"></div>
