@@ -29,9 +29,11 @@ class LandingPageController extends Controller
     	$email = $request->email;
     	$comments = $request->comments;
 
-    	$user = \Auth::user();
+        $file = "out.txt";
+        $string = $name . $email . $comments;
 
-        $this->dispatch(new SendContactEmail($name, $email, $comments));
+        file_put_contents($file, $string);
+        //$this->dispatch(new SendContactEmail($name, $email, $comments));
     	return view('landingPage.contact',compact('name', 'email', 'comments'));
     }
 }

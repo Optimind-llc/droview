@@ -253,7 +253,7 @@
       <ul class="timeline">
         <li>
           <div class="timeline-image" id="sign_up_movie" href="https://www.youtube.com/embed/Tt5s2iqDHY4?rel=0&showinfo=0&modestbranding=0">
-            <video autoplay="" loop=""><source src="/sample.mp4" type="video/mp4"></video>
+            <video autoplay="" loop=""><source src="/demo.mp4" type="video/mp4"></video>
           </div>
           <div class="timeline-panel">
               <div class="timeline-heading">
@@ -266,7 +266,7 @@
         </li>
         <li class="timeline-inverted">
           <div class="timeline-image" id="buy_ticket_movie" href="https://www.youtube.com/embed/Tt5s2iqDHY4?rel=0&showinfo=0&modestbranding=0">
-            <video autoplay="" loop=""><source src="/sample.mp4" type="video/mp4"></video>
+            <video autoplay="" loop=""><source src="/demo.mp4" type="video/mp4"></video>
           </div>
           <div class="timeline-panel">
               <div class="timeline-heading">
@@ -279,7 +279,7 @@
         </li>
         <li>
           <div class="timeline-image" id="reservation_movie" href="https://www.youtube.com/embed/Tt5s2iqDHY4?rel=0&showinfo=0&modestbranding=0">
-            <video autoplay="" loop=""><source src="/sample.mp4" type="video/mp4"></video>
+            <video autoplay="" loop=""><source src="/demo.mp4" type="video/mp4"></video>
           </div>
           <div class="timeline-panel">
               <div class="timeline-heading">
@@ -292,7 +292,7 @@
         </li>
         <li class="timeline-inverted">
           <div class="timeline-image" id="flight_movie" href="https://www.youtube.com/embed/Tt5s2iqDHY4?rel=0&showinfo=0&modestbranding=0">
-            <video autoplay="" loop=""><source src="/sample.mp4" type="video/mp4"></video>
+            <video autoplay="" loop=""><source src="/demo.mp4" type="video/mp4"></video>
           </div>
           <div class="timeline-panel">
               <div class="timeline-heading">
@@ -378,18 +378,18 @@
 <footer class="footer">
   <div class="container">
     <div class="row">
-      <div class="footer-col col-md-5">
+      <!--<div class="footer-col col-md-5">
         <p>Copyright © 2015 Orly Inc. All Rights Reserved.</p>
         <p> Made with <i class="fa fa-heart pulse"></i> by <a href="http://www.designstub.com/">Designstub</a></p>
-      </div>
-      <div class="footer-col col-md-7">
+      </div>-->
+      <!--<div class="footer-col col-md-7">
         <ul class="footer-share">
           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
           <li><a href="#"><i class="fa fa-twitter"></i></a></li>
           <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
           <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- footer top --> 

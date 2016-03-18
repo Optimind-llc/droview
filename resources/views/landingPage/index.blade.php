@@ -58,7 +58,7 @@
       <h3>H works　とは</h3>
       <p>H works は面白さをとことん追求するという理念をもとに設立した組織です。</p>
       <p>
-        名古屋を拠点として、全世界へ面白いものをお届けします。世界トップレベルに面白いものを提供するために日々アンテナを高くします。
+        名古屋を拠点として、全世界へ面白いものをお届けします。
         世界トップレベルに面白いものを提供するために日々アンテナを高くします。
         世の中に新しい付加価値をもたらすために、日々新しいプロダクトの開発にトライしています。
         開発するプロダクトはユーザーの切実なニーズを取り込み無駄なものを一切つけません。
@@ -181,15 +181,16 @@
 <section id="intro" class="section intro">
   <div class="container">
     <div class="col-md-8 col-md-offset-2 text-center">
+      <br/>
       <h3>開発に関して</h3>
       <h5>初期の要件定義はあまり意味がない</h5>
         <p>新規サービスを立ち上げる時、初期システム開発時点で完璧なシステムを作ることは非常に難しいです。どれだけ入念に市場調査を行い、ユーザーに対してヒアリングやインタビューを繰り返していたとしても、ユーザーに利用してもらわない段階で、サイトをリリースする前の段階で把握できることには限界があります。WEBサービスを成功させるためには、無理をして完璧なシステムを初期でつくるのではなく、可能な限り早くプロトタイプとなるサービスをリリースし、できるだけ早い段階で、多くのユーザーに利用してもらい、そのフィードバックをもとに、システム改善を継続的に行っていくことが重要です。</p>
         <p>これはいわゆる、リーンスタートアップやアジャイル開発と呼ばれているものであり、新規Webサービスを立ち上げる際に積極的に採用されています。</p>
+        <br/>
       <h5>スピードが重要</h5>
-        <p>一般的な受託開発の場合、ご担当者と開発会社にて要件定義を行って、ドキュメントを作成し、要件をFIXしていきます。仕様を途中で変更すると非常に高いコストがかかるため、初期の要件定義に多くの時間を費やし完璧なものを作成します。また、ここでできるだけ多くの機能を盛り込んだほうが受注額を高くすることができるので、どうしても高機能なものになってしまい開発時間も長くなってしまいます。</p>
-        <p>我々はこれらとは全く別の方法で開発を請け負います</p>
         <p>初回の要件定義では必要最低限の機能のみを洗い出し、あってもなくても良い機能はすべて削ぎ落とします。またデザインも必要最低限に抑え、早くプロトタイプとしてリリースすることを目指します。</p>
         <p>システムの規模にもよりますが、数週間から１ヶ月で実際にユーザーが利用できるものを作成します。クライアント様がご希望であれば、弊社のサーバーにてプロトタイプの実稼働させることもいたします。</p>
+        <br/>
       <h5>満足いくまで改善</h5>
         <p>プロトタイプ完成後は実際のユーザーに利用してもらい、それらのフィードバックからシステム改善が必要であれば対応します。</p>
         <p>１サイクルごとに料金が発生しますが、クライアント様にご満足いただけるまで何度でもシステム改善を行います。</p>
@@ -255,11 +256,15 @@
 <section id="teams" class="section teams">
   <div class="container">
     <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <h3>メンバー</h3>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-3 col-sm-6"></div>
       <div class="col-md-3 col-sm-6">
-        <div class="person"> <img src="/landing-page/images/team-2.jpg" alt="" class="img-responsive">
+        <div class="person">
+          <!--<img src="/landing-page/images/team-2.jpg" alt="" class="img-responsive">-->
           <div class="person-content">
             <h4>Nakajima Akinori</h4>
             <h5 class="role">共同代表：インフラエンジニア</h5>
@@ -277,7 +282,8 @@
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
-        <div class="person"> <img src="/landing-page/images/team-3.jpg" alt="" class="img-responsive">
+        <div class="person">
+          <!--<img src="/landing-page/images/team-3.jpg" alt="" class="img-responsive">-->
           <div class="person-content">
             <h4>Saito Shiichi</h4>
             <h5 class="role">共同代表：フルスタックエンジニア</h5>
@@ -372,11 +378,11 @@
     <div class="container">
       <div class="row">
         <div class="footer-col col-md-6">
-          <h5>Our Office Location</h5>
-          <p>Collins Street West Victoria 8007 Australia.<br>
-            1800 1234 56789 / 98532100987<br>
-            support@lexis.com</p>
-          <p>Copyright © 2015 Lexis Inc. All Rights Reserved. Made with <i class="fa fa-heart pulse"></i> by <a href="http://www.designstub.com/">Designstub</a></p>
+          <h5>住所</h5>
+          <p>愛知県名古屋市瑞穂区下坂町１−４１丸美タウンマンション堀田501号<br>
+            080-5716-9013 / 080-3118-0464<br>
+            horita.works@gmail.com
+          </p>
         </div>
         <div class="footer-col col-md-3">
           <h5>Services We Offer</h5>
