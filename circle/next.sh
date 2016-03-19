@@ -9,8 +9,4 @@ case $GIT_NAME in
     echo $GIT_NAME
     curl -X POST https://circleci.com/api/v1/project/HoritaWorks/$1/tree/master?circle-token=807a7f50585409045679180ee0892a57f09ad346
         ;;
-<<<<<<< HEAD
 esac
-=======
-esac
->>>>>>> master-build-ok

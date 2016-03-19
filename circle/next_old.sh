@@ -7,9 +7,6 @@ echo "build next project"
 fi
 
 
-<<<<<<< HEAD
-cd laravel_app && sh release.sh $STABLE_LARABEL_PUSH_BRANCH
-=======
+
 cd laravel_app && sh release.sh $STABLE_LARABEL_PUSH_BRANCH
 
->>>>>>> master-build-ok
