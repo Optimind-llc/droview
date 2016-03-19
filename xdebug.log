@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 Log opened at 2016-03-19 12:52:42
+=======
+Log opened at 2016-03-19 15:32:33
+>>>>>>> master-build-ok
 I: Checking remote connect back address.
 I: Checking header 'HTTP_X_FORWARDED_FOR'.
 I: Checking header 'REMOTE_ADDR'.
 W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
 E: Time-out connecting to client. :-(
+<<<<<<< HEAD
 Log closed at 2016-03-19 12:52:43
 
 Log opened at 2016-03-19 12:53:01
@@ -37,4 +42,7 @@ I: Checking header 'REMOTE_ADDR'.
 W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
 E: Time-out connecting to client. :-(
 Log closed at 2016-03-19 13:37:39
+=======
+Log closed at 2016-03-19 15:32:34
+>>>>>>> master-build-ok
 
