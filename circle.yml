@@ -1,0 +1,50 @@
+general:
+  branches:
+    only:
+      - master
+
+machine:
+  timezone:
+    Asia/Tokyo
+    version: 5.8.0
+  environment:
+    BUILD_LARABEL_PUSH_BRANCH: master-build
+    FRONT_DIR: app_front
+    NEXT_BUILD_PROJECT: laravel-prod-image
+
+
+
+dependencies:
+  pre:
+    - node -v
+    - npm -v
+  override:
+    - cd $FRONT_DIR && rm -rf node_modules
+    - cd $FRONT_DIR && npm install
+    - cd $FRONT_DIR && npm install npm@3.7.2 -g
+    - cd $FRONT_DIR && npm rebuild node-sass
+
+
+test:
+  override:
+    - cd $FRONT_DIR && npm run test
+    - cd $FRONT_DIR && npm run build
+
+
+
+deployment:
+   master:
+    branch: master
+    commands:
+      - "bash release.sh $BUILD_LARABEL_PUSH_BRANCH"
+      - "curl -X POST https://circleci.com/api/v1/project/HoritaWorks/${NEXT_BUILD_PROJECT}/tree/master?circle-token=${CIRCLE_CI_API_KEY}"
+  # master:
+  #   branch: master
+  #   commands:
+  #     - "git clone -b $BUILD_LARABEL_CLONE_BRANCH $LARABEL_CLONE_URL"
+  #     - "cp -Rf dist laravel_app/public"
+  #     - git rev-parse --abbrev-ref HEAD > app-front-version
+  #     - git --no-pager log --pretty=oneline --abbrev-commit | head -n 1 >> app-front-version
+  #     - mv app-front-version laravel_app/public
+  #     - "mv release.sh laravel_app && cd laravel_app && sh release.sh $BUILD_LARABEL_PUSH_BRANCH"
+  #     - "curl -X POST https://circleci.com/api/v1/project/HoritaWorks/${NEXT_BUILD_PROJECT}/tree/master?circle-token=${CIRCLE_CI_API_KEY}"
