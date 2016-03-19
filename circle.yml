@@ -37,7 +37,7 @@ deployment:
    master:
     branch: master
     commands:
-      - "bash release.sh $BUILD_LARABEL_PUSH_BRANCH"
+      - "bash circle/release.sh $BUILD_LARABEL_PUSH_BRANCH"
       - "curl -X POST https://circleci.com/api/v1/project/HoritaWorks/${NEXT_BUILD_PROJECT}/tree/master?circle-token=${CIRCLE_CI_API_KEY}"
   # master:
   #   branch: master
