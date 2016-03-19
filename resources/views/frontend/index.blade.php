@@ -329,6 +329,16 @@
     <div class="row">
       <div class="col-sm-12 col-md-7 subscribe-title">
         <h2>Subscribe now.</h2>
+        <p >
+          一般ユーザー<br/>
+          Email: user1@user.com<br/>
+          Passwoed: 123456
+        </p>
+        <p>
+          管理者<br/>
+          Email: admin@admin.com<br/>
+          Passwoed: 123456
+        </p>
       </div>
       
       <!-- subscribe form -->
@@ -340,18 +350,18 @@
             <div class="col-md-12">
               Droviewのβ版を体験する
               <div class="social-buttons">
-                <a href="/login/facebook" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-                <a href="/login/google" class="btn btn-go"><i class="fa fa-twitter"></i> Google</a>
+                <a href="/droview" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                <a href="/droview" class="btn btn-go"><i class="fa fa-twitter"></i> Google</a>
               </div>
               <form class="form" role="form" method="post" action="/login" accept-charset="UTF-8" id="login-nav">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                    <label class="sr-only" for="input-email">Email address</label>
-                   <input type="email" name="email" class="form-control" id="input-email" placeholder="Email address" required>
+                   <input type="email" name="email" class="form-control" id="input-email" placeholder="user1@user.com" required>
                 </div>
                 <div class="form-group">
                   <label class="sr-only" for="input-password">Password</label>
-                  <input type="password" name="password" class="form-control" id="input-password" placeholder="Password" required>
+                  <input type="password" name="password" class="form-control" id="input-password" placeholder="123456" required>
                   <div class="help-block text-right">
                     <a href="/password/reset">パスワードを忘れた場合</a>
                   </div>
@@ -364,9 +374,9 @@
                 </div>
               </form>
             </div>
-            <div class="bottom text-center">
+            <!--<div class="bottom text-center">
               初めての方は <a href="/register"><b>利用登録</b></a>
-            </div>
+            </div>-->
          </div>
         @endif
 

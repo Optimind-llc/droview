@@ -191,6 +191,11 @@ ul li {
 	line-height:70px;
 	text-transform:uppercase;
 }
+.subscribe-title p {
+	color: #fff;
+}
+
+
 .subscribe-form {
 	margin-top: 6px;
 }
