@@ -6,7 +6,8 @@ general:
 machine:
   timezone:
     Asia/Tokyo
-    version: 5.7.1
+  node:
+    version: 5.8.0
   environment:
     BUILD_LARABEL_PUSH_BRANCH: master-build
     FRONT_DIR: app_front
