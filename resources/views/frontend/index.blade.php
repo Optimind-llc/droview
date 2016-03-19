@@ -329,7 +329,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-7 subscribe-title">
         <h2>Subscribe now.</h2>
-        <p >
+        <p>
           一般ユーザー<br/>
           Email: user1@user.com<br/>
           Passwoed: 123456
