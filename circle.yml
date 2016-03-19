@@ -28,7 +28,7 @@ dependencies:
 
 test:
   override:
-    - cd $FRONT_DIR && npm run test
+    # - cd $FRONT_DIR && npm run test
     - cd $FRONT_DIR && npm run build
 
 
