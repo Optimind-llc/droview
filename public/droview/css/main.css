@@ -192,6 +192,8 @@ ul li {
 	text-transform:uppercase;
 }
 .subscribe-title p {
+	font-size: 18px;
+	margin:3%;
 	color: #fff;
 }
 
