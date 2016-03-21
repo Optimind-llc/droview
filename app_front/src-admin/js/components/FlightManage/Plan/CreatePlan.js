@@ -42,7 +42,7 @@ class CreatePlan extends Component {
             )}
           </div>
           <div className="create-plan-form">
-            <img src={selected ? selected.path : ''}/>
+            <img src={selected ? `/admin/single/flight/places/${selected.id}/picture` : ''}/>
             <TextField
               style={{ float: 'right' }}
               hintText="プランの説明を書いてください"

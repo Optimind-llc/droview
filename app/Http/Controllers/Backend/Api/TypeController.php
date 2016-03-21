@@ -90,7 +90,7 @@ class TypeController extends Controller
         }
 
         $closed = Place::whereNotIn('id', $opened_ids)
-            ->select('places.id', 'name', 'path')
+            ->select('places.id', 'name')
             ->get()
             ->toArray();
 
