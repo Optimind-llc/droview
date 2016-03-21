@@ -45,7 +45,7 @@ class SendContactEmail extends Job implements ShouldQueue
             ],
             function ($message)
             {
-                $message->to('s.shiichi311041@gmail.com', 'shiichi')->subject('ユーザーからのお問い合わせ');
+                $message->to('horita.works@gmail.com', 'shiichi')->subject('ユーザーからのお問い合わせ');
             }
         );
     }
