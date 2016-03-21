@@ -32,4 +32,10 @@ export default {
   "server.undefined": "server error",
   "sideAlert.success": "The {attribute} was successfully {method}.",
   "sideAlert.fail": "There was a problem to {method} this {attribute}. Please try again",
+
+  "validate.required": `required input`,
+  "validate.alpha": `required alphabet`,
+  "validate.max:8": `max 8`,
+  "validate.max:120": `max 120`,
+
 };

@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 // Utils
 import { format, validatTypeName, validatTypeEn, validatTypeDesc } from '../../../utils/ValidationUtils2';
 // Actions
@@ -119,7 +120,11 @@ class Types extends Component {
                       hintText="タイプ名を入力"
                       floatingLabelText="タイプ名"
                       value={name.value}
-                      errorText={name.message}
+                      errorText={ name.message &&
+                        <FormattedMessage id={`validate.${name.message}`}>
+                          {text => <p>{text}</p>}
+                        </FormattedMessage>
+                      }
                       onChange={(e) => this.setState({ name: validatTypeName(e.target.value) })}
                       onBlur={() => {
                         if (editMode && beChanged('name') && name.status === 1) {
@@ -132,7 +137,11 @@ class Types extends Component {
                       hintText="略称をアルファベットで入力"
                       floatingLabelText="略称"
                       value={en.value}
-                      errorText={en.message}
+                      errorText={ en.message &&
+                        <FormattedMessage id={`validate.${en.message}`}>
+                          {text => <p>{text}</p>}
+                        </FormattedMessage>
+                      }
                       onChange={(e) => this.setState({ en: validatTypeEn(e.target.value) })}
                       onBlur={() => {
                         if (editMode && beChanged('en') && en.status === 1) {
@@ -148,7 +157,11 @@ class Types extends Component {
                       rows={5}
                       rowsMax={5}
                       value={description.value}
-                      errorText={description.message}
+                      errorText={ description.message &&
+                        <FormattedMessage id={`validate.${description.message}`}>
+                          {text => <p>{text}</p>}
+                        </FormattedMessage>
+                      }
                       onChange={(e) => this.setState({ description: validatTypeDesc(e.target.value) })}
                       onBlur={() => {
                         if (editMode && beChanged('description') && description.status === 1) {
