@@ -233,7 +233,7 @@
       <div class="col-lg-4 col-md-6 col-sm-6 work">
         <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
           <a href="/droview" class="work-box" id="to-droview">
-            <img src="/img/top/logo2.png" alt="">
+            <img src="/img/top/logo2.png" alt="" width="800" height="800">
             <div class="overlay">
               <div class="overlay-caption">
                 <h5>Droview</h5>
@@ -247,7 +247,7 @@
       <div class="col-lg-4 col-md-6 col-sm-6 work">
         <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
           <a href="/" class="work-box">
-            <img src="/landing-page/images/work-2.jpg" alt="">
+            <img src="/landing-page/images/work-2.jpg" alt="" width="600" height="600">
             <div class="overlay">
               <div class="overlay-caption">
                 <h5>Project Name</h5>
@@ -261,7 +261,7 @@
       <div class="col-lg-4 col-md-6 col-sm-6 work">
         <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
           <a href="/" class="work-box">
-            <img src="/landing-page/images/work-3.jpg" alt="">
+            <img src="/landing-page/images/work-3.jpg" alt="" width="600" height="600">
             <div class="overlay">
               <div class="overlay-caption">
                 <h5>Project Name</h5>
