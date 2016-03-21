@@ -286,27 +286,6 @@ div.tech-container div.tech-pattern img {
     margin-top: 27px!important;
     display: table;
     text-align: center;
-
-}
-
-#img-front {
-    width: 207px;
-    height: 50px;
-}
-
-#img-database {
-    width: 196px;
-    height: 50px;
-}
-
-#img-back {
-    width: 197px;
-    height: 50px;
-}
-
-#img-infla {
-    width: 196px;
-    height: 50px;
 }
 
 div.tech-container div.tech-pattern p {
