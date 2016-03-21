@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HHHHHH works</title>
+<title>H works</title>
 <link rel="stylesheet" href="/landing-page/css/bootstrap.min.css">
 <link rel="stylesheet" href="/landing-page/css/flexslider.css">
 <link rel="stylesheet" href="/landing-page/css/jquery.fancybox.css">
