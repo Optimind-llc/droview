@@ -69,6 +69,7 @@ export function UpdateUserProf(request) {
     customFetch(UPDATE_USER_PROF, 'POST', request)
     .then(result => {
       dispatch(requestUserInfoSuccess(keyToCamel(result.userProf)));
+      dispatch(fetchUserInfo());
       dispatch(addSideAlert('success', 'updateUserProf.success'));
     })
     .catch(ex => {

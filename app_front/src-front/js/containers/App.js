@@ -11,7 +11,7 @@ import Alert from '../components/Alert';
 
 class App extends Component {
   render() {
-    const { locale, alerts, routing, children, actions: {deleteSideAlerts} } = this.props;
+    const { user, locale, alerts, routing, children, actions: {deleteSideAlerts} } = this.props;
 
     return (
       <div>
@@ -28,6 +28,11 @@ class App extends Component {
                   <li><a href="/logout" id="logout">
                     <span>ログアウト <span className="border"/></span>
                   </a></li>
+                  {user.roles && user.roles.some((role) => role.name === 'Administrator') &&
+                    <li><a href="/admin/single" id="logout">
+                      <span>管理画面へ <span className="border"/></span>
+                    </a></li>
+                  }
                 </ul>
               </div>
             </div>
@@ -61,7 +66,8 @@ function mapStateToProps(state) {
   return {
     locale: state.application.locale,
     alerts: state.alert.side,
-    routing: state.routing
+    routing: state.routing,
+    user: state.user
   };
 }
 

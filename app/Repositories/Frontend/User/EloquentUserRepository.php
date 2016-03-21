@@ -233,7 +233,7 @@ class EloquentUserRepository implements UserContract
     {
 
         $user = $this->find($id);
-        $user->name = $input['name'];
+        $user->user_id = $input['user_id'];
         //データベースの拡張に伴い追加
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];

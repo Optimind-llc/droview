@@ -7,7 +7,7 @@ import {
 } from '../constants/ActionTypes';
 
 const initialState = {
-  name: null,
+  userId: null,
   firstName: '',
   lastName: '',
   age: '',

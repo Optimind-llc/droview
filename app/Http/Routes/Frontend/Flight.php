@@ -13,6 +13,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('droview/log', 'ApiController@index');
 	Route::get('droview/log/ticket', 'ApiController@index');
 	Route::get('droview/log/reservation', 'ApiController@index');
+	Route::get('droview/profile', 'ApiController@index');
 
 	Route::get('droview/plans/fetch', 'PlanController@plans');
 	Route::get('droview/plan/{id}/fetch', 'PlanController@plan');

@@ -12,7 +12,7 @@ class NavHeader extends Component {
     const { reservations, remainingTickets } = this.props.user.status;
     return (
       <div className="side-bar-head">
-        <p className="name">{ this.props.user.name }</p>
+        <p className="name">{ this.props.user.userId }</p>
         <table className="table">
           <tbody>
             <tr>

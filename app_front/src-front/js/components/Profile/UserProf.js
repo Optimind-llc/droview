@@ -33,31 +33,20 @@ class UserProf extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   const { clearDisposable } = this.props.actions;
-  //   clearDisposable();
-  // }
-
-  // componentDidMount() {
-  //   const { routeParams: {id}, actions: {fetchRoles, fetchUser} } = this.props;
-  //   fetchRoles();
-  //   fetchUser(id);
-  // }
-
-  validate(name, value, checked) {
-    switch (name) {
+  validate(userId, value, checked) {
+    switch (userId) {
     case 'assigneesRoles':
-      this.setState({[name]: {value:[value]}});
+      this.setState({[userId]: {value:[value]}});
       break;
 
     case 'status':
     case 'confirmed':
     case 'confirmationEmail':
-      this.setState({[name]: {value: checked ? '1' : '0'}});
+      this.setState({[userId]: {value: checked ? '1' : '0'}});
       break;
 
     default:
-      this.setState({[name]: validate(name, value)});
+      this.setState({[userId]: validate(userId, value)});
     }
   }
 
@@ -130,7 +119,7 @@ class UserProf extends Component {
     const hasError = Object.keys(this.state).some(key => 
       this.state[key].status === 'error'
     );
-
+console.log(this.state)
     return (
       <div className="box-body">
         <form className="form-horizontal" onChange={this.handleChange.bind(this)}>

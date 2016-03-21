@@ -127,7 +127,7 @@ class ApiController extends Controller {
     	$user->flights()->detach($id);
 
         //Queue jobを使ってメール送信
-        $this->dispatch(new SendCancelReservationEmail($user));
+        // $this->dispatch(new SendCancelReservationEmail($user));
 
 		$limit = Carbon::now()->subMinute(config('flight.flight_time'));
 		$flights = $user
