@@ -134,7 +134,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h3>フロントエンド</h3>
-              <img src="/img/logos/front_logos.png" class="img-responsive">
+              <img src="/img/logos/front_logos.png" class="img-responsive" id="img-front">
               <p>React.jsによるシングルアプリケーション開発、レスポンシブデザインを得意としています</p>
             </div>
           </a>
@@ -146,7 +146,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h3>データベース</h3>
-              <img src="/img/logos/database_logos.png" class="img-responsive">
+              <img src="/img/logos/database_logos.png" class="img-responsive" id="img-database">
               <p>スケーラブルで耐障害性のある設計をおこなっております。mariadb galera clusterとconsulを組み合わせ、耐障害性とスケールアップを意識しています。</p>
             </div>
           </a>
@@ -158,7 +158,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h3>バックエンド</h3>
-              <img src="/img/logos/back_logos.png" class="img-responsive">
+              <img src="/img/logos/back_logos.png" class="img-responsive" id="img-back">
               <p>主にLaravel(PHP)を用い、webアプリケーションを構築しています。また、socket.ioを用いた非同期双方向通信サービスも構築いたします。</p>
             </div>
           </a>
@@ -170,7 +170,7 @@
           <a href="">
             <div class="tech-pattern text-center clear-fix">
               <h3>サーバーインフラ</h3>
-              <img src="/img/logos/infra_logos.png" class="img-responsive">
+              <img src="/img/logos/infra_logos.png" class="img-responsive" id="img-infla">
               <p>dockerと各種ミドルウェア(consul-template, consul, registrator)を用いて、サーバー構築、運用、デプロイを完全自動化しています。</p>
             </div>
           </a>
