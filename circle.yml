@@ -20,7 +20,7 @@ dependencies:
     - node -v
     - npm -v
   override:
-    - apt-get install -y optipng jpegoptim
+    - sudo apt-get install -y optipng jpegoptim
     - cd $FRONT_DIR && rm -rf node_modules
     - cd $FRONT_DIR && npm install
     - cd $FRONT_DIR && npm install npm@3.7.2 -g
@@ -31,10 +31,8 @@ test:
   override:
     - cd $FRONT_DIR && npm run test
     - cd $FRONT_DIR && npm run build
-    - optipng public/**/*.png
-    - optipng public/**/**/*.png
-    - jpegoptim public/**/*.jpg
-    - jpegoptim public/**/**/*.jpg
+    - optipng `find public -type f -follow -print` || echo "ok"
+    - jpegoptim `find public -type f -follow -print` || echo "ok"
 
 
 
