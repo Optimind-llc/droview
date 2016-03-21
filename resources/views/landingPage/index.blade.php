@@ -119,26 +119,6 @@
 </section>
 <!-- Solution Section -->
 
-
-#img-front {
-    width: 207px;
-    height: 50px;
-}
-
-#img-database {
-    width: 196px;
-    height: 50px;
-}
-
-#img-back {
-    width: 197px;
-    height: 50px;
-}
-
-#img-infla {
-    width: 196px;
-    height: 50px;
-}
 <!-- Technology Section -->
 <section id="technology" class="technology">
   <div class="container">
