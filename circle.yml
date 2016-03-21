@@ -37,8 +37,9 @@ deployment:
    master:
     branch: master
     commands:
-      - "bash circle/release.sh $BUILD_LARABEL_PUSH_BRANCH"
       - "bash circle/next.sh $NEXT_BUILD_PROJECT"
+      - "bash circle/release.sh $BUILD_LARABEL_PUSH_BRANCH"
+      
 
 
   # master:
