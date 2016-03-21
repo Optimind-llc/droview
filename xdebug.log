@@ -86,3 +86,51 @@ W: Remote address not found, connecting to configured address/port: 10.72.29.214
 E: Time-out connecting to client. :-(
 Log closed at 2016-03-21 04:21:35
 
+Log opened at 2016-03-21 15:24:58
+I: Checking remote connect back address.
+I: Checking header 'HTTP_X_FORWARDED_FOR'.
+I: Checking header 'REMOTE_ADDR'.
+W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
+E: Time-out connecting to client. :-(
+Log closed at 2016-03-21 15:24:58
+
+Log opened at 2016-03-21 15:25:06
+I: Checking remote connect back address.
+I: Checking header 'HTTP_X_FORWARDED_FOR'.
+I: Checking header 'REMOTE_ADDR'.
+W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
+E: Time-out connecting to client. :-(
+Log closed at 2016-03-21 15:25:07
+
+Log opened at 2016-03-21 15:25:08
+I: Checking remote connect back address.
+I: Checking header 'HTTP_X_FORWARDED_FOR'.
+I: Checking header 'REMOTE_ADDR'.
+W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
+E: Time-out connecting to client. :-(
+Log closed at 2016-03-21 15:25:08
+
+Log opened at 2016-03-21 15:25:49
+I: Checking remote connect back address.
+I: Checking header 'HTTP_X_FORWARDED_FOR'.
+I: Checking header 'REMOTE_ADDR'.
+W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
+E: Time-out connecting to client. :-(
+Log closed at 2016-03-21 15:25:49
+
+Log opened at 2016-03-21 15:26:31
+I: Checking remote connect back address.
+I: Checking header 'HTTP_X_FORWARDED_FOR'.
+I: Checking header 'REMOTE_ADDR'.
+W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
+E: Time-out connecting to client. :-(
+Log closed at 2016-03-21 15:26:31
+
+Log opened at 2016-03-21 15:26:32
+I: Checking remote connect back address.
+I: Checking header 'HTTP_X_FORWARDED_FOR'.
+I: Checking header 'REMOTE_ADDR'.
+W: Remote address not found, connecting to configured address/port: 10.72.29.214:9000. :-|
+E: Time-out connecting to client. :-(
+Log closed at 2016-03-21 15:26:32
+

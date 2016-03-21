@@ -14,7 +14,6 @@ use App\Http\Requests\Frontend\User\ChangePasswordRequest;
 use App\Services\Flight\GetLectures;
 use App\Services\Flight\GetReservations;
 //Jobs
-use App\Jobs\SendConfirmReservationEmail;
 use App\Jobs\SendCancelReservationEmail;
 use App\Jobs\SendConfirmPaymentEmail;
 //Exceptions
@@ -105,9 +104,6 @@ class ApiController extends Controller {
 			->get();
 
 		return \Response::json(['reservations' => $flights]);
-
-  //       $result = $this->getReservations();
-		// return \Response::json($result);
 	}
 
     public function cancel(Request $inputs)
@@ -127,7 +123,7 @@ class ApiController extends Controller {
     	$user->flights()->detach($id);
 
         //Queue jobを使ってメール送信
-        // $this->dispatch(new SendCancelReservationEmail($user));
+        $this->dispatch(new SendCancelReservationEmail($user));
 
 		$limit = Carbon::now()->subMinute(config('flight.flight_time'));
 		$flights = $user
@@ -215,7 +211,7 @@ class ApiController extends Controller {
     	);
 
         //Queue jobを使ってメール送信
-        //$this->dispatch(new SendConfirmPaymentEmail($user));
+        $this->dispatch(new SendConfirmPaymentEmail($user));
 
         return \Response::json($result);
     }
