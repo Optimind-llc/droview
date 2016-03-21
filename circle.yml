@@ -31,10 +31,8 @@ test:
   override:
     - cd $FRONT_DIR && npm run test
     - cd $FRONT_DIR && npm run build
-    - optipng public/**/*.png
-    - optipng public/**/**/*.png
-    - jpegoptim public/**/*.jpg
-    - jpegoptim public/**/**/*.jpg
+    - optipng `find public -type f -follow -print` || echo "ok"
+    - jpegoptim `find public -type f -follow -print` || echo "ok"
 
 
 
