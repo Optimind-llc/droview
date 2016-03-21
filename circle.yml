@@ -20,6 +20,7 @@ dependencies:
     - node -v
     - npm -v
   override:
+    - apt-get install -y optipng jpegoptim
     - cd $FRONT_DIR && rm -rf node_modules
     - cd $FRONT_DIR && npm install
     - cd $FRONT_DIR && npm install npm@3.7.2 -g
@@ -30,6 +31,10 @@ test:
   override:
     - cd $FRONT_DIR && npm run test
     - cd $FRONT_DIR && npm run build
+    - optipng public/**/*.png
+    - optipng public/**/**/*.png
+    - jpegoptim public/**/*.jpg
+    - jpegoptim public/**/**/*.jpg
 
 
 
@@ -39,7 +44,7 @@ deployment:
     commands:
       - "bash circle/next.sh $NEXT_BUILD_PROJECT"
       - "bash circle/release.sh $BUILD_LARABEL_PUSH_BRANCH"
-      
+
 
 
   # master:
