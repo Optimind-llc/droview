@@ -213,7 +213,7 @@
       <div class="col-lg-4 col-md-6 col-sm-6 work">
         <div style="margin: 50px; position: relative; overflow: hidden; border-radius: 50%;">        
           <a href="/droview" class="work-box" id="to-droview">
-            <img src="/img/top/logo2.png" alt="" width="800" height="800">
+            <img src="/img/top/logo2.png" alt="" width="600" height="600">
             <div class="overlay">
               <div class="overlay-caption">
                 <h5>Droview</h5>
