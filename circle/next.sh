@@ -1,4 +1,16 @@
-GIT_NAME=`git --no-pager log  | head -n 2 |tail -1 | cut -d " " -f 2`
+INDEX=`git --no-pager log  | head -n 2 |tail -1 | cut -d " " -f 1`
+case $GIT_NAME in
+    Author* )
+    GIT_NAME=`git --no-pager log  | head -n 2 |tail -1 | cut -d " " -f 2`
+        ;;
+    Merge* )
+    GIT_NAME=`git --no-pager log  | head -n 3 |tail -1 | cut -d " " -f 2`
+esac
+
+
+echo "\$INDEX=$INDEX"
+echo "\$GIT_NAME=$GIT_NAME"
+
 
 case $GIT_NAME in
     atyenoria )
