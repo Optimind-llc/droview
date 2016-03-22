@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use \Firebase\JWT\JWT;
+use Carbon\Carbon;
 use App\Repositories\Frontend\Flight\FlightContract;
 //Models
 use App\Models\Access\User\User;
@@ -212,7 +213,7 @@ class FlightController extends Controller
         $timestamp = $flight->flight_at->timestamp;
 
         $response = [
-            'reservations' => $user->flights()->count(),
+            'reservations' => $user->flights()->where('fight_at','>=',Carbon::now())->count(),
             'key' => $plan_id,
             'config' => $this->flights->getConfig(),
             'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
