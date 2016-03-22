@@ -21,7 +21,7 @@ class App extends Component {
               <div className="navbar-header"> 
                 {/* Mobile Toggle Menu Button */}
                 <a href="#" className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><i /></a>
-                <a className="navbar-brand" href="/droview">Droview</a>
+                <a className="navbar-brand" href="/droview">Droview 2016/03/23 01:43</a>
               </div>
               <div id="fh5co-navbar" className="navbar-collapse collapse">
                 <ul className="nav navbar-nav navbar-right">
