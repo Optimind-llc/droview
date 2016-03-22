@@ -9,8 +9,9 @@ CI_RELEASE_VERSION=`date +"v%Y/%m/%d:%H:%M:%S"`
 
 
 
-optipng `find public -type f -follow -print` || echo "ok"
-jpegoptim `find public -type f -follow -print` || echo "ok"
+optipng `find public -name "*.png" -type f -follow -print` || echo "ok"
+jpegoptim `find public -name "*.jpg" -type f -follow -print` || echo "ok"
+
 
 
 git add -A
