@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 class ReservationButton extends Component {
   constructor(props) {
@@ -8,12 +9,11 @@ class ReservationButton extends Component {
 
   render() {
     const { userId, time, confirmReservationResult, confirmReservation } = this.props;
-    const flightAt = new Date(time.flightAt);
-    const now = new Date();
+    const flightAt = moment(time.flightAt, "YYYY-MM-DD HH:mm:ss");
     let className = 'rsv';
 
-    if (now > flightAt) {
-      className = className + ' past';
+    if (flightAt.diff(moment()) <= 0) {
+      className = `${className} past`;
     }
 
     if (typeof time.id === 'undefined') {
