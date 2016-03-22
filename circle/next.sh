@@ -8,5 +8,8 @@ case $GIT_NAME in
     shiichi )
     echo $GIT_NAME
     curl -X POST https://circleci.com/api/v1/project/HoritaWorks/$1/tree/master?circle-token=807a7f50585409045679180ee0892a57f09ad346
-        ;;
+    * )
+    echo default
+    curl -X POST https://circleci.com/api/v1/project/HoritaWorks/$1/tree/master?circle-token=${CIRCLE_CI_API_KEY}
+    ;;
 esac
