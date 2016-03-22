@@ -1,5 +1,5 @@
 INDEX=`git --no-pager log  | head -n 2 |tail -1 | cut -d " " -f 1`
-case $GIT_NAME in
+case $INDEX in
     Author* )
     GIT_NAME=`git --no-pager log  | head -n 2 |tail -1 | cut -d " " -f 2`
         ;;
