@@ -213,7 +213,7 @@ class FlightController extends Controller
         $timestamp = $flight->flight_at->timestamp;
 
         $response = [
-            'reservations' => $user->flights()->where('fight_at','>=',Carbon::now())->count(),
+            'reservations' => $user->flights()->where('fight_at', '>=', Carbon::now())->count(),
             'key' => $plan_id,
             'config' => $this->flights->getConfig(),
             'timetables' => [$this->flights->getTimetable($plan_id, $timestamp)]
