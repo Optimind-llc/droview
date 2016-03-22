@@ -9,7 +9,14 @@ class ReservationButton extends Component {
 
   render() {
     const { userId, time, confirmReservationResult, confirmReservation } = this.props;
-    const flightAt = moment(time.flightAt, "YYYY-MM-DD HH:mm:ss");
+    
+    let flightAt;
+    if (typeof time.id === 'undefined') {
+      flightAt = moment(time.flightAt);
+    } else {
+      flightAt = moment(time.flightAt, "YYYY-MM-DD HH:mm:ss");
+    }
+
     let className = 'rsv';
 
     if (flightAt.diff(moment()) <= 0) {
@@ -48,7 +55,7 @@ class ReservationButton extends Component {
           confirmReservation(time.id)
         }}
       >
-        <p>{flightAt.toLocaleTimeString().slice(0, -3)}</p>
+        <p>{flightAt.format('HH:mm')}</p>
       </button>
     );
   }
